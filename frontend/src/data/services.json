@@ -181,7 +181,7 @@
     "id": "post-wedding",
     "title": "Post-Wedding Shoot",
     "category": "Editorial",
-    "icon": "Heart",
+    "icon": "HeartHandshake",
     "tagline": "Relaxed post-ceremony fine-art portraiture",
     "description": "Stress-free couple portraiture after the ceremony in scenic landscapes, capturing unhurried romance and high-fashion aesthetics.",
     "features": [
@@ -217,7 +217,7 @@
     "id": "nichayathartham",
     "title": "Nichayathartham (Engagement)",
     "category": "Traditional",
-    "icon": "Sparkles",
+    "icon": "Gem",
     "tagline": "Sacred ring exchange & family pattu-saree exchange",
     "description": "Documenting the traditional Tamil engagement ceremony, silk saree exchanges, exchange of plates (Thamboolam), and sacred family promises.",
     "features": [
@@ -253,7 +253,7 @@
     "id": "sadangu",
     "title": "Sadangu (Ritual Ceremony)",
     "category": "Traditional",
-    "icon": "Sun",
+    "icon": "Flame",
     "tagline": "Traditional Tamil auspicious home rituals & blessings",
     "description": "Capturing intimate family rituals, Nalangu turmeric blessings, traditional music, and colorful floral decorations with authentic warmth.",
     "features": [
@@ -398,7 +398,7 @@
     "id": "valaikaapu",
     "title": "Valaikaapu (Baby Shower)",
     "category": "Lifestyle",
-    "icon": "Smile",
+    "icon": "Baby",
     "tagline": "Traditional glass bangle ceremony & mother's joy",
     "description": "Capturing traditional glass bangle rituals, sandal paste blessings from elders, floral swing decor, and joyful maternity family portraits.",
     "features": [
@@ -434,7 +434,7 @@
     "id": "seemantham",
     "title": "Seemantham (Pregnancy Blessing)",
     "category": "Lifestyle",
-    "icon": "Smile",
+    "icon": "Flower2",
     "tagline": "Sacred Vedic pregnancy protection & family rituals",
     "description": "Documenting sacred Seemantham mantras, husband's hair-parting ritual with porcupine quill/sacred blade, and sweet-feast celebrations.",
     "features": [
@@ -584,7 +584,7 @@
     "id": "temple-wedding",
     "title": "Temple Wedding Rituals",
     "category": "Traditional",
-    "icon": "Sun",
+    "icon": "Landmark",
     "tagline": "Sacred ceremonies, cultural elegance & heritage temples",
     "description": "Respectful and artistically vibrant documentation of traditional temple vows, sacred fires, and heritage customs with rich authentic colors.",
     "features": [
@@ -616,4 +616,5 @@
       }
     ]
   }
+
 ]

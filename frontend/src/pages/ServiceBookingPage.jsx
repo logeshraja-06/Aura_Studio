@@ -3,10 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Check, Sparkles, Calendar, ShieldCheck, Users, HardDrive, Send, CheckCircle2 } from 'lucide-react';
 import servicesData from '../data/services.json';
-import Navbar from '../components/Navbar';
 import Footer from '../sections/Footer';
-import CustomCursor from '../components/CustomCursor';
 import confetti from 'canvas-confetti';
+
 
 export default function ServiceBookingPage() {
   const { serviceId } = useParams();
@@ -49,11 +48,9 @@ export default function ServiceBookingPage() {
 
   return (
     <div className="min-h-screen bg-cream text-charcoal selection:bg-gold selection:text-white">
-      <CustomCursor />
-      <Navbar onOpenBooking={() => {}} />
-
       {/* Hero Service Banner */}
       <section className="relative pt-32 pb-20 bg-charcoal text-cream overflow-hidden">
+
         <div className="absolute inset-0 z-0 opacity-40">
           <img
             src={service.image}

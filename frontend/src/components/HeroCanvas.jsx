@@ -1,9 +1,9 @@
-import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, useMemo, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 // 650 Soft Gold/Amber Bokeh Dust Particles over Light Cream
-function GoldDustParticles({ count = 650 }) {
+function GoldDustParticles({ count = 650, mousePos }) {
   const meshRef = useRef();
 
   const [positions] = useMemo(() => {
@@ -33,8 +33,10 @@ function GoldDustParticles({ count = 650 }) {
   useFrame((state) => {
     if (!meshRef.current) return;
     const time = state.clock.getElapsedTime();
-    meshRef.current.rotation.y = time * 0.04;
-    meshRef.current.rotation.x = Math.sin(time * 0.02) * 0.05;
+    
+    // Continuous light drift
+    meshRef.current.rotation.y = time * 0.05 + mousePos.current.x * 0.15;
+    meshRef.current.rotation.x = Math.sin(time * 0.03) * 0.05 + mousePos.current.y * 0.15;
   });
 
   return (
@@ -59,33 +61,36 @@ function GoldDustParticles({ count = 650 }) {
   );
 }
 
-// 3 Large Ambient Glass Spheres Floating Lightly over Soft Cream Background
-function FloatingGlassSpheres() {
+// 3 Large Ambient Glass Spheres Floating Briskly & Reacting to Cursor
+function FloatingGlassSpheres({ mousePos }) {
   const sphere1 = useRef();
   const sphere2 = useRef();
   const sphere3 = useRef();
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
+    const mx = mousePos.current.x * 0.8;
+    const my = mousePos.current.y * 0.8;
 
     if (sphere1.current) {
-      sphere1.current.position.y = Math.sin(t * 1.2) * 1.8 + 0.5;
-      sphere1.current.position.x = Math.cos(t * 0.8) * 1.2 - 2.8;
-      sphere1.current.rotation.x = t * 0.2;
-      sphere1.current.rotation.y = t * 0.25;
+      // Brisk upward drift, gentle sway side-to-side
+      sphere1.current.position.y = Math.sin(t * 1.8) * 2.0 + 0.6 + my;
+      sphere1.current.position.x = Math.cos(t * 1.2) * 1.5 - 2.8 + mx;
+      sphere1.current.rotation.x = t * 0.3;
+      sphere1.current.rotation.y = t * 0.35;
     }
 
     if (sphere2.current) {
-      sphere2.current.position.y = Math.cos(t * 1.4 + 1) * 2.2 - 0.2;
-      sphere2.current.position.x = Math.sin(t * 0.9 + 1) * 1.5 + 3.2;
-      sphere2.current.rotation.x = -t * 0.25;
-      sphere2.current.rotation.z = t * 0.2;
+      sphere2.current.position.y = Math.cos(t * 2.0 + 1) * 2.4 - 0.2 - my;
+      sphere2.current.position.x = Math.sin(t * 1.3 + 1) * 1.8 + 3.2 + mx;
+      sphere2.current.rotation.x = -t * 0.35;
+      sphere2.current.rotation.z = t * 0.3;
     }
 
     if (sphere3.current) {
-      sphere3.current.position.y = Math.sin(t * 1.1 + 2) * 1.5 - 2.5;
-      sphere3.current.position.x = Math.sin(t * 0.7 + 2) * 1.0 + 0.4;
-      sphere3.current.rotation.y = t * 0.15;
+      sphere3.current.position.y = Math.sin(t * 1.6 + 2) * 1.8 - 2.5 + my;
+      sphere3.current.position.x = Math.sin(t * 1.0 + 2) * 1.4 + 0.4 - mx;
+      sphere3.current.rotation.y = t * 0.25;
     }
   });
 
@@ -143,6 +148,19 @@ function FloatingGlassSpheres() {
 }
 
 export default function HeroCanvas() {
+  const mousePos = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = -(e.clientY / window.innerHeight) * 2 + 1;
+      mousePos.current = { x, y };
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-none">
       <Canvas
@@ -157,11 +175,10 @@ export default function HeroCanvas() {
         <pointLight position={[-8, -5, -5]} intensity={1.0} color="#A8654A" />
 
         {/* Soft Gold/Rust Bokeh Dust Particles */}
-        <GoldDustParticles count={650} />
-
-        {/* Floating Light Glass Spheres */}
-        <FloatingGlassSpheres />
+        <GoldDustParticles count={650} mousePos={mousePos} />
       </Canvas>
     </div>
   );
 }
+
+

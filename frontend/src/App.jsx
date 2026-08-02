@@ -35,27 +35,24 @@ function LandingPage({ onOpenBooking }) {
   };
 
   return (
-    <>
-      <Navbar onOpenBooking={() => onOpenBooking()} />
-      <main>
-        <Hero
-          onOpenBooking={() => onOpenBooking()}
-          onOpenFilms={handleOpenFilms}
-        />
-        <Stats />
-        <Services />
-        <Gallery onBook={() => onOpenBooking()} />
-        <Films onBook={() => onOpenBooking()} />
-        <WhyChooseUs />
-        <Testimonials />
-        <Team />
-        <BookingProcess onBook={() => onOpenBooking()} />
-        <InstagramFeed />
-        <FAQ onBook={() => onOpenBooking()} />
-        <Contact />
-      </main>
+    <main>
+      <Hero
+        onOpenBooking={() => onOpenBooking()}
+        onOpenFilms={handleOpenFilms}
+      />
+      <Stats />
+      <Services />
+      <Gallery onBook={() => onOpenBooking()} />
+      <Films onBook={() => onOpenBooking()} />
+      <WhyChooseUs />
+      <Testimonials />
+      <Team />
+      <BookingProcess onBook={() => onOpenBooking()} />
+      <InstagramFeed />
+      <FAQ onBook={() => onOpenBooking()} />
+      <Contact />
       <Footer />
-    </>
+    </main>
   );
 }
 
@@ -75,13 +72,16 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-cream text-charcoal relative selection:bg-gold selection:text-white">
-        {/* Minimal Camera Shutter Loader Screen */}
+        {/* Minimal Camera Aperture Loader Screen */}
         {loading && <Loader onFinish={() => setLoading(false)} />}
 
         {!loading && (
           <>
-            {/* Minimal Custom Ring Cursor */}
+            {/* Minimal Gold Outline Cursor */}
             <CustomCursor />
+
+            {/* Persistent Shared Glass Navbar */}
+            <Navbar onOpenBooking={handleOpenBooking} />
 
             {/* Client-Side Page Routes */}
             <Routes>

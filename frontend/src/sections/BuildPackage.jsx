@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Check, Camera, Film, Aperture, Heart, Music, Gift, Smile, Award, Globe, Sun, Users, HardDrive, Calendar } from 'lucide-react';
+import { Sparkles, Check, Camera, Film, Aperture, Heart, HeartHandshake, Gem, Flame, Sun, Music, Baby, Flower2, Gift, Award, Globe, Landmark, Users, HardDrive, Calendar } from 'lucide-react';
 import servicesData from '../data/services.json';
 
 const ICON_MAP = {
@@ -8,14 +8,20 @@ const ICON_MAP = {
   Film,
   Aperture,
   Heart,
-  Sparkles,
+  HeartHandshake,
+  Gem,
+  Flame,
+  Sun,
   Music,
+  Sparkles,
+  Baby,
+  Flower2,
   Gift,
-  Smile,
   Award,
   Globe,
-  Sun,
+  Landmark,
 };
+
 
 export default function BuildPackage({ onBookPackage }) {
   const [selectedServiceId, setSelectedServiceId] = useState(servicesData[0].id);
