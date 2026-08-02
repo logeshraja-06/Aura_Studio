@@ -1,0 +1,54 @@
+[
+  {
+    "id": "member-1",
+    "name": "Julian Vance",
+    "role": "Founder & Creative Director",
+    "experience": "14+ Years Experience",
+    "bio": "Former fashion editorial photographer turned wedding cinema visionary, featured in Vogue Weddings and Harper's Bazaar.",
+    "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85",
+    "social": {
+      "instagram": "#",
+      "vimeo": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "id": "member-2",
+    "name": "Elena Rostova",
+    "role": "Lead Master Photographer",
+    "experience": "10+ Years Experience",
+    "bio": "Specializes in emotional candid moments, fine-art portraiture, and high-contrast ambient lighting.",
+    "image": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=85",
+    "social": {
+      "instagram": "#",
+      "vimeo": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "id": "member-3",
+    "name": "Marcus Sterling",
+    "role": "Director of Cinematography",
+    "experience": "12+ Years Experience",
+    "bio": "Award-winning filmmaker known for Hollywood color grading, 35mm anamorphic aesthetics, and orchestral sound scoring.",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85",
+    "social": {
+      "instagram": "#",
+      "vimeo": "#",
+      "linkedin": "#"
+    }
+  },
+  {
+    "id": "member-4",
+    "name": "Aria Montgomery",
+    "role": "Aerial Cinematographer & Drone Lead",
+    "experience": "8+ Years Experience",
+    "bio": "FAA Part 107 Master Drone Pilot bringing cinematic sweeping vistas and architectural perspectives to high-end destination events.",
+    "image": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=85",
+    "social": {
+      "instagram": "#",
+      "vimeo": "#",
+      "linkedin": "#"
+    }
+  }
+]

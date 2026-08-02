@@ -1,0 +1,32 @@
+[
+  {
+    "id": "faq-1",
+    "category": "Booking & Dates",
+    "question": "How far in advance should we reserve our wedding date?",
+    "answer": "We recommend booking 8 to 12 months in advance, especially for prime wedding season dates (October through April). Because we limit our calendar to a curated number of weddings per year to ensure artisanal quality, dates reserve quickly."
+  },
+  {
+    "id": "faq-2",
+    "category": "Destination Weddings",
+    "question": "Do you travel internationally for destination weddings?",
+    "answer": "Yes! Over 60% of our weddings are destination events across Europe, Asia, the Caribbean, and North America. We handle all travel logistics, equipment permits, and drone authorizations seamlessly."
+  },
+  {
+    "id": "faq-3",
+    "category": "Delivery & Editing",
+    "question": "When will we receive our photos and cinematic film?",
+    "answer": "You will receive a sneak-peek teaser gallery within 48 hours of your event. Complete high-resolution edited photo galleries are delivered within 4 to 6 weeks, and final 4K cinematic films are delivered within 8 to 10 weeks."
+  },
+  {
+    "id": "faq-4",
+    "category": "Equipment & Team",
+    "question": "What cameras and gear does your studio use?",
+    "answer": "We shoot on industry-leading full-frame cinema cameras (Sony FX6 / FX3 & RED cinema line), anamorphic cinema prime lenses, dual DJI Mavic 3 Cine drones, 32-bit float audio recorders, and backup storage servers on location."
+  },
+  {
+    "id": "faq-5",
+    "category": "Customization",
+    "question": "Can we tailor a custom package for multi-day events?",
+    "answer": "Absolutely. While our Silver, Gold, and Platinum packages cover most celebrations, we frequently create bespoke packages tailored to multi-day cultural rituals, pre-wedding destination shoots, and family events."
+  }
+]

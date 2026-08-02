@@ -1,0 +1,73 @@
+[
+  {
+    "id": "silver",
+    "name": "Silver Essence",
+    "tagline": "Ideal for single-day intimate weddings & classic celebrations",
+    "price": "₹1,50,000",
+    "period": "per event",
+    "popular": false,
+    "badge": "Intimate Choice",
+    "description": "Essential high-end coverage ensuring every core memory is captured with timeless elegance.",
+    "features": [
+      "1 Lead Photographer & 1 Cinematographer",
+      "Up to 10 Hours Continuous Coverage",
+      "300+ Color-Graded Digital Photos",
+      "10-Minute Cinematic Highlight Film",
+      "Private Online Gallery (1 Year Storage)",
+      "1 Handcrafted Hardcover Photo Album (30 pages)"
+    ],
+    "notIncluded": [
+      "Drone Aerial Coverage",
+      "Pre-Wedding Location Shoot",
+      "Same-Day Edit Teaser"
+    ],
+    "cta": "Reserve Silver Package"
+  },
+  {
+    "id": "gold",
+    "name": "Gold Royalty",
+    "tagline": "Our most popular multi-event luxury wedding package",
+    "price": "₹2,80,000",
+    "period": "full wedding",
+    "popular": true,
+    "badge": "Most Popular",
+    "description": "Comprehensive multi-day cinema and photography crafted for grand weddings demanding artistic perfection.",
+    "features": [
+      "2 Senior Photographers & 2 Master Cinematographers",
+      "Full 2-Day Coverage (Up to 16 Hours/Day)",
+      "Drone Aerial 4K Videographer & Operator",
+      "600+ Retouched Fine-Art Digital Photos",
+      "20-Minute Ultra-HD Feature Film + 60-Sec Reel",
+      "Complimentary Pre-Wedding Couple Shoot",
+      "2 Fine Italian Leather Flush-Mount Albums (50 pages)",
+      "Same-Day Social Media Teaser Clip (delivered within 24h)"
+    ],
+    "notIncluded": [
+      "International Travel Fees for Teams > 4"
+    ],
+    "cta": "Reserve Gold Package"
+  },
+  {
+    "id": "platinum",
+    "name": "Platinum Heritage",
+    "tagline": "Unrestricted luxury experience for royal & destination events",
+    "price": "₹4,50,000",
+    "period": "multi-day destination",
+    "popular": false,
+    "badge": "Bespoke Royal",
+    "description": "Bespoke production team with unlimited hours, dedicated director, live streaming, and heirloom physical assets.",
+    "features": [
+      "Full Crew (3 Photographers, 3 Cinematographers, 1 Director)",
+      "Unlimited 3-Day Destination Coverage",
+      "Dual Drone 4K Operations (Day & Night)",
+      "1,000+ Master Edited High-Res Images",
+      "30-Minute Director's Cut Cinema Film + 3 Social Reels",
+      "Destination Pre-Wedding Shoot (Any World Location)",
+      "3 Bespoke Italian Leather Albums + Parent Minis",
+      "Raw Footage Hard Drive Delivery + 4K Laser Monogram USB Box",
+      "Live Private 4K Stream for Global Guests"
+    ],
+    "notIncluded": [],
+    "cta": "Reserve Platinum Package"
+  }
+]

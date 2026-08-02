@@ -1,0 +1,619 @@
+[
+  {
+    "id": "wedding-photography",
+    "title": "Wedding Photography",
+    "category": "Signature",
+    "icon": "Camera",
+    "tagline": "Timeless editorial portraits & emotional candid captures",
+    "description": "Our signature wedding photography captures raw emotion, delicate details, and ethereal moments with high-fashion lighting and artistic compositions.",
+    "features": [
+      "2 Lead Master Photographers",
+      "Full Day Coverage (14+ Hours)",
+      "High-Resolution Edited Digital Gallery",
+      "Custom Handcrafted Italian Leather Album",
+      "Online Private Client Portal"
+    ],
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹1,20,000",
+    "estimatedCost": "₹1,20,000 – ₹2,50,000",
+    "teamSize": "2 Senior Photographers + 1 Assistant",
+    "equipment": [
+      "Sony Alpha A1 & FX3 Cinema Bodies",
+      "G-Master Prime Lenses (24mm, 50mm, 85mm, 135mm)",
+      "Profoto A10 Off-Camera Studio Strobes",
+      "Dual SanDisk Extreme PRO Backup Storage"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Heritage",
+        "price": "₹1,20,000",
+        "coverage": "8 Hours",
+        "deliverables": "350+ Retouched Photos, Online Cloud Gallery, 30-Page Fine-Art Book"
+      },
+      {
+        "name": "Classic Signature",
+        "price": "₹1,80,000",
+        "coverage": "12 Hours",
+        "deliverables": "600+ Retouched Photos, Italian Leather Album (50 pages), Parent Minis"
+      },
+      {
+        "name": "Grand Royal Multi-Day",
+        "price": "₹2,50,000",
+        "coverage": "Unlimited Multi-Day",
+        "deliverables": "800+ Fine-Art Photos, 2 Handcrafted Leather Albums, Raw Hard Drive"
+      }
+    ]
+  },
+  {
+    "id": "cinematic-films",
+    "title": "Cinematic Wedding Films",
+    "category": "Video",
+    "icon": "Film",
+    "tagline": "Hollywood-grade 4K wedding cinema & teaser trailers",
+    "description": "We craft emotionally gripping, film-look wedding movies using cinema cameras, color grading masteries, and custom audio mixing tailored to your story.",
+    "features": [
+      "4K Ultra-HD Feature Film (15-25 mins)",
+      "Cinematic Teaser Trailer (60-90 secs)",
+      "Dedicated Audio Specialist & Lav Mics",
+      "Licensed Orchestral Soundtrack",
+      "4K Master File Delivery on Custom USB Drive"
+    ],
+    "image": "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹1,50,000",
+    "estimatedCost": "₹1,50,000 – ₹3,20,000",
+    "teamSize": "2 Master Cinematographers + 1 Audio Engineer",
+    "equipment": [
+      "RED V-Raptor 8K & Sony FX6 Cinema Cameras",
+      "Atlas Mercury Anamorphic Lenses",
+      "DJI Ronin RS3 Pro Gimbals & Wireless Monitors",
+      "32-Bit Float Sound Recorders & Lav Mics"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Cinema",
+        "price": "₹1,50,000",
+        "coverage": "10 Hours",
+        "deliverables": "15-Min Feature Film, 60-Sec Instagram Teaser, 4K USB Box"
+      },
+      {
+        "name": "Classic Director's Cut",
+        "price": "₹2,30,000",
+        "coverage": "14 Hours",
+        "deliverables": "25-Min Cinema Movie, 90-Sec Trailer, Full Ceremony & Speeches Edit"
+      },
+      {
+        "name": "Grand Hollywood Feature",
+        "price": "₹3,20,000",
+        "coverage": "Full Wedding & Rehearsal",
+        "deliverables": "35-Min Master Film, 3 Social Reels, Live Audio Multi-Track"
+      }
+    ]
+  },
+  {
+    "id": "drone-coverage",
+    "title": "Drone Aerial Coverage",
+    "category": "Aerial",
+    "icon": "Aperture",
+    "tagline": "Breathtaking 4K aerial vistas & venue perspective",
+    "description": "Licensed FAA commercial drone pilots capture grand palace entries, sweeping beach vistas, and dramatic architectural views with smooth aerial videography.",
+    "features": [
+      "Licensed & Insured Drone Operator",
+      "4K 60FPS High-Bitrate Footage",
+      "Sunset & Architectural Venue Shots",
+      "Integrated into Main Feature Film",
+      "Raw Aerial Media Access"
+    ],
+    "image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹45,000",
+    "estimatedCost": "₹45,000 – ₹85,000",
+    "teamSize": "1 Licensed Master Drone Pilot",
+    "equipment": [
+      "DJI Mavic 3 Cine (Apple ProRes 422 HQ)",
+      "DJI Inspire 2 with Zenmuse X7 6K Cinema Camera",
+      "PolarPro ND Filters & Dual Remote Monitoring"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Sky Vista",
+        "price": "₹45,000",
+        "coverage": "4 Hours Flight",
+        "deliverables": "4K Aerial Reel, Integrated Film Footage, Raw Clips"
+      },
+      {
+        "name": "Classic Sunset Pass",
+        "price": "₹65,000",
+        "coverage": "Full Day Intermittent Flights",
+        "deliverables": "Day & Sunset Aerial Vistas, High-Bitrate ProRes Raw"
+      },
+      {
+        "name": "Grand Fleet Operations",
+        "price": "₹85,000",
+        "coverage": "Multi-Location Aerial",
+        "deliverables": "Simultaneous Dual Drone Coverage (Land & Sea)"
+      }
+    ]
+  },
+  {
+    "id": "pre-wedding",
+    "title": "Pre-Wedding Shoot",
+    "category": "Editorial",
+    "icon": "Heart",
+    "tagline": "Romance stories set in exotic scenic locations",
+    "description": "Intimate, relaxed couple portraits in scenic mountains, historic palaces, or European cities, capturing your passion before the wedding frenzy.",
+    "features": [
+      "Full Day Destination Location Shoot",
+      "Styling & Concept Consultation",
+      "2 Outfit Transitions",
+      "50 Premium Retouched Images",
+      "Save-the-Date Video Reel"
+    ],
+    "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹75,000",
+    "estimatedCost": "₹75,000 – ₹1,50,000",
+    "teamSize": "1 Lead Photographer + 1 Stylist Assistant",
+    "equipment": [
+      "Sony A1 Full Frame Camera Bodies",
+      "85mm f/1.2 & 35mm f/1.4 Art Lenses",
+      "Portable Profoto B10X Studio Flash"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Session",
+        "price": "₹75,000",
+        "coverage": "4 Hours",
+        "deliverables": "40 Retouched Images, 1 Outfit Change, Online Gallery"
+      },
+      {
+        "name": "Classic Destination",
+        "price": "₹1,10,000",
+        "coverage": "Full Day (8 Hours)",
+        "deliverables": "75 Retouched Fine-Art Photos, 60-Sec Reel, Styling Guide"
+      },
+      {
+        "name": "Grand Global Expedition",
+        "price": "₹1,50,000",
+        "coverage": "2-Day Travel Shoot",
+        "deliverables": "120 Retouched Photos, Video Teaser, Coffee Table Album"
+      }
+    ]
+  },
+  {
+    "id": "post-wedding",
+    "title": "Post-Wedding Shoot",
+    "category": "Editorial",
+    "icon": "Heart",
+    "tagline": "Relaxed post-ceremony fine-art portraiture",
+    "description": "Stress-free couple portraiture after the ceremony in scenic landscapes, capturing unhurried romance and high-fashion aesthetics.",
+    "features": [
+      "5 Hours Unhurried Shooting",
+      "Sunset & Dusk Lighting Focus",
+      "50 Master Fine-Art Retouched Images",
+      "Linen Folio Album Box"
+    ],
+    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹65,000",
+    "estimatedCost": "₹65,000 – ₹1,20,000",
+    "teamSize": "1 Master Photographer + 1 Lighting Assistant",
+    "equipment": [
+      "Sony Alpha A1 & Leica M11 Bodies",
+      "Noctilux & G-Master Cinema Primes"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Sunset",
+        "price": "₹65,000",
+        "coverage": "4 Hours",
+        "deliverables": "35 Fine-Art Retouched Photos, Private Cloud Portal"
+      },
+      {
+        "name": "Grand Coastal Romance",
+        "price": "₹1,20,000",
+        "coverage": "Full Day Location",
+        "deliverables": "70 Retouched Photos, Linen Folio Box, Cinematic Reel"
+      }
+    ]
+  },
+  {
+    "id": "nichayathartham",
+    "title": "Nichayathartham (Engagement)",
+    "category": "Traditional",
+    "icon": "Sparkles",
+    "tagline": "Sacred ring exchange & family pattu-saree exchange",
+    "description": "Documenting the traditional Tamil engagement ceremony, silk saree exchanges, exchange of plates (Thamboolam), and sacred family promises.",
+    "features": [
+      "6 Hours Traditional Coverage",
+      "Lead Portrait & Candid Photographers",
+      "High-Resolution Digital Album",
+      "Social Media Highlight Clips"
+    ],
+    "image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹60,000",
+    "estimatedCost": "₹60,000 – ₹1,10,000",
+    "teamSize": "1 Lead Photographer + 1 Assistant",
+    "equipment": [
+      "Canon EOS R5 Bodies & L-Series Optics",
+      "Continuous Softbox LED Panels"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Nichayathartham",
+        "price": "₹60,000",
+        "coverage": "5 Hours",
+        "deliverables": "200 Retouched Photos, High-Res Digital Gallery"
+      },
+      {
+        "name": "Grand Traditional Engagement",
+        "price": "₹1,10,000",
+        "coverage": "8 Hours",
+        "deliverables": "350 Retouched Photos, Highlight Reel, Mini Photo Album"
+      }
+    ]
+  },
+  {
+    "id": "sadangu",
+    "title": "Sadangu (Ritual Ceremony)",
+    "category": "Traditional",
+    "icon": "Sun",
+    "tagline": "Traditional Tamil auspicious home rituals & blessings",
+    "description": "Capturing intimate family rituals, Nalangu turmeric blessings, traditional music, and colorful floral decorations with authentic warmth.",
+    "features": [
+      "Full Intimate Home & Hall Ritual Coverage",
+      "Nalangu Turmeric & Blessings Candid Shots",
+      "Traditional Album Layout",
+      "Digital Highlight Reel"
+    ],
+    "image": "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹50,000",
+    "estimatedCost": "₹50,000 – ₹90,000",
+    "teamSize": "1 Lead Photographer + 1 Videographer",
+    "equipment": [
+      "Sony A7IV & FX3 Cinema Bodies",
+      "Continuous Soft warm LED Panels"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Sadangu",
+        "price": "₹50,000",
+        "coverage": "4 Hours",
+        "deliverables": "180 Retouched Photos, 60-Sec Highlight Reel"
+      },
+      {
+        "name": "Grand Traditional Sadangu",
+        "price": "₹90,000",
+        "coverage": "7 Hours",
+        "deliverables": "300 Retouched Photos, Full Ritual Video Cut, Silk Album"
+      }
+    ]
+  },
+  {
+    "id": "muhurtham",
+    "title": "Muhurtham (Sacred Mandap)",
+    "category": "Traditional",
+    "icon": "Sun",
+    "tagline": "Sacred wedding vows, Thali Kattu & Oonjal rituals",
+    "description": "Reverent and artistically exquisite coverage of sacred Nadaswaram tunes, Oonjal swing ceremony, Kanyadaan, Thali Kattu (Mangalya Dharanam), and Saptapadi.",
+    "features": [
+      "Silent Shutter Technology inside Mandap",
+      "Cultural Context Master Photographers",
+      "Low-Light Fire & Flower Detail Shots",
+      "Full Sacred Ritual Video Archive"
+    ],
+    "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹1,40,000",
+    "estimatedCost": "₹1,40,000 – ₹2,80,000",
+    "teamSize": "2 Lead Photographers + 2 Master Cinematographers",
+    "equipment": [
+      "Sony A1 Silent Shutter Bodies",
+      "Low-Light Prime Lenses (f/1.2 & f/1.4)",
+      "Multitrack Audio Recorders for Nadaswaram & Mantras"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Mandap Muhurtham",
+        "price": "₹1,40,000",
+        "coverage": "8 Hours",
+        "deliverables": "400 Retouched Photos, Full Ritual Video Cut, Digital Gallery"
+      },
+      {
+        "name": "Grand Royal Muhurtham",
+        "price": "₹2,80,000",
+        "coverage": "12 Hours (Full Morning & Rituals)",
+        "deliverables": "700 Photos, 25-Min Cinema Film, Traditional Silk Album"
+      }
+    ]
+  },
+  {
+    "id": "reception",
+    "title": "Grand Reception",
+    "category": "Events",
+    "icon": "Music",
+    "tagline": "Glamorous stage portraits, orchestra & dinner gala",
+    "description": "Vibrant party coverage showcasing grand stage entrances, champagne toasts, ambient lighting, and elegant guest portraits.",
+    "features": [
+      "Full Stage & Crowd Lighting Setup",
+      "Slow-Motion Video Replays",
+      "Instant Guest Social Photo Gallery",
+      "Multi-Angle Stage Footage"
+    ],
+    "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹95,000",
+    "estimatedCost": "₹95,000 – ₹1,80,000",
+    "teamSize": "2 Photographers + 1 Cinematographer",
+    "equipment": [
+      "Sony FX3 & A7IV Bodies",
+      "Stage Wireless Flash Systems"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Reception",
+        "price": "₹95,000",
+        "coverage": "6 Hours",
+        "deliverables": "300 Retouched Photos, Stage Entrance Highlight Video"
+      },
+      {
+        "name": "Grand Royal Ball",
+        "price": "₹1,80,000",
+        "coverage": "10 Hours",
+        "deliverables": "500 Photos, 5-Min Party Highlight Cinema, Guest Live Gallery"
+      }
+    ]
+  },
+  {
+    "id": "saree-function",
+    "title": "Saree Function (Puberty Ceremony)",
+    "category": "Traditional",
+    "icon": "Sparkles",
+    "tagline": "Half-saree milestone celebration & family blessings",
+    "description": "Cherishing the traditional Manjal Neeratu and Half-Saree milestone with grand stage portraits, floral arches, and aunties' blessings.",
+    "features": [
+      "Manjal Neeratu & Stage Portraiture",
+      "Family Blessing Candid Moments",
+      "High-Resolution Photo Gallery",
+      "Highlight Video Reel"
+    ],
+    "image": "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹55,000",
+    "estimatedCost": "₹55,000 – ₹95,000",
+    "teamSize": "1 Lead Photographer + 1 Assistant",
+    "equipment": [
+      "Sony A7IV & G-Master Lenses",
+      "Continuous Soft Lighting Setup"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Saree Function",
+        "price": "₹55,000",
+        "coverage": "4 Hours",
+        "deliverables": "180 Retouched Photos, Digital Album"
+      },
+      {
+        "name": "Grand Half-Saree Gala",
+        "price": "₹95,000",
+        "coverage": "7 Hours",
+        "deliverables": "320 Photos, 3-Min Ceremony Video Reel, Fine-Art Book"
+      }
+    ]
+  },
+  {
+    "id": "valaikaapu",
+    "title": "Valaikaapu (Baby Shower)",
+    "category": "Lifestyle",
+    "icon": "Smile",
+    "tagline": "Traditional glass bangle ceremony & mother's joy",
+    "description": "Capturing traditional glass bangle rituals, sandal paste blessings from elders, floral swing decor, and joyful maternity family portraits.",
+    "features": [
+      "Traditional Valaikaapu Bangle Rituals",
+      "Elder Blessings Candid Moments",
+      "Floral Decor & Swing Portraiture",
+      "Social Media Highlight Clips"
+    ],
+    "image": "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹45,000",
+    "estimatedCost": "₹45,000 – ₹75,000",
+    "teamSize": "1 Lead Photographer + 1 Assistant",
+    "equipment": [
+      "Sony A7IV Camera & Soft Natural Diffuser Panels",
+      "Linen Fabric Backdrop Kit"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Valaikaapu",
+        "price": "₹45,000",
+        "coverage": "4 Hours",
+        "deliverables": "150 Retouched Photos, Online Gallery"
+      },
+      {
+        "name": "Grand Family Blessing",
+        "price": "₹75,000",
+        "coverage": "7 Hours",
+        "deliverables": "300 Photos, 3-Min Ceremony Video Reel, Mini Leather Book"
+      }
+    ]
+  },
+  {
+    "id": "seemantham",
+    "title": "Seemantham (Pregnancy Blessing)",
+    "category": "Lifestyle",
+    "icon": "Smile",
+    "tagline": "Sacred Vedic pregnancy protection & family rituals",
+    "description": "Documenting sacred Seemantham mantras, husband's hair-parting ritual with porcupine quill/sacred blade, and sweet-feast celebrations.",
+    "features": [
+      "Vedic Seemantham Ritual Photography",
+      "Sacred Family Blessings & Music",
+      "Fine-Art Print Keepsakes",
+      "Highlight Reel"
+    ],
+    "image": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹48,000",
+    "estimatedCost": "₹48,000 – ₹80,000",
+    "teamSize": "1 Specialized Photographer + 1 Assistant",
+    "equipment": [
+      "Sony Alpha A7IV Camera Bodies",
+      "Low-Noise Silent Shutter Optics"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Seemantham",
+        "price": "₹48,000",
+        "coverage": "4 Hours",
+        "deliverables": "160 Retouched Photos, High-Res Digital Gallery"
+      },
+      {
+        "name": "Grand Sacred Blessing",
+        "price": "₹80,000",
+        "coverage": "7 Hours",
+        "deliverables": "280 Photos, Full Ritual Video Cut, Linen Album"
+      }
+    ]
+  },
+  {
+    "id": "birthday",
+    "title": "Royal Birthday Gala",
+    "category": "Events",
+    "icon": "Gift",
+    "tagline": "Extravagant milestone birthday galas & themes",
+    "description": "Preserving milestone birthdays with red carpet photo backdrops, theme decor highlights, guest greetings, and highlight video reels.",
+    "features": [
+      "Custom Red Carpet Backdrop Photos",
+      "Highlight Reel with Music Overlay",
+      "Same-Day Sneak Peek Photos"
+    ],
+    "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹50,000",
+    "estimatedCost": "₹50,000 – ₹95,000",
+    "teamSize": "1 Lead Photographer + 1 Videographer",
+    "equipment": [
+      "Sony A7SIII & FX3 Cinema Kit",
+      "Red Carpet Lighting Rig"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Gala",
+        "price": "₹50,000",
+        "coverage": "4 Hours",
+        "deliverables": "150 Retouched Photos, 3-Min Highlight Video"
+      },
+      {
+        "name": "Grand Extravaganza",
+        "price": "₹95,000",
+        "coverage": "8 Hours",
+        "deliverables": "300 Photos, Full Speeches Video, Social Reel"
+      }
+    ]
+  },
+  {
+    "id": "corporate-events",
+    "title": "Corporate & Gala Events",
+    "category": "Corporate",
+    "icon": "Award",
+    "tagline": "Polished brand launches, award galas & VIP summits",
+    "description": "Professional coverage for corporate summits, charity galas, fashion shows, and high-profile brand launches with swift PR asset delivery.",
+    "features": [
+      "Same-Day Press Delivery",
+      "Step & Repeat Photopress",
+      "Keynote Speeches Video Recording",
+      "Executive Headshots Booth"
+    ],
+    "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹85,000",
+    "estimatedCost": "₹85,000 – ₹1,80,000",
+    "teamSize": "2 Event Photographers + 1 Videographer",
+    "equipment": [
+      "Dual Sony A1 Bodies with Instant Wireless FTP Upload",
+      "Mobile Studio Headshot Setup"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Summit",
+        "price": "₹85,000",
+        "coverage": "6 Hours",
+        "deliverables": "Same-Day PR Photos, Keynote Audio/Video Recording"
+      },
+      {
+        "name": "Grand Brand Gala",
+        "price": "₹1,80,000",
+        "coverage": "Full-Day Multi-Hall",
+        "deliverables": "Full PR Gallery, Event Highlights Reel, On-Site Headshot Booth"
+      }
+    ]
+  },
+  {
+    "id": "destination-wedding",
+    "title": "Destination Wedding Story",
+    "category": "Signature",
+    "icon": "Globe",
+    "tagline": "Multi-day luxury destination wedding experiences",
+    "description": "Comprehensive multi-day travel coverage in Rajasthan, Bali, Amalfi, or Paris, capturing welcome dinners, rituals, and sunset celebrations.",
+    "features": [
+      "Complete 3-Day Travel Coverage Team",
+      "Multi-Location Drone & Land Setup",
+      "Custom Italian Flush-Mount Coffee Table Book",
+      "Full Raw Footage Hard Drive"
+    ],
+    "image": "https://images.unsplash.com/photo-1545232979-fbfd42e000b9?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹6,50,000",
+    "estimatedCost": "₹6,50,000 – ₹12,00,000",
+    "teamSize": "3 Senior Photographers + 3 Cinematographers + 1 Drone Operator",
+    "equipment": [
+      "RED V-Raptor 8K & Sony FX6 Cinema Cameras",
+      "DJI Inspire 2 & Mavic 3 Cine Drones",
+      "Full Mobile Master Editing Suite & Backup Storage Server"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Escape (2 Days)",
+        "price": "₹6,50,000",
+        "coverage": "2 Days Unlimited",
+        "deliverables": "600 Photos, 20-Min Cinema Film, Drone Footage, Italian Book"
+      },
+      {
+        "name": "Classic Global Heritage (3 Days)",
+        "price": "₹8,80,000",
+        "coverage": "3 Days Travel Coverage",
+        "deliverables": "900 Photos, 30-Min Director's Cut, 3 Social Reels, 2 Leather Albums"
+      },
+      {
+        "name": "Grand Royal Bespoke Worldwide",
+        "price": "₹12,00,000",
+        "coverage": "4+ Days Complete Expedition",
+        "deliverables": "1,200+ Photos, Feature Film + Raw Hard Drive, Parent Album Set"
+      }
+    ]
+  },
+  {
+    "id": "temple-wedding",
+    "title": "Temple Wedding Rituals",
+    "category": "Traditional",
+    "icon": "Sun",
+    "tagline": "Sacred ceremonies, cultural elegance & heritage temples",
+    "description": "Respectful and artistically vibrant documentation of traditional temple vows, sacred fires, and heritage customs with rich authentic colors.",
+    "features": [
+      "Cultural Context Master Photographers",
+      "Low-Light Silent Shutter Technology",
+      "Traditional Album Layout",
+      "4K Ritual Video Archive"
+    ],
+    "image": "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=85",
+    "priceStarting": "₹1,10,000",
+    "estimatedCost": "₹1,10,000 – ₹1,90,000",
+    "teamSize": "2 Heritage Photographers + 1 Cinematographer",
+    "equipment": [
+      "Silent Shutter Mirrorless Cameras (Sony A1)",
+      "High-Dynamic-Range Primes for Low-Light Temple Interiors"
+    ],
+    "tiers": [
+      {
+        "name": "Essential Temple Vows",
+        "price": "₹1,10,000",
+        "coverage": "6 Hours",
+        "deliverables": "300 Retouched Photos, Ritual Highlight Video, Digital Album"
+      },
+      {
+        "name": "Grand Cultural Heritage",
+        "price": "₹1,90,000",
+        "coverage": "12 Hours (Full Rituals)",
+        "deliverables": "600 Photos, 20-Min Full Ritual Cinema, Traditional Silk Album"
+      }
+    ]
+  }
+]

@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: initial;
+    background-color: #FDF8F3;
+    color: #2E2E2E;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif-heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  button, .font-btn {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FDF8F3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #A8654A;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8C4F37;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(168, 101, 74, 0.12);
+}
+
+.glass-panel-dark {
+  background: rgba(24, 24, 24, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 162, 39, 0.2);
+}
+
+.glass-nav {
+  background: rgba(253, 248, 243, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(168, 101, 74, 0.15);
+}
+
+/* Luxury Gold & Rust Text Gradients */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #C9A227 0%, #E9C08C 50%, #A8654A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-rust-gradient {
+  background: linear-gradient(135deg, #A8654A 0%, #B4735A 60%, #8C4F37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Soft Glow Effects */
+.gold-glow-shadow {
+  box-shadow: 0 10px 30px -5px rgba(201, 162, 39, 0.3);
+}
+
+.rust-glow-shadow {
+  box-shadow: 0 15px 35px -8px rgba(168, 101, 74, 0.25);
+}
+
+/* Lenis Scroll Standard Reset */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Shutter Blades Animation */
+@keyframes shutterTop {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(-100%); }
+}
+
+@keyframes shutterBottom {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(100%); }
+}
