@@ -1,9 +1,10 @@
 import Service from '../models/Service.js';
+import { successResponse, errorResponse } from '../utils/apiResponse.js';
 
 export const getAllServices = async (req, res, next) => {
   try {
     const services = await Service.find();
-    res.status(200).json({ success: true, data: services });
+    return successResponse(res, 200, 'Services retrieved successfully', services);
   } catch (error) {
     next(error);
   }
@@ -13,9 +14,9 @@ export const getServiceById = async (req, res, next) => {
   try {
     const service = await Service.findOne({ id: req.params.id });
     if (!service) {
-      return res.status(404).json({ success: false, message: 'Service not found' });
+      return errorResponse(res, 404, 'Service not found');
     }
-    res.status(200).json({ success: true, data: service });
+    return successResponse(res, 200, 'Service retrieved successfully', service);
   } catch (error) {
     next(error);
   }
