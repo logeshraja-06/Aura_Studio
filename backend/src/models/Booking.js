@@ -17,6 +17,20 @@ const bookingSchema = new mongoose.Schema(
       enum: ['pending', 'confirmed', 'cancelled'],
       default: 'pending',
     },
+
+    // Payment Tracking Fields
+    totalAmount: { type: Number, default: 0 },
+    advanceAmount: { type: Number, default: 0 },
+    balanceDue: { type: Number, default: 0 },
+
+    // Staff / Crew Assignment
+    assignedCrew: [
+      {
+        name: { type: String, required: true },
+        role: { type: String, default: 'Lead Photographer' },
+        phone: String,
+      },
+    ],
   },
   { timestamps: true }
 );

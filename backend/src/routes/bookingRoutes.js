@@ -2,11 +2,15 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import {
   createBooking,
+  lookupBookingStatus,
   getAllBookings,
   getBookingById,
   updateBookingStatus,
+  updateBookingPaymentAndCrew,
+  deleteBooking,
 } from '../controllers/bookingController.js';
 import { validateBookingRequest } from '../middleware/validateRequest.js';
+import { protectAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -22,12 +26,15 @@ const bookingLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Client routes
+// Client public routes
 router.post('/', bookingLimiter, validateBookingRequest, createBooking);
+router.post('/lookup', lookupBookingStatus);
 
-// Admin routes
-router.get('/', getAllBookings);
-router.get('/:id', getBookingById);
-router.patch('/:id/status', updateBookingStatus);
+// Protected Admin routes
+router.get('/', protectAdmin, getAllBookings);
+router.get('/:id', protectAdmin, getBookingById);
+router.patch('/:id/status', protectAdmin, updateBookingStatus);
+router.patch('/:id/payment', protectAdmin, updateBookingPaymentAndCrew);
+router.delete('/:id', protectAdmin, deleteBooking);
 
 export default router;

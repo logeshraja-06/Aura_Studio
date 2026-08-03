@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useState, lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useLenis } from './hooks/useLenis';
 import Loader from './components/Loader';
 import Navbar from './components/Navbar';
 import CustomCursor from './components/CustomCursor';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import BookingModal from './components/BookingModal';
+import Aperture3DBackground from './components/admin/Aperture3DBackground';
 
 // Landing Sections
 import Hero from './sections/Hero';
@@ -22,9 +23,57 @@ import FAQ from './sections/FAQ';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 
-// Dedicated Page Routes
+// Dedicated Public Page Routes
 import PackagesPage from './pages/PackagesPage';
 import ServiceBookingPage from './pages/ServiceBookingPage';
+import ClientStatusLookup from './pages/ClientStatusLookup';
+
+// Admin Auth Context & Components
+import { AdminAuthProvider, useAdminAuth } from './context/AdminAuthContext';
+import AdminLayout from './components/admin/AdminLayout';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminBookings from './pages/admin/AdminBookings';
+import AdminEquipment from './pages/admin/AdminEquipment';
+import AdminServices from './pages/admin/AdminServices';
+import AdminSettings from './pages/admin/AdminSettings';
+
+// Lazy Load Heavy 3D Dashboard Scene
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+
+// Branded Dark Loader while verifying token session
+function DarkAdminAuthLoader() {
+  return (
+    <div className="fixed inset-0 z-[150] bg-[#050505] text-cream flex flex-col items-center justify-center p-4 select-none">
+      <Aperture3DBackground />
+      <div className="relative z-10 flex flex-col items-center gap-4 text-center">
+        <div className="w-16 h-16 rounded-full border-4 border-gold/20 border-t-gold animate-spin shadow-gold-glow" />
+        <div>
+          <h2 className="font-serif font-bold text-2xl text-cream tracking-widest">
+            AURA <span className="text-gold text-xs font-montserrat">CONTROL</span>
+          </h2>
+          <span className="text-[10px] uppercase font-montserrat font-bold text-rust tracking-[0.25em] block mt-1">
+            Verifying Cryptographic Credentials...
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Protected Admin Route Guard
+function ProtectedAdminRoute({ children }) {
+  const { isAuthenticated, authLoading } = useAdminAuth();
+
+  if (authLoading) {
+    return <DarkAdminAuthLoader />;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  return children;
+}
 
 function LandingPage({ onOpenBooking }) {
   const handleOpenFilms = () => {
@@ -56,10 +105,11 @@ function LandingPage({ onOpenBooking }) {
   );
 }
 
-export default function App() {
+function AppContent() {
   const [loading, setLoading] = useState(true);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedPackageForBooking, setSelectedPackageForBooking] = useState('Wedding Photography - Royal Signature');
+  const location = useLocation();
 
   // Initialize Lenis Smooth Scroll
   useLenis();
@@ -69,48 +119,100 @@ export default function App() {
     setBookingOpen(true);
   };
 
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  // Strictly Isolated Admin Routing Hierarchy
+  if (isAdminRoute) {
+    return (
+      <Routes>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedAdminRoute>
+              <AdminLayout />
+            </ProtectedAdminRoute>
+          }
+        >
+          <Route
+            index
+            element={
+              <Suspense fallback={<DarkAdminAuthLoader />}>
+                <AdminDashboard />
+              </Suspense>
+            }
+          />
+          <Route path="bookings" element={<AdminBookings />} />
+          <Route path="equipment" element={<AdminEquipment />} />
+          <Route path="services" element={<AdminServices />} />
+          <Route path="settings" element={<AdminSettings />} />
+        </Route>
+        {/* Wildcard redirect inside /admin namespace to /admin/login */}
+        <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
+      </Routes>
+    );
+  }
+
+  // Public Shell & Public Routes
   return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-cream text-charcoal relative selection:bg-gold selection:text-white">
-        {/* Minimal Camera Aperture Loader Screen */}
-        {loading && <Loader onFinish={() => setLoading(false)} />}
+    <div className="min-h-screen bg-cream text-charcoal relative selection:bg-gold selection:text-white">
+      {/* Minimal Camera Aperture Loader Screen */}
+      {loading && <Loader onFinish={() => setLoading(false)} />}
 
-        {!loading && (
-          <>
-            {/* Minimal Gold Outline Cursor */}
-            <CustomCursor />
+      {!loading && (
+        <>
+          {/* Minimal Gold Outline Cursor */}
+          <CustomCursor />
 
-            {/* Persistent Shared Glass Navbar */}
-            <Navbar onOpenBooking={handleOpenBooking} />
+          {/* Persistent Shared Glass Navbar */}
+          <Navbar onOpenBooking={handleOpenBooking} />
 
-            {/* Client-Side Page Routes */}
-            <Routes>
-              <Route
-                path="/"
-                element={<LandingPage onOpenBooking={handleOpenBooking} />}
-              />
-              <Route
-                path="/packages"
-                element={<PackagesPage />}
-              />
-              <Route
-                path="/booking/:serviceId"
-                element={<ServiceBookingPage />}
-              />
-            </Routes>
-
-            {/* Floating WhatsApp Direct Chat */}
-            <FloatingWhatsApp />
-
-            {/* General Reservation Booking Modal */}
-            <BookingModal
-              isOpen={bookingOpen}
-              onClose={() => setBookingOpen(false)}
-              selectedPackage={selectedPackageForBooking}
+          {/* Client-Side Public Page Routes */}
+          <Routes>
+            <Route
+              path="/"
+              element={<LandingPage onOpenBooking={handleOpenBooking} />}
             />
-          </>
-        )}
-      </div>
-    </BrowserRouter>
+            <Route
+              path="/packages"
+              element={<PackagesPage />}
+            />
+            <Route
+              path="/booking/:serviceId"
+              element={<ServiceBookingPage />}
+            />
+            {/* Public Client Reservation Status Lookup Routes */}
+            <Route
+              path="/track-booking"
+              element={<ClientStatusLookup />}
+            />
+            <Route
+              path="/status"
+              element={<ClientStatusLookup />}
+            />
+          </Routes>
+
+          {/* Floating WhatsApp Direct Chat */}
+          <FloatingWhatsApp />
+
+          {/* General Reservation Booking Modal */}
+          <BookingModal
+            isOpen={bookingOpen}
+            onClose={() => setBookingOpen(false)}
+            selectedPackage={selectedPackageForBooking}
+          />
+        </>
+      )}
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AdminAuthProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </AdminAuthProvider>
   );
 }

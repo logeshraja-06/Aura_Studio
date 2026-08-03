@@ -35,6 +35,7 @@ export default function Navbar({ onOpenBooking }) {
     { label: 'Services', href: '#services', sectionId: 'services' },
     { label: 'Gallery', href: '#gallery', sectionId: 'gallery' },
     { label: 'Packages', href: '/packages', isRoute: true },
+    { label: 'Check Status', href: '/track-booking', isRoute: true },
     { label: 'Testimonials', href: '#testimonials', sectionId: 'testimonials' },
     { label: 'Contact', href: '#contact', sectionId: 'contact' },
   ];
