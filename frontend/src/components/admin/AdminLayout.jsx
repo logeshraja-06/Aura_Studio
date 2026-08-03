@@ -48,7 +48,7 @@ export default function AdminLayout() {
 
       {/* Sidebar Navigation (Rich Deep Charcoal Shell with Gold Highlighting) */}
       <aside
-        className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-[#2E2E2E] via-[#252525] to-[#181818] border-r border-white/10 text-cream flex flex-col justify-between transition-transform duration-300 transform ${
+        className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-[#2B1B12] via-[#24170F] to-[#1F140D] border-r border-white/10 text-cream flex flex-col justify-between transition-transform duration-300 transform ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
@@ -57,15 +57,15 @@ export default function AdminLayout() {
           <div className="p-6 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rust via-gold to-rust p-[1px] shadow-gold-glow">
-                <div className="w-full h-full bg-[#181818] rounded-2xl flex items-center justify-center">
+                <div className="w-full h-full bg-[#1F140D] rounded-2xl flex items-center justify-center">
                   <span className="font-serif font-bold text-gold text-lg">A</span>
                 </div>
               </div>
               <div>
                 <h1 className="font-serif font-bold text-lg text-cream tracking-wider">
-                  AURA <span className="text-gold text-xs font-montserrat">CONTROL</span>
+                  AURA <span className="text-gold text-xs font-montserrat font-bold">CONTROL</span>
                 </h1>
-                <span className="text-[9px] uppercase font-montserrat font-bold text-rust-light tracking-widest block">
+                <span className="text-[9px] uppercase font-montserrat font-bold text-gold/70 tracking-widest block">
                   Cinematic Admin
                 </span>
               </div>
@@ -95,11 +95,11 @@ export default function AdminLayout() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-montserrat font-semibold transition-all duration-200 border ${
                     isActive
-                      ? 'bg-gold/20 text-gold border-gold/50 shadow-gold-glow-shadow'
-                      : 'text-cream/80 hover:text-cream hover:bg-white/10 border-transparent'
+                      ? 'bg-gold/15 text-gold border-gold/30 shadow-sm'
+                      : 'text-cream/70 hover:text-cream hover:bg-white/5 border-transparent'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-gold animate-pulse' : 'text-cream/60'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-gold' : 'text-cream/60'}`} />
                   <span>{item.label}</span>
                 </NavLink>
               );
@@ -123,7 +123,7 @@ export default function AdminLayout() {
           <motion.button
             whileHover={{ x: -4 }}
             onClick={() => navigate('/')}
-            className="w-full py-2.5 px-4 rounded-2xl bg-white/10 border border-gold/40 text-gold hover:bg-gold/20 hover:border-gold text-xs font-montserrat font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-luxury"
+            className="w-full py-2.5 px-4 rounded-2xl bg-gold/10 border border-gold/40 text-gold hover:bg-gold/20 text-xs font-montserrat font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm"
           >
             <ArrowLeft className="w-4 h-4 text-gold" />
             <span>Exit to Main Site</span>
@@ -132,7 +132,7 @@ export default function AdminLayout() {
           {/* Sign Out Button */}
           <button
             onClick={handleLogout}
-            className="w-full py-2.5 px-4 rounded-2xl bg-rust/20 border border-rust/40 text-cream hover:bg-rust text-xs font-montserrat font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+            className="w-full py-2.5 px-4 rounded-2xl bg-rust/10 border border-rust/30 text-cream hover:bg-rust/20 text-xs font-montserrat font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-sm"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>

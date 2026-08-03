@@ -10,8 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.7.0",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "framer-motion": "^12.43.0",
@@ -23,8 +21,8 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.2",
+    "recharts": "^2.15.0",
     "tailwind-merge": "^3.6.0",
-    "three": "^0.185.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

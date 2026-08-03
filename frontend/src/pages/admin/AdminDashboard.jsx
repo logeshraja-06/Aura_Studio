@@ -21,7 +21,7 @@ function CountUpNumber({ value, prefix = '', suffix = '' }) {
 
   useEffect(() => {
     let start = 0;
-    const duration = 1200;
+    const duration = 700;
     const stepTime = 30;
     const steps = duration / stepTime;
     const increment = (value - start) / steps;
@@ -183,11 +183,11 @@ export default function AdminDashboard() {
 
   // Tasteful Staggered Page Reveal Variants
   const pageVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 8 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, staggerChildren: 0.08 },
+      transition: { duration: 0.4, staggerChildren: 0.04 },
     },
   };
 
@@ -320,9 +320,9 @@ export default function AdminDashboard() {
             {bookings.slice(0, 5).map((b, idx) => (
               <motion.div
                 key={b._id || idx}
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.35, delay: idx * 0.06 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.25 }}
                 className="p-4 rounded-2xl bg-[#FAF2EA]/60 border border-rust/10 hover:border-gold/40 transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-sans"
               >
                 <div className="flex items-center gap-3.5">
@@ -387,7 +387,7 @@ export default function AdminDashboard() {
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(inUseCount / totalEquipment) * 100}%` }}
-                  transition={{ duration: 1, ease: 'easeOut' }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
                   className="h-full bg-gradient-to-r from-rust to-clay rounded-full"
                 />
               </div>
@@ -405,7 +405,7 @@ export default function AdminDashboard() {
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(availableCount / totalEquipment) * 100}%` }}
-                  transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
                   className="h-full bg-gold rounded-full"
                 />
               </div>
@@ -423,7 +423,7 @@ export default function AdminDashboard() {
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(maintenanceCount / totalEquipment) * 100}%` }}
-                  transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
                   className="h-full bg-rust rounded-full"
                 />
               </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Sparkles, Shield, ArrowRight, AlertCircle } from 'lucide-react';
+import { Lock, Mail, Sparkles, Shield, ArrowRight, AlertCircle, ArrowLeft } from 'lucide-react';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import Aperture3DBackground from '../../components/admin/Aperture3DBackground';
 
@@ -31,7 +31,19 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-cream flex items-center justify-center p-4 overflow-hidden selection:bg-gold selection:text-black">
+    <div className="relative min-h-screen bg-[#1F140D] text-cream flex flex-col items-center justify-center p-4 overflow-hidden selection:bg-gold selection:text-black">
+      {/* Exit to Main Site Navigation Button */}
+      <div className="w-full max-w-md flex justify-start sm:absolute sm:top-6 sm:left-6 sm:w-auto mb-4 sm:mb-0 z-20">
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/40 text-gold hover:bg-gold/10 text-xs font-montserrat uppercase font-semibold tracking-wider transition-all duration-300 backdrop-blur-md bg-black/40 shadow-sm"
+        >
+          <ArrowLeft className="w-4 h-4 text-gold" />
+          <span>Exit to Main Site</span>
+        </button>
+      </div>
+
       {/* 3D Rotating Aperture Ring Canvas Background */}
       <Aperture3DBackground />
 
@@ -40,7 +52,7 @@ export default function AdminLogin() {
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="relative z-10 max-w-md w-full bg-[#121212]/90 border border-gold/40 rounded-3xl p-8 backdrop-blur-2xl shadow-gold-glow-shadow"
+        className="relative z-10 max-w-md w-full bg-[#2B1B12]/90 border border-gold/40 rounded-3xl p-8 backdrop-blur-2xl shadow-gold-glow-shadow"
       >
         {/* Top Metallic Border Glow */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rust via-gold to-rust" />
@@ -48,7 +60,7 @@ export default function AdminLogin() {
         {/* Card Header */}
         <div className="text-center mb-8">
           <div className="w-14 h-14 rounded-2xl bg-gold/10 border border-gold/40 text-gold flex items-center justify-center mx-auto mb-4 shadow-gold-glow">
-            <Sparkles className="w-7 h-7 text-gold animate-spin-slow" />
+            <Sparkles className="w-7 h-7 text-gold" />
           </div>
 
           <span className="text-[10px] font-montserrat uppercase font-bold text-rust tracking-[0.25em] block mb-1">

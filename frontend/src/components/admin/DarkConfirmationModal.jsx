@@ -29,7 +29,7 @@ export default function DarkConfirmationModal({
           exit={{ scale: 0.9, opacity: 0, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 220 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative max-w-md w-full bg-[#121212] rounded-3xl border border-gold/30 shadow-2xl overflow-hidden p-6 sm:p-8"
+          className="relative max-w-md w-full bg-[#2B1B12] rounded-3xl border border-gold/30 shadow-2xl overflow-hidden p-6 sm:p-8"
         >
           {/* Top Border Glow */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rust via-gold to-rust" />

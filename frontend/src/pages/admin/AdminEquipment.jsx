@@ -391,7 +391,7 @@ export default function AdminEquipment() {
                   <select
                     value={assigned ? assigned._id || assigned : ''}
                     onChange={(e) => handleAssignBooking(eq._id, e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#121212] border border-white/15 text-xs font-sans text-cream focus:outline-none focus:border-gold"
+                    className="w-full px-3 py-2 rounded-xl bg-[#2B1B12] border border-white/15 text-xs font-sans text-cream focus:outline-none focus:border-gold"
                   >
                     <option value="">-- No Booking Assigned (Vault) --</option>
                     {upcomingBookings.map((b) => (

@@ -1,110 +1,30 @@
-import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-
-function ApertureRings() {
-  const groupRef = useRef();
-  const outerRingRef = useRef();
-  const innerRingRef = useRef();
-  const bladesRef = useRef([]);
-
-  useFrame((state, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.25;
-      groupRef.current.rotation.x = Math.sin((state.clock.elapsedTime || 0) * 0.5) * 0.15;
-    }
-    if (outerRingRef.current) {
-      outerRingRef.current.rotation.z -= delta * 0.35;
-    }
-    if (innerRingRef.current) {
-      innerRingRef.current.rotation.z += delta * 0.5;
-    }
-  });
-
-  const numBlades = 8;
-  const bladeAngles = Array.from({ length: numBlades }, (_, i) => (i * 2 * Math.PI) / numBlades);
-
-  return (
-    <group ref={groupRef}>
-      {/* Outer Golden Metallic Ring */}
-      <mesh ref={outerRingRef} position={[0, 0, 0]}>
-        <torusGeometry args={[2.5, 0.08, 16, 100]} />
-        <meshStandardMaterial
-          color="#C9A227"
-          metalness={0.9}
-          roughness={0.2}
-          emissive="#C9A227"
-          emissiveIntensity={0.25}
-        />
-      </mesh>
-
-      {/* Inner Rust Metallic Accent Ring */}
-      <mesh ref={innerRingRef} position={[0, 0, 0]}>
-        <torusGeometry args={[1.8, 0.05, 16, 80]} />
-        <meshStandardMaterial
-          color="#A8654A"
-          metalness={0.8}
-          roughness={0.3}
-          emissive="#A8654A"
-          emissiveIntensity={0.3}
-        />
-      </mesh>
-
-      {/* 8 Spiraling Camera Aperture Blades */}
-      {bladeAngles.map((angle, index) => (
-        <group key={index} rotation={[0, 0, angle]}>
-          <mesh position={[1.1, 0.4, 0]} rotation={[0, 0, 0.5]}>
-            <boxGeometry args={[1.2, 0.25, 0.02]} />
-            <meshStandardMaterial
-              color={index % 2 === 0 ? '#C9A227' : '#A8654A'}
-              metalness={0.85}
-              roughness={0.25}
-              transparent
-              opacity={0.7}
-            />
-          </mesh>
-        </group>
-      ))}
-
-      {/* Central Glowing Aperture Core Sphere */}
-      <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[0.4, 32, 32]} />
-        <meshStandardMaterial
-          color="#FFE58F"
-          emissive="#C9A227"
-          emissiveIntensity={0.8}
-          metalness={0.5}
-          roughness={0.1}
-        />
-      </mesh>
-
-      {/* Ambient particles surrounding ring */}
-      {Array.from({ length: 24 }).map((_, i) => {
-        const radius = 2.8 + (i % 5) * 0.3;
-        const a = (i * 2 * Math.PI) / 24;
-        return (
-          <mesh key={`p-${i}`} position={[Math.cos(a) * radius, Math.sin(a) * radius, (i % 3) * 0.2 - 0.2]}>
-            <sphereGeometry args={[0.03, 8, 8]} />
-            <meshBasicMaterial color={i % 2 === 0 ? '#C9A227' : '#A8654A'} transparent opacity={0.6} />
-          </mesh>
-        );
-      })}
-    </group>
-  );
-}
+import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function Aperture3DBackground() {
   return (
-    <div className="absolute inset-0 pointer-events-none opacity-40 overflow-hidden">
-      <Canvas
-        camera={{ position: [0, 0, 6], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-      >
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[10, 10, 5]} intensity={1.5} color="#FFE58F" />
-        <pointLight position={[-10, -10, -5]} intensity={1} color="#A8654A" />
-        <ApertureRings />
-      </Canvas>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-gradient-to-br from-[#1F140D] via-[#2B1B12] to-[#140D08]">
+      {/* Soft Ambient Terracotta & Coffee Glow Orbs */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-[#B87352]/15 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] rounded-full bg-[#8B5E3C]/15 blur-3xl pointer-events-none" />
+
+      {/* Rotating Concentric Aperture Ring SVG Pattern */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-20">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+          className="w-[600px] h-[600px] border border-[#B87352]/30 rounded-full flex items-center justify-center p-8"
+        >
+          <div className="w-full h-full border border-dashed border-[#8B5E3C]/40 rounded-full flex items-center justify-center p-12">
+            <div className="w-full h-full border border-[#B87352]/20 rounded-full flex items-center justify-center p-16">
+              <div className="w-full h-full border border-dotted border-[#8B5E3C]/30 rounded-full" />
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Fine Subtle Grid Lines */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#B8735208_1px,transparent_1px),linear-gradient(to_bottom,#B8735208_1px,transparent_1px)] bg-[size:32px_32px]" />
     </div>
   );
 }

@@ -39,7 +39,7 @@ export default function AdminSettings() {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Studio Identity Settings */}
-        <div className="bg-[#0A0A0A] p-6 rounded-3xl border border-white/10 space-y-4">
+        <div className="bg-[#1F140D] p-6 rounded-3xl border border-white/10 space-y-4">
           <h3 className="text-lg font-serif font-bold text-cream flex items-center gap-2">
             <Globe className="w-5 h-5 text-gold" />
             <span>Studio Identity & Contact Details</span>
@@ -54,7 +54,7 @@ export default function AdminSettings() {
                 type="text"
                 value={settings.studioName}
                 onChange={(e) => setSettings({ ...settings, studioName: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-[#121212] border border-white/15 text-cream focus:outline-none focus:border-gold"
+                className="w-full px-4 py-3 rounded-xl bg-[#2B1B12] border border-white/15 text-cream focus:outline-none focus:border-gold"
               />
             </div>
 
@@ -66,21 +66,21 @@ export default function AdminSettings() {
                 type="email"
                 value={settings.contactEmail}
                 onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-[#121212] border border-white/15 text-cream focus:outline-none focus:border-gold"
+                className="w-full px-4 py-3 rounded-xl bg-[#2B1B12] border border-white/15 text-cream focus:outline-none focus:border-gold"
               />
             </div>
           </div>
         </div>
 
         {/* Notifications & Automation */}
-        <div className="bg-[#0A0A0A] p-6 rounded-3xl border border-white/10 space-y-4">
+        <div className="bg-[#1F140D] p-6 rounded-3xl border border-white/10 space-y-4">
           <h3 className="text-lg font-serif font-bold text-cream flex items-center gap-2">
             <Bell className="w-5 h-5 text-gold" />
             <span>Notification & Auto-Hold Controls</span>
           </h3>
 
           <div className="space-y-3 text-xs font-sans">
-            <label className="flex items-center justify-between p-3 rounded-2xl bg-[#121212] border border-white/10 cursor-pointer">
+            <label className="flex items-center justify-between p-3 rounded-2xl bg-[#2B1B12] border border-white/10 cursor-pointer">
               <div>
                 <span className="font-montserrat font-bold text-cream block">Email Dispatch on New Inquiries</span>
                 <span className="text-[10px] text-cream/60">Receive instant director alert when a client submits a booking.</span>
@@ -93,7 +93,7 @@ export default function AdminSettings() {
               />
             </label>
 
-            <label className="flex items-center justify-between p-3 rounded-2xl bg-[#121212] border border-white/10 cursor-pointer">
+            <label className="flex items-center justify-between p-3 rounded-2xl bg-[#2B1B12] border border-white/10 cursor-pointer">
               <div>
                 <span className="font-montserrat font-bold text-cream block">Auto-Confirm Availability Hold</span>
                 <span className="text-[10px] text-cream/60">Automatically mark incoming web inquiries as confirmed priority hold.</span>

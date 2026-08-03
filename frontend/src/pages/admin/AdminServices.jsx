@@ -38,7 +38,7 @@ export default function AdminServices() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-2xl text-xs font-montserrat font-bold transition-all duration-200 shrink-0 border ${isActive
                 ? 'bg-gold/20 text-gold border-gold/40 shadow-gold-glow-shadow'
-                : 'bg-[#0A0A0A] text-cream/70 border-white/10 hover:text-cream'
+                : 'bg-[#1F140D] text-cream/70 border-white/10 hover:text-cream'
                 }`}
             >
               {cat}
@@ -52,7 +52,7 @@ export default function AdminServices() {
         {filteredServices.map((srv) => (
           <div
             key={srv.id}
-            className="bg-[#0A0A0A] p-6 rounded-3xl border border-white/10 hover:border-gold/30 transition-all duration-300 space-y-5 shadow-2xl relative overflow-hidden flex flex-col justify-between"
+            className="bg-[#1F140D] p-6 rounded-3xl border border-white/10 hover:border-gold/30 transition-all duration-300 space-y-5 shadow-2xl relative overflow-hidden flex flex-col justify-between"
           >
             <div className="flex items-start justify-between gap-4">
               <div>

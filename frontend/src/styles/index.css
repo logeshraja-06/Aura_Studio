@@ -5,8 +5,8 @@
 @layer base {
   html {
     scroll-behavior: initial;
-    background-color: #FDF8F3;
-    color: #2E2E2E;
+    background-color: #F7F1E8;
+    color: #3A2A1E;
   }
 
   body {
@@ -29,60 +29,60 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #FDF8F3;
+  background: #F7F1E8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #A8654A;
+  background: #B87352;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8C4F37;
+  background: #8B5E3C;
 }
 
 /* Glassmorphism Utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(168, 101, 74, 0.12);
+  border: 1px solid rgba(139, 94, 60, 0.12);
 }
 
 .glass-panel-dark {
-  background: rgba(24, 24, 24, 0.85);
+  background: rgba(31, 20, 13, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(201, 162, 39, 0.2);
+  border: 1px solid rgba(184, 115, 82, 0.2);
 }
 
 .glass-nav {
-  background: rgba(253, 248, 243, 0.82);
+  background: rgba(247, 241, 232, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(168, 101, 74, 0.15);
+  border-bottom: 1px solid rgba(139, 94, 60, 0.15);
 }
 
 /* Luxury Gold & Rust Text Gradients */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #C9A227 0%, #E9C08C 50%, #A8654A 100%);
+  background: linear-gradient(135deg, #B87352 0%, #D99B7D 50%, #8B5E3C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-rust-gradient {
-  background: linear-gradient(135deg, #A8654A 0%, #B4735A 60%, #8C4F37 100%);
+  background: linear-gradient(135deg, #8B5E3C 0%, #B87352 60%, #6E472C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* Soft Glow Effects */
 .gold-glow-shadow {
-  box-shadow: 0 10px 30px -5px rgba(201, 162, 39, 0.3);
+  box-shadow: 0 10px 30px -5px rgba(184, 115, 82, 0.3);
 }
 
 .rust-glow-shadow {
-  box-shadow: 0 15px 35px -8px rgba(168, 101, 74, 0.25);
+  box-shadow: 0 15px 35px -8px rgba(139, 94, 60, 0.25);
 }
 
 /* Lenis Scroll Standard Reset */

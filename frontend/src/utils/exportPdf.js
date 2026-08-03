@@ -23,8 +23,8 @@ export function exportBookingsPDF(filteredBookings, filterTitle = 'All Bookings'
     return da - db;
   });
 
-  // Dark Control Room Header Backdrop (#0A0A0A)
-  doc.setFillColor(10, 10, 10);
+  // Dark Control Room Header Backdrop (#1F140D)
+  doc.setFillColor(31, 20, 13);
   doc.rect(0, 0, 297, 45, 'F');
 
   // Gold Accent Line (#C9A227)

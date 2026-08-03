@@ -1,161 +1,77 @@
-import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
-import * as THREE from 'three';
+import React from 'react';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 
-function ChartGroup({ data, activeSegment, setActiveSegment }) {
-  const groupRef = useRef();
-
-  useFrame((state, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.3;
-    }
-  });
-
-  const total = data.reduce((acc, curr) => acc + curr.value, 0) || 1;
-
-  // Extruded 3D Bar representation or Torus segment
-  let currentAngle = 0;
-  const segments = data.map((item) => {
-    const angle = (item.value / total) * Math.PI * 2;
-    const startAngle = currentAngle;
-    currentAngle += angle;
-    return { ...item, startAngle, angle };
-  });
-
-  return (
-    <group ref={groupRef} rotation={[0.4, 0, 0]}>
-      {segments.map((seg, idx) => {
-        const midAngle = seg.startAngle + seg.angle / 2;
-        const x = Math.cos(midAngle) * 0.15;
-        const z = Math.sin(midAngle) * 0.15;
-        const isHovered = activeSegment && activeSegment.label === seg.label;
-
-        return (
-          <group
-            key={seg.label}
-            position={[isHovered ? x : 0, 0, isHovered ? z : 0]}
-            onPointerOver={(e) => {
-              e.stopPropagation();
-              setActiveSegment(seg);
-            }}
-            onPointerOut={() => setActiveSegment(null)}
-          >
-            {/* Extruded Bar / Cylinder segment */}
-            <mesh
-              position={[
-                Math.cos(midAngle) * 1.4,
-                0,
-                Math.sin(midAngle) * 1.4,
-              ]}
-              rotation={[0, -midAngle, 0]}
-            >
-              <boxGeometry args={[0.5, Math.max(0.4, (seg.value / total) * 3.5), 0.5]} />
-              <meshStandardMaterial
-                color={seg.color}
-                metalness={0.8}
-                roughness={0.2}
-                emissive={seg.color}
-                emissiveIntensity={isHovered ? 0.6 : 0.2}
-              />
-            </mesh>
-
-            {/* Torus Segment Ring Indicator */}
-            <mesh rotation={[Math.PI / 2, 0, seg.startAngle]}>
-              <torusGeometry args={[1.5, 0.18, 16, 32, seg.angle]} />
-              <meshStandardMaterial
-                color={seg.color}
-                metalness={0.7}
-                roughness={0.3}
-                emissive={seg.color}
-                emissiveIntensity={isHovered ? 0.5 : 0.15}
-              />
-            </mesh>
-          </group>
-        );
-      })}
-
-      {/* Center Core Metallic Sphere */}
-      <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[0.65, 32, 32]} />
-        <meshStandardMaterial
-          color="#121212"
-          metalness={0.9}
-          roughness={0.1}
-          emissive="#C9A227"
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-    </group>
-  );
-}
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0];
+    return (
+      <div className="bg-[#1F140D] border border-[#B87352]/40 p-2.5 rounded-xl shadow-xl text-xs font-sans text-cream">
+        <p className="font-montserrat font-bold" style={{ color: data.payload.color }}>
+          {data.name}
+        </p>
+        <p className="text-cream/90 font-medium">
+          Count: <span className="font-bold">{data.value}</span>
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
 
 export default function DonutChart3D({ pendingCount = 5, confirmedCount = 12, cancelledCount = 2 }) {
-  const [activeSegment, setActiveSegment] = useState(null);
-
-  const chartData = [
-    { label: 'Confirmed', value: confirmedCount, color: '#C9A227', textClass: 'text-gold' },
-    { label: 'Pending', value: pendingCount, color: '#A8654A', textClass: 'text-rust' },
-    { label: 'Cancelled', value: cancelledCount, color: '#EF4444', textClass: 'text-red-400' },
+  const data = [
+    { name: 'Confirmed', value: confirmedCount, color: '#4C8C5A' },
+    { name: 'Pending', value: pendingCount, color: '#8B5E3C' },
+    { name: 'Cancelled', value: cancelledCount, color: '#B87352' },
   ];
 
-  const totalBookings = pendingCount + confirmedCount + cancelledCount;
+  const total = confirmedCount + pendingCount + cancelledCount;
 
   return (
-    <div className="relative w-full h-72 rounded-3xl bg-[#0A0A0A]/80 border border-gold/20 backdrop-blur-xl p-4 overflow-hidden flex flex-col justify-between">
-      {/* Header Info */}
-      <div className="flex items-center justify-between z-10">
-        <div>
-          <span className="text-[10px] font-montserrat font-bold uppercase tracking-widest text-gold block">
-            3D Analytics Engine
-          </span>
-          <h3 className="text-lg font-serif font-bold text-cream">
-            Bookings Distribution
-          </h3>
-        </div>
-        <span className="px-3 py-1 rounded-full bg-gold/10 text-gold text-xs font-montserrat font-bold border border-gold/30">
-          Total: {totalBookings}
+    <div className="relative w-full h-72 rounded-3xl bg-white border border-rust/15 p-4 shadow-luxury flex flex-col justify-between">
+      <div className="flex items-center justify-between">
+        <span className="text-[10px] font-montserrat uppercase font-bold text-rust tracking-widest">
+          Reservation Mix
+        </span>
+        <span className="text-xs font-serif font-bold text-charcoal">
+          {total} Total
         </span>
       </div>
 
-      {/* 3D Canvas */}
-      <div className="relative w-full h-44 cursor-pointer">
-        <Canvas camera={{ position: [0, 2.5, 4.5], fov: 45 }}>
-          <ambientLight intensity={0.7} />
-          <directionalLight position={[5, 10, 5]} intensity={1.5} color="#FFE58F" />
-          <pointLight position={[-5, -5, -5]} intensity={0.8} color="#A8654A" />
-          <ChartGroup
-            data={chartData}
-            activeSegment={activeSegment}
-            setActiveSegment={setActiveSegment}
-          />
-        </Canvas>
+      {/* Donut Chart with Center Text */}
+      <div className="relative h-44 w-full flex items-center justify-center">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={52}
+              outerRadius={72}
+              paddingAngle={4}
+              dataKey="value"
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} stroke="transparent" />
+              ))}
+            </Pie>
+            <Tooltip content={<CustomTooltip />} />
+          </PieChart>
+        </ResponsiveContainer>
 
-        {/* Hover Tooltip Overlay */}
-        {activeSegment && (
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-xl bg-charcoal/95 border border-gold/40 text-cream text-xs font-montserrat shadow-xl pointer-events-none z-20 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: activeSegment.color }} />
-            <span className="font-bold">{activeSegment.label}:</span>
-            <span className="text-gold font-bold">{activeSegment.value}</span>
-            <span className="text-[10px] text-cream/60">({Math.round((activeSegment.value / (totalBookings || 1)) * 100)}%)</span>
-          </div>
-        )}
+        {/* Central Metric Label */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center">
+          <span className="text-2xl font-serif font-bold text-charcoal">{confirmedCount}</span>
+          <span className="text-[9px] font-montserrat uppercase text-rust font-bold">Confirmed</span>
+        </div>
       </div>
 
       {/* Legend Footer */}
-      <div className="flex items-center justify-around pt-2 border-t border-white/10 text-xs font-montserrat z-10">
-        {chartData.map((item) => (
-          <div
-            key={item.label}
-            onMouseEnter={() => setActiveSegment(item)}
-            onMouseLeave={() => setActiveSegment(null)}
-            className={`flex items-center gap-2 cursor-pointer px-2 py-1 rounded-lg transition-colors ${
-              activeSegment?.label === item.label ? 'bg-white/10' : ''
-            }`}
-          >
+      <div className="flex items-center justify-around border-t border-rust/10 pt-3 text-[11px] font-sans">
+        {data.map((item) => (
+          <div key={item.name} className="flex items-center gap-1.5 font-medium">
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
-            <span className="text-cream/80 text-[11px]">{item.label}:</span>
-            <span className={`font-bold ${item.textClass}`}>{item.value}</span>
+            <span className="text-charcoal/80">{item.name} ({item.value})</span>
           </div>
         ))}
       </div>

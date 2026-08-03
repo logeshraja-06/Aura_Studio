@@ -40,7 +40,7 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
   }
 
   return (
-    <div className="bg-[#0A0A0A] p-6 rounded-3xl border border-white/10 shadow-2xl space-y-6">
+    <div className="bg-[#1F140D] p-6 rounded-3xl border border-white/10 shadow-2xl space-y-6">
       {/* Calendar Header Controls */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -82,7 +82,7 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
       {/* Weekday Labels Header */}
       <div className="grid grid-cols-7 gap-2 text-center text-[11px] font-montserrat font-bold uppercase text-gold">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((w) => (
-          <div key={w} className="py-2 bg-[#121212] rounded-xl border border-white/5">
+          <div key={w} className="py-2 bg-[#2B1B12] rounded-xl border border-white/5">
             {w}
           </div>
         ))}
@@ -107,7 +107,7 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
               className={`h-28 p-2 rounded-2xl border flex flex-col justify-between transition-all duration-200 overflow-hidden ${
                 isToday
                   ? 'bg-gold/10 border-gold shadow-gold-glow-shadow'
-                  : 'bg-[#121212]/80 border-white/5 hover:border-white/20'
+                  : 'bg-[#2B1B12]/80 border-white/5 hover:border-white/20'
               }`}
             >
               <div className="flex items-center justify-between text-xs font-montserrat">
@@ -126,7 +126,7 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
                 {dayBookings.map((b) => (
                   <motion.div
                     key={b._id}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ opacity: 0.85 }}
                     onClick={() => onSelectBooking && onSelectBooking(b)}
                     className={`p-1.5 rounded-xl text-[10px] font-sans font-medium cursor-pointer truncate border flex items-center gap-1.5 ${
                       b.status === 'confirmed'

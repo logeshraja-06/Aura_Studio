@@ -271,7 +271,7 @@ export default function AdminBookings() {
         {/* Action Buttons: View Switcher & PDF / Excel Exporters */}
         <div className="flex flex-wrap items-center gap-3">
           {/* View Switcher Toggle */}
-          <div className="bg-[#0A0A0A] p-1 rounded-2xl border border-white/10 flex items-center gap-1">
+          <div className="bg-[#1F140D] p-1 rounded-2xl border border-white/10 flex items-center gap-1">
             <button
               onClick={() => setViewMode('table')}
               className={`px-3 py-1.5 rounded-xl text-xs font-montserrat font-bold transition-all duration-200 flex items-center gap-1.5 ${
@@ -478,7 +478,7 @@ export default function AdminBookings() {
                         {/* Expandable Slide-Down Panel */}
                         {isExpanded && (
                           <tr>
-                            <td colSpan={5} className="bg-[#121212]/90 p-6 border-b border-white/10">
+                            <td colSpan={5} className="bg-[#2B1B12]/90 p-6 border-b border-white/10">
                               <motion.div
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: 'auto' }}
@@ -525,7 +525,7 @@ export default function AdminBookings() {
                                               [b._id]: { ...pInputs, totalAmount: e.target.value },
                                             })
                                           }
-                                          className="w-full px-3 py-1.5 rounded-xl bg-[#121212] border border-white/15 text-cream"
+                                          className="w-full px-3 py-1.5 rounded-xl bg-[#2B1B12] border border-white/15 text-cream"
                                         />
                                       </div>
                                       <div>
@@ -539,7 +539,7 @@ export default function AdminBookings() {
                                               [b._id]: { ...pInputs, advanceAmount: e.target.value },
                                             })
                                           }
-                                          className="w-full px-3 py-1.5 rounded-xl bg-[#121212] border border-white/15 text-cream"
+                                          className="w-full px-3 py-1.5 rounded-xl bg-[#2B1B12] border border-white/15 text-cream"
                                         />
                                       </div>
                                     </div>

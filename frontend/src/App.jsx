@@ -43,7 +43,7 @@ const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 // Branded Dark Loader while verifying token session
 function DarkAdminAuthLoader() {
   return (
-    <div className="fixed inset-0 z-[150] bg-[#050505] text-cream flex flex-col items-center justify-center p-4 select-none">
+    <div className="fixed inset-0 z-[150] bg-[#1F140D] text-cream flex flex-col items-center justify-center p-4 select-none">
       <Aperture3DBackground />
       <div className="relative z-10 flex flex-col items-center gap-4 text-center">
         <div className="w-16 h-16 rounded-full border-4 border-gold/20 border-t-gold animate-spin shadow-gold-glow" />
