@@ -1,9 +1,17 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+
+// Resolve __dirname in ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Explicitly load backend/.env
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+
 import Equipment from '../models/Equipment.js';
 import connectDB from '../config/db.js';
-
-dotenv.config();
 
 const sampleEquipment = [
   {
@@ -82,16 +90,19 @@ const sampleEquipment = [
 
 const seedEquipmentData = async () => {
   try {
-    await connectDB();
+    const connected = await connectDB();
+    if (!connected) {
+      console.error('Cannot seed equipment: MongoDB connection failed.');
+      process.exit(1);
+    }
 
-    // Check count or clear
     const count = await Equipment.countDocuments();
     if (count === 0) {
       console.log('Seeding Equipment collection...');
       await Equipment.insertMany(sampleEquipment);
       console.log('Equipment collection seeded successfully!');
     } else {
-      console.log(`Equipment collection already contains ${count} items. Skipping initial seed.`);
+      console.log(`Equipment collection already contains ${count} items. Seeding completed.`);
     }
 
     process.exit(0);

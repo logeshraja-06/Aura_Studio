@@ -308,7 +308,7 @@ export default function AdminBookings() {
           {/* Export Excel Button */}
           <button
             onClick={() => exportBookingsExcel(filteredBookings, statusFilter)}
-            className="px-3.5 py-2 rounded-2xl bg-green-500/20 border border-green-500/40 text-green-400 hover:bg-green-500 hover:text-black text-xs font-montserrat font-bold transition-all flex items-center gap-2"
+            className="px-3.5 py-2 rounded-2xl bg-gold/20 border border-gold/40 text-gold hover:bg-gold hover:text-black text-xs font-montserrat font-bold transition-all flex items-center gap-2 shadow-gold-glow-shadow"
           >
             <FileSpreadsheet className="w-3.5 h-3.5" />
             <span>Export Excel</span>
@@ -452,14 +452,14 @@ export default function AdminBookings() {
                               onChange={(e) => handleStatusChange(b._id, e.target.value)}
                               className={`px-3 py-1 rounded-full text-[10px] font-montserrat font-bold uppercase cursor-pointer outline-none border transition-colors ${
                                 b.status === 'confirmed'
-                                  ? 'bg-green-500/20 text-green-400 border-green-500/40'
+                                  ? 'bg-gold/20 text-gold border-gold/40'
                                   : b.status === 'pending'
                                   ? 'bg-gold/20 text-gold border-gold/40'
                                   : 'bg-rust/20 text-rust border-rust/40'
                               }`}
                             >
                               <option value="pending" className="bg-[#121212] text-gold">Pending</option>
-                              <option value="confirmed" className="bg-[#121212] text-green-400">Confirmed</option>
+                              <option value="confirmed" className="bg-[#121212] text-gold">Confirmed</option>
                               <option value="cancelled" className="bg-[#121212] text-rust">Cancelled</option>
                             </select>
                           </td>

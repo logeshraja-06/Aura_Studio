@@ -36,11 +36,10 @@ export default function AdminServices() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-2xl text-xs font-montserrat font-bold transition-all duration-200 shrink-0 border ${
-                isActive
-                  ? 'bg-gold/20 text-gold border-gold/40 shadow-gold-glow-shadow'
-                  : 'bg-[#0A0A0A] text-cream/70 border-white/10 hover:text-cream'
-              }`}
+              className={`px-4 py-2 rounded-2xl text-xs font-montserrat font-bold transition-all duration-200 shrink-0 border ${isActive
+                ? 'bg-gold/20 text-gold border-gold/40 shadow-gold-glow-shadow'
+                : 'bg-[#0A0A0A] text-cream/70 border-white/10 hover:text-cream'
+                }`}
             >
               {cat}
             </button>

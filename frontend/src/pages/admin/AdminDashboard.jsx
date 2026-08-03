@@ -234,19 +234,20 @@ export default function AdminDashboard() {
           </div>
         </AdminTiltCard>
 
-        <AdminTiltCard glowColor="green" className="p-6">
+        {/* Card 2: Confirmed Bookings */}
+        <AdminTiltCard glowColor="gold" className="p-6">
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-montserrat uppercase font-bold text-cream/60 tracking-wider">
               Confirmed Bookings
             </span>
-            <div className="w-10 h-10 rounded-2xl bg-green-500/15 border border-green-500/40 text-green-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-gold/15 border border-gold/40 text-gold flex items-center justify-center">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl sm:text-4xl font-serif font-bold text-green-400">
+          <div className="text-3xl sm:text-4xl font-serif font-bold text-gold">
             <CountUpNumber value={confirmedBookings} />
           </div>
-          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-green-400 font-sans font-medium">
+          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-gold font-sans font-medium">
             <ArrowUpRight className="w-3.5 h-3.5" />
             <span>Deposit received & date locked</span>
           </div>
@@ -333,7 +334,7 @@ export default function AdminDashboard() {
                 <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
                   <span className={`px-3 py-1 rounded-full text-[10px] font-montserrat font-bold uppercase border ${
                     b.status === 'confirmed'
-                      ? 'bg-green-500/15 text-green-400 border-green-500/40'
+                      ? 'bg-gold/20 text-gold border-gold/40'
                       : b.status === 'pending'
                       ? 'bg-gold/15 text-gold border-gold/40'
                       : 'bg-rust/20 text-rust border-rust/40'
@@ -387,17 +388,17 @@ export default function AdminDashboard() {
             <div>
               <div className="flex justify-between mb-1.5 font-montserrat">
                 <span className="text-cream/80 font-semibold flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-400 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-gold-light inline-block" />
                   Available in Studio Vault
                 </span>
-                <span className="text-green-400 font-bold">{availableCount} items</span>
+                <span className="text-gold-light font-bold">{availableCount} items</span>
               </div>
               <div className="w-full h-3 rounded-full bg-white/10 overflow-hidden p-0.5">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(availableCount / totalEquipment) * 100}%` }}
                   transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-                  className="h-full bg-green-500 rounded-full"
+                  className="h-full bg-gold-light rounded-full"
                 />
               </div>
             </div>

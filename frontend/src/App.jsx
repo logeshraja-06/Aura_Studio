@@ -60,15 +60,23 @@ function DarkAdminAuthLoader() {
   );
 }
 
-// Protected Admin Route Guard
+// Protected Admin Route Guard with Dev Diagnostic Logging
 function ProtectedAdminRoute({ children }) {
   const { isAuthenticated, authLoading } = useAdminAuth();
+
+  // Dev diagnostic log to verify auth check execution
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('[ProtectedAdminRoute Guard]', { authLoading, isAuthenticated });
+  }
 
   if (authLoading) {
     return <DarkAdminAuthLoader />;
   }
 
   if (!isAuthenticated) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('[ProtectedAdminRoute Guard] Unauthenticated access attempt. Redirecting to /admin/login');
+    }
     return <Navigate to="/admin/login" replace />;
   }
 
@@ -142,18 +150,26 @@ function AppContent() {
               </Suspense>
             }
           />
+          <Route
+            path="dashboard"
+            element={
+              <Suspense fallback={<DarkAdminAuthLoader />}>
+                <AdminDashboard />
+              </Suspense>
+            }
+          />
           <Route path="bookings" element={<AdminBookings />} />
           <Route path="equipment" element={<AdminEquipment />} />
           <Route path="services" element={<AdminServices />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
-        {/* Wildcard redirect inside /admin namespace to /admin/login */}
-        <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
+        {/* Redirect any unhandled /admin/* sub-path back to /admin */}
+        <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
       </Routes>
     );
   }
 
-  // Public Shell & Public Routes
+  // Public Shell & Public Routes (Zero overlap with /admin)
   return (
     <div className="min-h-screen bg-cream text-charcoal relative selection:bg-gold selection:text-white">
       {/* Minimal Camera Aperture Loader Screen */}
@@ -181,7 +197,7 @@ function AppContent() {
               path="/booking/:serviceId"
               element={<ServiceBookingPage />}
             />
-            {/* Public Client Reservation Status Lookup Routes */}
+            {/* Standalone Public Client Reservation Status Lookup Routes */}
             <Route
               path="/track-booking"
               element={<ClientStatusLookup />}

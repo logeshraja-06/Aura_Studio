@@ -130,14 +130,14 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
                     onClick={() => onSelectBooking && onSelectBooking(b)}
                     className={`p-1.5 rounded-xl text-[10px] font-sans font-medium cursor-pointer truncate border flex items-center gap-1.5 ${
                       b.status === 'confirmed'
-                        ? 'bg-green-500/20 text-green-300 border-green-500/40'
+                        ? 'bg-gold/20 text-gold border-gold/40'
                         : b.status === 'pending'
                         ? 'bg-gold/20 text-gold border-gold/40'
                         : 'bg-rust/20 text-rust border-rust/40'
                     }`}
                   >
                     <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                      b.status === 'confirmed' ? 'bg-green-400' : b.status === 'pending' ? 'bg-gold' : 'bg-rust'
+                      b.status === 'confirmed' ? 'bg-gold' : b.status === 'pending' ? 'bg-gold' : 'bg-rust'
                     }`} />
                     <span className="truncate">{b.name}</span>
                   </motion.div>

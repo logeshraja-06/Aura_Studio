@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useVelocity, useTransform, useSpring } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, Camera, Sparkles, ChevronRight } from 'lucide-react';
+import { Menu, X, Camera, Sparkles, ChevronRight, ShieldCheck } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 
 export default function Navbar({ onOpenBooking }) {
@@ -15,27 +15,25 @@ export default function Navbar({ onOpenBooking }) {
     setIsTouchDevice(!window.matchMedia('(pointer: fine)').matches);
   }, []);
 
-  // Track scroll velocity for distinctive 3D perspective tilt
+  // Track scroll velocity for silk-smooth 3D perspective tilt
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
 
-  // Map velocity (-2500 to 2500 px/s) to backward 3D tilt (rotateX around 8–10deg) and translateZ (-10px)
-  const rawRotateX = useTransform(scrollVelocity, [-2500, 0, 2500], [9, 0, 9]);
-  const rawTranslateZ = useTransform(scrollVelocity, [-2500, -10, 0, 10, 2500], [-10, 0, 0, 0, -10]);
-  const rawShadowOpacity = useTransform(scrollVelocity, [-2500, 0, 2500], [0.25, 0.08, 0.25]);
+  // Map velocity to subtle 3D tilt (rotateX around 6–8deg) and translateZ (-8px)
+  const rawRotateX = useTransform(scrollVelocity, [-2500, 0, 2500], [7, 0, 7]);
+  const rawTranslateZ = useTransform(scrollVelocity, [-2500, -10, 0, 10, 2500], [-8, 0, 0, 0, -8]);
 
-  // Spring configuration for quick ~200-250ms settle
-  const springConfig = { stiffness: 320, damping: 26, mass: 0.5 };
+  // Refined spring configuration (lower stiffness & smooth damping for zero jitter)
+  const springConfig = { stiffness: 180, damping: 24, mass: 0.5 };
   const springRotateX = useSpring(rawRotateX, springConfig);
   const springTranslateZ = useSpring(rawTranslateZ, springConfig);
-  const springShadowOpacity = useSpring(rawShadowOpacity, springConfig);
 
+  // Public Nav Items
   const navItems = [
     { label: 'Home', href: '#hero', sectionId: 'hero' },
     { label: 'Services', href: '#services', sectionId: 'services' },
     { label: 'Gallery', href: '#gallery', sectionId: 'gallery' },
     { label: 'Packages', href: '/packages', isRoute: true },
-    { label: 'Check Status', href: '/track-booking', isRoute: true },
     { label: 'Testimonials', href: '#testimonials', sectionId: 'testimonials' },
     { label: 'Contact', href: '#contact', sectionId: 'contact' },
   ];
@@ -129,14 +127,13 @@ export default function Navbar({ onOpenBooking }) {
         }`} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Studio Brand Monogram Logo with Rotating Gold Ring & Scale Micro-Interaction */}
+          {/* Studio Brand Logo */}
           <motion.button
             variants={navItemVariants}
             onClick={() => navigate('/')}
             className="group flex items-center gap-3 focus:outline-none"
           >
             <div className="relative">
-              {/* Subtle Rotating Outer Ring */}
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
@@ -160,7 +157,7 @@ export default function Navbar({ onOpenBooking }) {
             </div>
           </motion.button>
 
-          {/* Desktop Nav Links with Subtle y: -2 Lift & Underline */}
+          {/* Desktop Nav Links */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navItems.map((item) => {
               const isActive = item.isRoute
@@ -178,10 +175,8 @@ export default function Navbar({ onOpenBooking }) {
                   onClick={(e) => handleNavClick(item, e)}
                   className="group relative px-3.5 py-1.5 text-xs uppercase font-montserrat font-medium tracking-wider transition-colors duration-300 ease-out"
                 >
-                  {/* Soft Gold Pill Accent on Hover */}
                   <span className="absolute inset-0 rounded-full bg-gold/15 scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none" />
 
-                  {/* Link Text with Subtle y: -2 Lift */}
                   <motion.span
                     whileHover={{ y: -2 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -190,7 +185,7 @@ export default function Navbar({ onOpenBooking }) {
                     {item.label}
                   </motion.span>
                   
-                  {/* Hover Center-Drawing Underline */}
+                  {/* Underline Center-Drawing Animation */}
                   {!isActive && (
                     <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-[75%] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-center ${
                       isDarkHero
@@ -199,7 +194,6 @@ export default function Navbar({ onOpenBooking }) {
                     }`} />
                   )}
 
-                  {/* Persistent Active Section Indicator Pill */}
                   {isActive && (
                     <motion.div
                       layoutId="activeNavIndicator"
@@ -216,14 +210,32 @@ export default function Navbar({ onOpenBooking }) {
             })}
           </nav>
 
-          {/* Desktop "Book Now" CTA Button with Gentle Scale & Press Spring */}
-          <motion.div variants={navItemVariants} className="hidden lg:flex items-center">
+          {/* Desktop Actions: Admin Button + Book Now CTA */}
+          <motion.div variants={navItemVariants} className="hidden lg:flex items-center gap-3">
+            {/* Styled Admin Portal Access Button */}
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              onClick={() => navigate('/admin')}
+              className={`px-3.5 py-2 rounded-full border transition-all duration-300 flex items-center gap-1.5 text-xs font-montserrat font-bold uppercase tracking-wider ${
+                isDarkHero
+                  ? 'bg-gold/15 text-gold border-gold/40 hover:bg-gold/25'
+                  : 'bg-charcoal text-gold border-gold/40 hover:bg-black shadow-luxury'
+              }`}
+              title="Admin Control Room"
+            >
+              <ShieldCheck className="w-4 h-4 text-gold" />
+              <span>Admin</span>
+            </motion.button>
+
+            {/* Desktop "Book Now" CTA Button with Animated Gold Shimmer Sweep */}
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               onClick={handleBookNowClick}
-              className={`relative group px-6 py-2.5 rounded-full overflow-hidden bg-gradient-to-r from-rust via-clay to-rust text-cream text-xs font-montserrat font-bold tracking-wider uppercase shadow-rust-glow-shadow hover:shadow-gold-glow transition-all duration-300 border border-gold/40 ${
+              className={`relative group px-6 py-2.5 rounded-full overflow-hidden bg-gradient-to-r from-rust via-gold via-clay to-rust bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-cream text-xs font-montserrat font-bold tracking-wider uppercase shadow-rust-glow-shadow hover:shadow-gold-glow border border-gold/40 ${
                 isDarkHero ? 'ring-1 ring-cream/30' : ''
               }`}
             >
@@ -231,13 +243,13 @@ export default function Navbar({ onOpenBooking }) {
                 <Sparkles className="w-3.5 h-3.5 text-gold group-hover:rotate-12 transition-transform duration-300" />
                 <span>Book Now</span>
               </span>
-              
-              {/* Smooth Hover Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-gold via-rust to-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+              {/* Gold Shimmer Sweep Highlight */}
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
             </motion.button>
           </motion.div>
 
-          {/* Mobile Hamburger Toggle */}
+          {/* Mobile Menu Hamburger Toggle */}
           <motion.button
             variants={navItemVariants}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -251,35 +263,51 @@ export default function Navbar({ onOpenBooking }) {
         </div>
       </motion.header>
 
-      {/* Mobile Glass Navigation Drawer */}
+      {/* Refined Mobile Menu Drawer with Smooth Staggered Slide & Scale */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, height: 0, scale: 0.98 }}
+            animate={{ opacity: 1, height: 'auto', scale: 1 }}
+            exit={{ opacity: 0, height: 0, scale: 0.98 }}
+            transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
             className="fixed top-[65px] left-0 right-0 z-40 bg-white/95 backdrop-blur-2xl border-b border-rust/15 shadow-2xl overflow-hidden lg:hidden"
           >
             <div className="max-w-7xl mx-auto px-6 py-6 space-y-4">
-              {navItems.map((item) => (
-                <a
+              {navItems.map((item, idx) => (
+                <motion.a
                   key={item.label}
                   href={item.href}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.05 }}
                   onClick={(e) => handleNavClick(item, e)}
                   className="flex items-center justify-between py-2 text-sm font-montserrat font-semibold text-charcoal hover:text-rust border-b border-rust/10"
                 >
                   <span>{item.label}</span>
                   <ChevronRight className="w-4 h-4 text-gold" />
-                </a>
+                </motion.a>
               ))}
 
-              <div className="pt-2">
+              <div className="pt-2 space-y-3">
                 <button
                   onClick={handleBookNowClick}
-                  className="w-full py-3 rounded-full bg-rust text-cream font-montserrat text-xs font-bold uppercase tracking-wider shadow-rust-glow-shadow flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-full bg-gradient-to-r from-rust via-gold to-rust text-cream font-montserrat text-xs font-bold uppercase tracking-wider shadow-rust-glow-shadow flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-4 h-4 text-gold" />
                   <span>Book Now</span>
+                </button>
+
+                {/* Mobile Drawer Admin Portal Button */}
+                <button
+                  onClick={() => {
+                    navigate('/admin');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full py-2.5 px-4 rounded-full bg-charcoal border border-gold/40 text-gold font-montserrat text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-luxury"
+                >
+                  <ShieldCheck className="w-4 h-4 text-gold" />
+                  <span>Admin Control Portal</span>
                 </button>
               </div>
             </div>
@@ -289,4 +317,3 @@ export default function Navbar({ onOpenBooking }) {
     </>
   );
 }
-

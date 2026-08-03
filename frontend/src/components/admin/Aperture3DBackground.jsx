@@ -11,7 +11,7 @@ function ApertureRings() {
   useFrame((state, delta) => {
     if (groupRef.current) {
       groupRef.current.rotation.y += delta * 0.25;
-      groupRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.15;
+      groupRef.current.rotation.x = Math.sin((state.clock.elapsedTime || 0) * 0.5) * 0.15;
     }
     if (outerRingRef.current) {
       outerRingRef.current.rotation.z -= delta * 0.35;

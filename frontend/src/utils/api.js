@@ -18,7 +18,21 @@ async function request(endpoint, options = {}) {
       headers,
     });
 
-    const data = await res.json();
+    let data;
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      data = await res.json();
+    } else {
+      const text = await res.text();
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        if (res.status === 502 || res.status === 504) {
+          throw new Error('Backend API server is offline or unreachable on port 5001. Please start backend with "npm run dev:backend".');
+        }
+        data = { message: text || `HTTP ${res.status}: ${res.statusText}` };
+      }
+    }
 
     if (res.status === 401 && !endpoint.includes('/auth/login') && !endpoint.includes('/bookings/lookup')) {
       // Auto-logout on token expiration or 401 Unauthorized

@@ -1,7 +1,35 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useState, useMemo, Component } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
+
+// WebGL Error Boundary Fallback Guard
+class ThreeErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.warn('[Dashboard3DScene WebGL Error Boundary Caught]', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="w-full h-full flex flex-col items-center justify-center bg-[#050505] text-cream/70 p-6 text-center">
+          <span className="text-gold font-serif font-bold text-lg mb-1">AURA 3D Engine Viewport</span>
+          <span className="text-xs text-cream/50">Fallback 2D Mode Active (WebGL Hardware Acceleration Restricted)</span>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 // 1. Ambient Gold Dust Drift Particles Background
 function GoldDustParticles({ count = 350 }) {
@@ -18,22 +46,26 @@ function GoldDustParticles({ count = 350 }) {
   }, [count]);
 
   const texture = useMemo(() => {
-    const canvas = document.createElement('canvas');
-    canvas.width = 32;
-    canvas.height = 32;
-    const ctx = canvas.getContext('2d');
-    const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-    grad.addColorStop(0, 'rgba(201, 162, 39, 0.9)');
-    grad.addColorStop(0.6, 'rgba(168, 101, 74, 0.4)');
-    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 32, 32);
-    return new THREE.CanvasTexture(canvas);
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const ctx = canvas.getContext('2d');
+      const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+      grad.addColorStop(0, 'rgba(201, 162, 39, 0.9)');
+      grad.addColorStop(0.6, 'rgba(168, 101, 74, 0.4)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 32, 32);
+      return new THREE.CanvasTexture(canvas);
+    } catch (e) {
+      return null;
+    }
   }, []);
 
   useFrame((state) => {
     if (pointsRef.current) {
-      const t = state.clock.getElapsedTime();
+      const t = state.clock.elapsedTime || 0;
       pointsRef.current.rotation.y = t * 0.03;
       pointsRef.current.rotation.x = Math.sin(t * 0.02) * 0.04;
     }
@@ -51,7 +83,7 @@ function GoldDustParticles({ count = 350 }) {
       </bufferGeometry>
       <pointsMaterial
         size={0.22}
-        map={texture}
+        map={texture || undefined}
         transparent
         depthWrite={false}
         opacity={0.65}
@@ -64,9 +96,8 @@ function GoldDustParticles({ count = 350 }) {
 function Interactive3DBar({ index, totalBars, dataItem, hoveredBar, setHoveredBar }) {
   const meshRef = useRef();
   const [scaleY, setScaleY] = useState(0.01);
-  const targetHeight = Math.max(0.6, (dataItem.count / 10) * 3.2);
+  const targetHeight = Math.max(0.6, ((dataItem?.count || 1) / 10) * 3.2);
 
-  // Staggered elastic growth animation on load
   useFrame((state, delta) => {
     if (meshRef.current) {
       if (scaleY < 1) {
@@ -79,7 +110,7 @@ function Interactive3DBar({ index, totalBars, dataItem, hoveredBar, setHoveredBa
     }
   });
 
-  const isHovered = hoveredBar && hoveredBar.label === dataItem.label;
+  const isHovered = hoveredBar && hoveredBar.label === dataItem?.label;
   const xPos = (index - totalBars / 2) * 0.85;
 
   return (
@@ -113,8 +144,8 @@ function Interactive3DBar({ index, totalBars, dataItem, hoveredBar, setHoveredBa
         {isHovered && (
           <Html position={[0, targetHeight / 2 + 0.4, 0]} center distanceFactor={10}>
             <div className="px-3 py-1.5 rounded-xl bg-charcoal/95 border border-gold/50 text-cream text-xs font-montserrat shadow-2xl pointer-events-none whitespace-nowrap z-30">
-              <span className="font-bold text-gold">{dataItem.label}:</span>{' '}
-              <span className="font-bold text-cream">{dataItem.count} Bookings</span>
+              <span className="font-bold text-gold">{dataItem?.label}:</span>{' '}
+              <span className="font-bold text-cream">{dataItem?.count} Bookings</span>
             </div>
           </Html>
         )}
@@ -133,11 +164,11 @@ function Interactive3DTorusDonut({ statusData, hoveredSegment, setHoveredSegment
     }
   });
 
-  const total = statusData.reduce((sum, d) => sum + d.value, 0) || 1;
+  const total = statusData.reduce((sum, d) => sum + (d.value || 0), 0) || 1;
 
   let currentAngle = 0;
   const segments = statusData.map((d) => {
-    const angle = (d.value / total) * Math.PI * 2;
+    const angle = ((d.value || 0) / total) * Math.PI * 2;
     const startAngle = currentAngle;
     currentAngle += angle;
     return { ...d, startAngle, angle };
@@ -162,7 +193,7 @@ function Interactive3DTorusDonut({ statusData, hoveredSegment, setHoveredSegment
               }}
               onPointerOut={() => setHoveredSegment(null)}
             >
-              <torusGeometry args={[1.3, 0.25, 24, 48, seg.angle]} />
+              <torusGeometry args={[1.3, 0.25, 24, 48, seg.angle || 0.1]} />
               <meshStandardMaterial
                 color={seg.color}
                 metalness={0.8}
@@ -178,7 +209,7 @@ function Interactive3DTorusDonut({ statusData, hoveredSegment, setHoveredSegment
                     <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: seg.color }} />
                     <span className="font-bold text-cream">{seg.label}:</span>
                     <span className="font-bold text-gold">{seg.value}</span>
-                    <span className="text-[10px] text-cream/60">({Math.round((seg.value / total) * 100)}%)</span>
+                    <span className="text-[10px] text-cream/60">({Math.round(((seg.value || 0) / total) * 100)}%)</span>
                   </div>
                 </Html>
               )}
@@ -200,9 +231,9 @@ export default function Dashboard3DScene({ bookingStats }) {
   const [hoveredBar, setHoveredBar] = useState(null);
   const [hoveredSegment, setHoveredSegment] = useState(null);
 
-  // Dynamic Volume Cluster by Period
+  // Fallback-Safe Volume Cluster
   const barData = useMemo(() => {
-    if (bookingStats?.byDate && bookingStats.byDate.length > 0) {
+    if (bookingStats?.byDate && Array.isArray(bookingStats.byDate) && bookingStats.byDate.length > 0) {
       return bookingStats.byDate;
     }
     return [
@@ -215,75 +246,72 @@ export default function Dashboard3DScene({ bookingStats }) {
     ];
   }, [bookingStats]);
 
-  // Dynamic Status Segments
+  // Fallback-Safe Status Segments
   const statusData = useMemo(() => {
     return [
-      { label: 'Confirmed', value: bookingStats?.confirmed || 12, color: '#C9A227' },
-      { label: 'Pending', value: bookingStats?.pending || 5, color: '#A8654A' },
-      { label: 'Cancelled', value: bookingStats?.cancelled || 2, color: '#EF4444' },
+      { label: 'Confirmed', value: bookingStats?.confirmed ?? 12, color: '#C9A227' },
+      { label: 'Pending', value: bookingStats?.pending ?? 5, color: '#A8654A' },
+      { label: 'Cancelled', value: bookingStats?.cancelled ?? 2, color: '#EF4444' },
     ];
   }, [bookingStats]);
 
   return (
     <div className="relative w-full h-[420px] rounded-3xl bg-[#050505] border border-gold/30 overflow-hidden shadow-2xl">
-      {/* 3D Scene Controls Header */}
+      {/* 3D Scene Header Overlay */}
       <div className="absolute top-4 left-6 z-10 pointer-events-none">
         <span className="text-[10px] font-montserrat uppercase font-bold text-gold tracking-widest block">
-          3D Interactive Operations Scene
+          3D Interactive Operations Viewport
         </span>
         <h3 className="text-xl font-serif font-bold text-cream">
           Live Booking Cluster & Fleet Distribution
         </h3>
         <p className="text-[11px] font-sans text-cream/50 mt-0.5">
-          Drag to rotate 3D viewport • Scroll to zoom • Hover bars & torus segments for tooltips
+          Drag viewport to rotate 3D cluster • Scroll to zoom • Hover 3D geometries for live metrics
         </p>
       </div>
 
-      {/* R3F Canvas with OrbitControls & Gold Dust Particles */}
-      <Canvas
-        camera={{ position: [0, 3.5, 7.5], fov: 50 }}
-        gl={{ antialias: true, alpha: false }}
-        onCreated={({ scene }) => {
-          scene.background = new THREE.Color('#050505');
-        }}
-      >
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[10, 15, 8]} intensity={1.6} color="#FFE58F" />
-        <pointLight position={[-8, -5, -5]} intensity={0.9} color="#A8654A" />
+      <ThreeErrorBoundary>
+        <Canvas
+          camera={{ position: [0, 3.5, 7.5], fov: 50 }}
+          gl={{ antialias: true, alpha: false }}
+          onCreated={({ scene }) => {
+            scene.background = new THREE.Color('#050505');
+          }}
+        >
+          <ambientLight intensity={0.7} />
+          <directionalLight position={[10, 15, 8]} intensity={1.6} color="#FFE58F" />
+          <pointLight position={[-8, -5, -5]} intensity={0.9} color="#A8654A" />
 
-        {/* Orbit Controls (constrained for professional UX) */}
-        <OrbitControls
-          enableDamping
-          dampingFactor={0.05}
-          maxPolarAngle={Math.PI / 2.15}
-          minDistance={4.5}
-          maxDistance={11}
-        />
+          <OrbitControls
+            enableDamping
+            dampingFactor={0.05}
+            maxPolarAngle={Math.PI / 2.15}
+            minDistance={4.5}
+            maxDistance={11}
+          />
 
-        {/* Ambient Gold Dust Particles */}
-        <GoldDustParticles count={350} />
+          <GoldDustParticles count={350} />
 
-        {/* Extruded 3D Bar Chart Cluster */}
-        <group position={[-1.2, -0.5, 0]}>
-          {barData.map((item, idx) => (
-            <Interactive3DBar
-              key={item.label}
-              index={idx}
-              totalBars={barData.length}
-              dataItem={item}
-              hoveredBar={hoveredBar}
-              setHoveredBar={setHoveredBar}
-            />
-          ))}
-        </group>
+          <group position={[-1.2, -0.5, 0]}>
+            {barData.map((item, idx) => (
+              <Interactive3DBar
+                key={item.label || idx}
+                index={idx}
+                totalBars={barData.length}
+                dataItem={item}
+                hoveredBar={hoveredBar}
+                setHoveredBar={setHoveredBar}
+              />
+            ))}
+          </group>
 
-        {/* Segmented 3D Torus Donut Chart */}
-        <Interactive3DTorusDonut
-          statusData={statusData}
-          hoveredSegment={hoveredSegment}
-          setHoveredSegment={setHoveredSegment}
-        />
-      </Canvas>
+          <Interactive3DTorusDonut
+            statusData={statusData}
+            hoveredSegment={hoveredSegment}
+            setHoveredSegment={setHoveredSegment}
+          />
+        </Canvas>
+      </ThreeErrorBoundary>
     </div>
   );
 }

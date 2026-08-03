@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   LayoutDashboard,
   CalendarCheck,
@@ -12,6 +13,7 @@ import {
   Sparkles,
   ShieldCheck,
   User,
+  ArrowLeft,
 } from 'lucide-react';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 
@@ -106,7 +108,7 @@ export default function AdminLayout() {
         </div>
 
         {/* Sidebar Footer Info */}
-        <div className="p-4 border-t border-white/10 space-y-4">
+        <div className="p-4 border-t border-white/10 space-y-3">
           <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-sans space-y-1">
             <div className="flex items-center gap-2 text-gold font-montserrat font-bold text-[10px] uppercase">
               <ShieldCheck className="w-3.5 h-3.5 text-gold" />
@@ -117,9 +119,20 @@ export default function AdminLayout() {
             </p>
           </div>
 
+          {/* Exit to Main Site Navigation Button */}
+          <motion.button
+            whileHover={{ x: -4 }}
+            onClick={() => navigate('/')}
+            className="w-full py-2.5 px-4 rounded-2xl bg-white/5 border border-gold/30 text-gold hover:bg-gold/15 hover:border-gold/60 text-xs font-montserrat font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-luxury"
+          >
+            <ArrowLeft className="w-4 h-4 text-gold" />
+            <span>Exit to Main Site</span>
+          </motion.button>
+
+          {/* Sign Out / Destroy Session Button */}
           <button
             onClick={handleLogout}
-            className="w-full py-3 px-4 rounded-2xl bg-rust/10 border border-rust/30 text-rust hover:bg-rust hover:text-cream text-xs font-montserrat font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+            className="w-full py-2.5 px-4 rounded-2xl bg-rust/10 border border-rust/30 text-rust hover:bg-rust hover:text-cream text-xs font-montserrat font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>

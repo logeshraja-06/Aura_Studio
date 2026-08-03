@@ -244,7 +244,7 @@ export default function AdminEquipment() {
           {/* Export Excel Button */}
           <button
             onClick={() => exportEquipmentExcel(filteredEquipment)}
-            className="px-3.5 py-2.5 rounded-2xl bg-green-500/20 border border-green-500/40 text-green-400 hover:bg-green-500 hover:text-black text-xs font-montserrat font-bold transition-all flex items-center gap-2"
+            className="px-3.5 py-2.5 rounded-2xl bg-gold/20 border border-gold/40 text-gold hover:bg-gold hover:text-black text-xs font-montserrat font-bold transition-all flex items-center gap-2 shadow-gold-glow-shadow"
           >
             <FileSpreadsheet className="w-4 h-4" />
             <span>Export Excel</span>
@@ -361,7 +361,7 @@ export default function AdminEquipment() {
                   </span>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { status: 'available', label: 'Available', color: 'bg-green-500/20 text-green-400 border-green-500/40' },
+                      { status: 'available', label: 'Available', color: 'bg-gold/20 text-gold border-gold/40' },
                       { status: 'in-use', label: 'In Use', color: 'bg-gold/20 text-gold border-gold/40' },
                       { status: 'maintenance', label: 'Service', color: 'bg-rust/20 text-rust border-rust/40' },
                     ].map((st) => (

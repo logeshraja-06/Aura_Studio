@@ -72,7 +72,7 @@ export default function DarkConfirmationModal({
               <button
                 type="button"
                 onClick={onConfirm}
-                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-rust to-red-600 text-cream text-xs font-montserrat font-bold uppercase tracking-wider shadow-rust-glow hover:opacity-90 transition-opacity border border-rust/40"
+                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-rust to-rust-dark text-cream text-xs font-montserrat font-bold uppercase tracking-wider shadow-rust-glow-shadow hover:opacity-90 transition-opacity border border-rust/40"
               >
                 {confirmText}
               </button>

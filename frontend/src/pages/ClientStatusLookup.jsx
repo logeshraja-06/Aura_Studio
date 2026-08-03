@@ -136,7 +136,7 @@ export default function ClientStatusLookup() {
                       </h3>
                       <span className={`px-3 py-1 rounded-full text-[10px] font-montserrat font-bold uppercase ${
                         item.status === 'confirmed'
-                          ? 'bg-green-500/20 text-green-700 border border-green-500/40'
+                          ? 'bg-gold/20 text-rust border border-gold/40'
                           : item.status === 'pending'
                           ? 'bg-gold/20 text-rust border border-gold/40'
                           : 'bg-rust/20 text-rust border border-rust/40'
