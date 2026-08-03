@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useScroll, useVelocity, useTransform, useSpring } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Camera, Sparkles, ChevronRight, ShieldCheck } from 'lucide-react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
+import GooeyNav from './GooeyNav';
 
 export default function Navbar({ onOpenBooking }) {
   const navigate = useNavigate();
@@ -37,6 +38,27 @@ export default function Navbar({ onOpenBooking }) {
     { label: 'Testimonials', href: '#testimonials', sectionId: 'testimonials' },
     { label: 'Contact', href: '#contact', sectionId: 'contact' },
   ];
+
+  // Compute controlled active Index for GooeyNav driven by route + scroll progress
+  const computedActiveIndex = useMemo(() => {
+    if (location.pathname === '/packages') return 3;
+    if (location.pathname !== '/') return 0;
+
+    switch (activeSection) {
+      case 'hero':
+        return 0;
+      case 'services':
+        return 1;
+      case 'gallery':
+        return 2;
+      case 'testimonials':
+        return 4;
+      case 'contact':
+        return 5;
+      default:
+        return 0;
+    }
+  }, [location.pathname, activeSection]);
 
   const handleNavClick = (item, e) => {
     if (item.isRoute) {
@@ -127,92 +149,61 @@ export default function Navbar({ onOpenBooking }) {
         }`} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Studio Brand Logo */}
+          {/* Studio Editorial Aperture Logo Monogram */}
           <motion.button
             variants={navItemVariants}
             onClick={() => navigate('/')}
             className="group flex items-center gap-3 focus:outline-none"
           >
             <div className="relative">
+              {/* Outer Rotating Dashed Aperture Ring */}
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, duration: 18, ease: 'linear' }}
-                className="absolute -inset-1 rounded-full border border-dashed border-gold/50 opacity-60 pointer-events-none"
+                className="absolute -inset-1.5 rounded-full border border-dashed border-gold/60 opacity-70 pointer-events-none"
               />
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rust via-clay to-gold flex items-center justify-center shadow-rust-glow-shadow group-hover:scale-105 transition-transform duration-300 ease-out">
-                <Camera className="w-5 h-5 text-cream group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300 ease-out" />
+              {/* Inner Aperture Shutter Monogram Mark */}
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-rust via-clay to-gold p-[1px] shadow-rust-glow-shadow group-hover:scale-105 transition-transform duration-300 ease-out">
+                <div className="w-full h-full bg-[#181512] rounded-2xl flex items-center justify-center relative overflow-hidden">
+                  {/* SVG 8-Blade Aperture Grid Overlay */}
+                  <svg className="absolute inset-0 w-full h-full opacity-35" viewBox="0 0 40 40">
+                    <circle cx="20" cy="20" r="14" stroke="#C9A227" strokeWidth="1" fill="none" strokeDasharray="3 2" />
+                    <line x1="20" y1="6" x2="20" y2="34" stroke="#C9A227" strokeWidth="0.8" />
+                    <line x1="6" y1="20" x2="34" y2="20" stroke="#C9A227" strokeWidth="0.8" />
+                    <line x1="10" y1="10" x2="30" y2="30" stroke="#C9A227" strokeWidth="0.8" />
+                    <line x1="10" y1="30" x2="30" y2="10" stroke="#C9A227" strokeWidth="0.8" />
+                  </svg>
+                  <Camera className="w-5 h-5 text-gold group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300 ease-out relative z-10" />
+                </div>
               </div>
             </div>
+
             <div className="text-left">
-              <span className={`text-xl sm:text-2xl font-serif font-bold tracking-tight transition-colors duration-300 ease-out ${
-                isDarkHero ? 'text-cream group-hover:text-gold' : 'text-rust group-hover:text-gold'
-              }`}>
+              <span className="text-xl sm:text-2xl font-serif font-extrabold tracking-widest block bg-gradient-to-r from-rust via-gold to-rust bg-clip-text text-transparent group-hover:from-gold group-hover:to-gold transition-all duration-300">
                 AURA
               </span>
-              <span className={`block text-[9px] uppercase font-montserrat tracking-[0.25em] font-semibold -mt-1 transition-colors duration-300 ease-out ${
-                isDarkHero ? 'text-gold group-hover:text-cream' : 'text-clay group-hover:text-rust'
+              <div className="h-[1px] w-full bg-gradient-to-r from-gold/60 via-rust/40 to-transparent -mt-0.5 mb-0.5" />
+              <span className={`block text-[8.5px] uppercase font-montserrat tracking-[0.28em] font-bold transition-colors duration-300 ${
+                isDarkHero ? 'text-gold-glow' : 'text-clay group-hover:text-rust'
               }`}>
                 Cinematic Studio
               </span>
             </div>
           </motion.button>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
-            {navItems.map((item) => {
-              const isActive = item.isRoute
-                ? location.pathname === item.href
-                : location.pathname === '/' && activeSection === item.sectionId;
+          {/* Desktop GooeyNav Navigation Component */}
+          <div className="hidden lg:block">
+            <GooeyNav
+              items={navItems}
+              activeIndex={computedActiveIndex}
+              onItemClick={(item, idx, e) => handleNavClick(item, e)}
+              isDarkHero={isDarkHero}
+            />
+          </div>
 
-              const navTextColor = isDarkHero
-                ? isActive ? 'text-gold font-bold' : 'text-cream/90 group-hover:text-gold'
-                : isActive ? 'text-rust font-bold' : 'text-charcoal/80 group-hover:text-rust';
-
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(item, e)}
-                  className="group relative px-3.5 py-1.5 text-xs uppercase font-montserrat font-medium tracking-wider transition-colors duration-300 ease-out"
-                >
-                  <span className="absolute inset-0 rounded-full bg-gold/15 scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none" />
-
-                  <motion.span
-                    whileHover={{ y: -2 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                    className={`relative z-10 inline-block transition-colors duration-300 ${navTextColor}`}
-                  >
-                    {item.label}
-                  </motion.span>
-                  
-                  {/* Underline Center-Drawing Animation */}
-                  {!isActive && (
-                    <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-[75%] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-center ${
-                      isDarkHero
-                        ? 'bg-gradient-to-r from-gold via-cream to-gold'
-                        : 'bg-gradient-to-r from-rust via-gold to-rust'
-                    }`} />
-                  )}
-
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNavIndicator"
-                      className={`absolute inset-0 rounded-full border shadow-sm ${
-                        isDarkHero
-                          ? 'bg-gradient-to-r from-gold/20 via-cream/25 to-gold/20 border-gold/50'
-                          : 'bg-gradient-to-r from-rust/15 via-gold/20 to-rust/15 border-gold/40'
-                      }`}
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </a>
-              );
-            })}
-          </nav>
-
-          {/* Desktop Actions: Admin Button + Book Now CTA */}
+          {/* Desktop Actions: Warm Gold-Outlined Admin Button + Book Now CTA */}
           <motion.div variants={navItemVariants} className="hidden lg:flex items-center gap-3">
-            {/* Styled Admin Portal Access Button */}
+            {/* Styled Warm Gold-Outlined Admin Access Button */}
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
@@ -221,7 +212,7 @@ export default function Navbar({ onOpenBooking }) {
               className={`px-3.5 py-2 rounded-full border transition-all duration-300 flex items-center gap-1.5 text-xs font-montserrat font-bold uppercase tracking-wider ${
                 isDarkHero
                   ? 'bg-gold/15 text-gold border-gold/40 hover:bg-gold/25'
-                  : 'bg-charcoal text-gold border-gold/40 hover:bg-black shadow-luxury'
+                  : 'bg-cream/90 text-rust border-gold/40 hover:bg-gold/15 hover:border-gold hover:text-gold shadow-luxury'
               }`}
               title="Admin Control Room"
             >
@@ -304,7 +295,7 @@ export default function Navbar({ onOpenBooking }) {
                     navigate('/admin');
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full py-2.5 px-4 rounded-full bg-charcoal border border-gold/40 text-gold font-montserrat text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-luxury"
+                  className="w-full py-2.5 px-4 rounded-full bg-[#181512] border border-gold/40 text-gold font-montserrat text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-luxury"
                 >
                   <ShieldCheck className="w-4 h-4 text-gold" />
                   <span>Admin Control Portal</span>

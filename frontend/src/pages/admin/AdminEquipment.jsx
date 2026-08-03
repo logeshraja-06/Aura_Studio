@@ -269,7 +269,7 @@ export default function AdminEquipment() {
 
 
       {/* Controls Bar: Search & Category Filter Pills */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-[#0A0A0A] p-4 rounded-3xl border border-white/10">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-white p-4 rounded-3xl border border-rust/15 shadow-luxury">
         {/* Search */}
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-gold absolute left-4 top-3.5" />
@@ -278,7 +278,7 @@ export default function AdminEquipment() {
             placeholder="Search gear by model or specs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#121212] border border-white/15 text-xs font-sans text-cream placeholder-cream/40 focus:outline-none focus:border-gold"
+            className="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#FAF2EA] border border-rust/15 text-xs font-sans text-charcoal placeholder-charcoal/40 focus:outline-none focus:border-gold"
           />
         </div>
 
@@ -292,8 +292,8 @@ export default function AdminEquipment() {
                 onClick={() => setCategoryFilter(cat)}
                 className={`px-3.5 py-2 rounded-2xl text-xs font-montserrat font-bold transition-colors shrink-0 border ${
                   isActive
-                    ? 'bg-gold/20 text-gold border-gold/40 shadow-gold-glow-shadow'
-                    : 'bg-[#121212] text-cream/70 border-white/10 hover:text-cream'
+                    ? 'bg-gold/20 text-gold-dark border-gold/40 shadow-gold-glow-shadow'
+                    : 'bg-[#FAF2EA] text-charcoal/70 border-rust/10 hover:text-charcoal'
                 }`}
               >
                 {cat}
@@ -306,7 +306,7 @@ export default function AdminEquipment() {
       {/* Equipment Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredEquipment.length === 0 ? (
-          <div className="col-span-full py-16 text-center text-cream/50 font-serif italic">
+          <div className="col-span-full py-16 text-center text-charcoal/50 font-serif italic">
             No equipment found matching criteria.
           </div>
         ) : (
@@ -318,17 +318,17 @@ export default function AdminEquipment() {
                 key={eq._id}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-[#0A0A0A] p-6 rounded-3xl border border-white/10 hover:border-gold/30 transition-all duration-300 flex flex-col justify-between space-y-5 shadow-2xl relative group overflow-hidden"
+                className="bg-white p-6 rounded-3xl border border-rust/15 hover:border-gold/40 transition-all duration-300 flex flex-col justify-between space-y-5 shadow-luxury relative group overflow-hidden"
               >
                 {/* Ambient Top Glow Line */}
-                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
                 {/* Card Top: 3D Category Icon & Status Badge */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <Equipment3DShape category={eq.category} />
                     <div>
-                      <h3 className="font-montserrat font-bold text-cream text-base leading-snug">
+                      <h3 className="font-montserrat font-bold text-charcoal text-base leading-snug">
                         {eq.name}
                       </h3>
                       <span className="text-[10px] uppercase font-montserrat font-bold text-rust tracking-widest block mt-0.5">
@@ -342,7 +342,7 @@ export default function AdminEquipment() {
                       setSelectedEqForDelete(eq);
                       setDeleteModalOpen(true);
                     }}
-                    className="p-1.5 rounded-xl bg-white/5 text-cream/40 hover:text-rust hover:bg-rust/10 transition-colors"
+                    className="p-1.5 rounded-xl bg-rust/10 text-rust hover:bg-rust hover:text-white transition-colors"
                     title="Delete Equipment"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -350,33 +350,36 @@ export default function AdminEquipment() {
                 </div>
 
                 {/* Technical Notes / Specs */}
-                <p className="text-xs text-cream/70 font-sans italic bg-[#121212] p-3 rounded-2xl border border-white/5 leading-relaxed">
+                <p className="text-xs text-charcoal/70 font-sans italic bg-[#FAF2EA] p-3 rounded-2xl border border-rust/10 leading-relaxed">
                   "{eq.notes || 'Standard master production kit.'}"
                 </p>
 
                 {/* Status Toggle Pills */}
-                <div className="space-y-2 pt-2 border-t border-white/10">
-                  <span className="text-[10px] font-montserrat uppercase font-bold text-gold tracking-widest block">
+                <div className="space-y-2 pt-2 border-t border-rust/10">
+                  <span className="text-[10px] font-montserrat uppercase font-bold text-rust tracking-widest block">
                     Operational Status Toggle:
                   </span>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      { status: 'available', label: 'Available', color: 'bg-gold/20 text-gold border-gold/40' },
-                      { status: 'in-use', label: 'In Use', color: 'bg-gold/20 text-gold border-gold/40' },
-                      { status: 'maintenance', label: 'Service', color: 'bg-rust/20 text-rust border-rust/40' },
-                    ].map((st) => (
-                      <button
-                        key={st.status}
-                        onClick={() => handleStatusToggle(eq._id, st.status)}
-                        className={`py-1.5 px-2 rounded-xl text-[10px] font-montserrat font-bold uppercase transition-all duration-200 border text-center ${
-                          eq.status === st.status
-                            ? `${st.color} shadow-md scale-105`
-                            : 'bg-[#121212] text-cream/50 border-white/5 hover:text-cream'
-                        }`}
-                      >
-                        {st.label}
-                      </button>
-                    ))}
+                      { status: 'available', label: 'Available', color: 'bg-gold/15 text-gold-dark border-gold/40' },
+                      { status: 'in-use', label: 'In Use', color: 'bg-clay/15 text-clay-dark border-clay/40' },
+                      { status: 'maintenance', label: 'Service', color: 'bg-rust/15 text-rust-dark border-rust/40' },
+                    ].map((st) => {
+                      const isSelected = eq.status === st.status;
+                      return (
+                        <button
+                          key={st.status}
+                          onClick={() => handleStatusToggle(eq._id, st.status)}
+                          className={`py-1.5 px-2 rounded-xl text-[10px] font-montserrat font-bold uppercase transition-all duration-200 border text-center ${
+                            isSelected
+                              ? `${st.color} shadow-sm scale-105`
+                              : 'bg-[#FAF2EA] text-charcoal/60 border-rust/5 hover:text-charcoal'
+                          }`}
+                        >
+                          {st.label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 

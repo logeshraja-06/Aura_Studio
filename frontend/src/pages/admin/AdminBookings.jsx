@@ -325,7 +325,7 @@ export default function AdminBookings() {
       </div>
 
       {/* Controls Bar: Search & Status Filter Tabs */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-[#0A0A0A] p-4 rounded-3xl border border-white/10">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-white p-4 rounded-3xl border border-rust/15 shadow-luxury">
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-gold absolute left-4 top-3.5" />
           <input
@@ -333,7 +333,7 @@ export default function AdminBookings() {
             placeholder="Search by customer name, email, or venue..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#121212] border border-white/15 text-xs font-sans text-cream placeholder-cream/40 focus:outline-none focus:border-gold"
+            className="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#FAF2EA] border border-rust/15 text-xs font-sans text-charcoal placeholder-charcoal/40 focus:outline-none focus:border-gold"
           />
         </div>
 
@@ -351,13 +351,13 @@ export default function AdminBookings() {
                 onClick={() => setStatusFilter(tab)}
                 className={`px-4 py-2 rounded-2xl text-xs font-montserrat font-bold transition-all duration-200 flex items-center gap-2 shrink-0 border ${
                   isActive
-                    ? 'bg-gold/20 text-gold border-gold/50 shadow-gold-glow-shadow'
-                    : 'bg-[#121212] text-cream/70 border-white/10 hover:text-cream'
+                    ? 'bg-gold/20 text-gold-dark border-gold/50 shadow-gold-glow-shadow'
+                    : 'bg-[#FAF2EA] text-charcoal/70 border-rust/10 hover:text-charcoal'
                 }`}
               >
                 <span>{tab}</span>
                 <span className={`px-1.5 py-0.5 rounded-full text-[9px] ${
-                  isActive ? 'bg-gold text-black' : 'bg-white/10 text-cream/60'
+                  isActive ? 'bg-gold text-white' : 'bg-charcoal/10 text-charcoal/70'
                 }`}>
                   {count}
                 </span>
@@ -377,38 +377,38 @@ export default function AdminBookings() {
           }}
         />
       ) : (
-        /* Data Table View */
-        <div className="bg-[#0A0A0A] rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+        /* Table View */
+        <div className="bg-white rounded-3xl border border-rust/15 overflow-hidden shadow-luxury">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs font-sans border-collapse">
-              <thead>
-                <tr className="bg-[#121212] border-b border-white/10 text-[11px] font-montserrat font-bold text-gold uppercase tracking-wider">
-                  <th className="py-4 px-6 cursor-pointer" onClick={() => toggleSort('name')}>
+            <table className="w-full text-left text-xs font-sans">
+              <thead className="bg-[#FAF2EA] text-charcoal/80 font-montserrat uppercase font-bold text-[10px] tracking-wider border-b border-rust/15">
+                <tr>
+                  <th className="py-4 px-6 cursor-pointer select-none" onClick={() => toggleSort('name')}>
                     <div className="flex items-center gap-1.5">
-                      <span>Client Name</span>
-                      <ArrowUpDown className="w-3 h-3 text-cream/40" />
+                      <span>Customer & Contact</span>
+                      <ArrowUpDown className="w-3 h-3 text-charcoal/40" />
                     </div>
                   </th>
-                  <th className="py-4 px-6">Service / Package</th>
-                  <th className="py-4 px-6 cursor-pointer" onClick={() => toggleSort('eventDate')}>
+                  <th className="py-4 px-6 cursor-pointer select-none">Package</th>
+                  <th className="py-4 px-6 cursor-pointer select-none" onClick={() => toggleSort('eventDate')}>
                     <div className="flex items-center gap-1.5">
                       <span>Event Date</span>
-                      <ArrowUpDown className="w-3 h-3 text-cream/40" />
+                      <ArrowUpDown className="w-3 h-3 text-charcoal/40" />
                     </div>
                   </th>
-                  <th className="py-4 px-6 cursor-pointer" onClick={() => toggleSort('status')}>
+                  <th className="py-4 px-6 cursor-pointer select-none" onClick={() => toggleSort('status')}>
                     <div className="flex items-center gap-1.5">
                       <span>Status</span>
-                      <ArrowUpDown className="w-3 h-3 text-cream/40" />
+                      <ArrowUpDown className="w-3 h-3 text-charcoal/40" />
                     </div>
                   </th>
                   <th className="py-4 px-6 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y divide-rust/10">
                 {sortedBookings.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="py-12 text-center text-cream/50 font-serif italic">
+                    <td colSpan={5} className="py-12 text-center text-charcoal/50 font-serif italic">
                       No bookings found matching query "{searchQuery}".
                     </td>
                   </tr>
@@ -422,27 +422,27 @@ export default function AdminBookings() {
 
                     return (
                       <React.Fragment key={b._id}>
-                        <tr className={`hover:bg-white/5 transition-colors ${isExpanded ? 'bg-white/5' : ''}`}>
-                          <td className="py-4 px-6 font-montserrat font-bold text-cream">
+                        <tr className={`hover:bg-[#FAF2EA]/50 transition-colors ${isExpanded ? 'bg-[#FAF2EA]/50' : ''}`}>
+                          <td className="py-4 px-6 font-montserrat font-bold text-charcoal">
                             <div className="flex items-center gap-3">
                               <button
                                 onClick={() => setExpandedId(isExpanded ? null : b._id)}
-                                className="p-1 rounded-lg bg-white/5 text-gold hover:bg-gold/20"
+                                className="p-1 rounded-lg bg-[#FAF2EA] text-rust hover:bg-gold/20"
                               >
                                 {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                               </button>
                               <div>
-                                <span className="block text-sm text-cream">{b.name}</span>
-                                <span className="text-[11px] font-sans font-normal text-cream/60">{b.email}</span>
+                                <span className="block text-sm text-charcoal">{b.name}</span>
+                                <span className="text-[11px] font-sans font-normal text-charcoal/60">{b.email}</span>
                               </div>
                             </div>
                           </td>
 
-                          <td className="py-4 px-6 text-cream/80 font-medium">
+                          <td className="py-4 px-6 text-charcoal/80 font-medium">
                             {b.packageName || b.serviceId || 'Wedding Collection'}
                           </td>
 
-                          <td className="py-4 px-6 text-gold font-mono font-semibold">
+                          <td className="py-4 px-6 text-rust font-mono font-semibold">
                             {b.eventDate || 'Date Unspecified'}
                           </td>
 
@@ -452,15 +452,15 @@ export default function AdminBookings() {
                               onChange={(e) => handleStatusChange(b._id, e.target.value)}
                               className={`px-3 py-1 rounded-full text-[10px] font-montserrat font-bold uppercase cursor-pointer outline-none border transition-colors ${
                                 b.status === 'confirmed'
-                                  ? 'bg-gold/20 text-gold border-gold/40'
+                                  ? 'bg-gold/15 text-gold-dark border-gold/40'
                                   : b.status === 'pending'
-                                  ? 'bg-gold/20 text-gold border-gold/40'
-                                  : 'bg-rust/20 text-rust border-rust/40'
+                                  ? 'bg-clay/15 text-clay-dark border-clay/40'
+                                  : 'bg-rust/15 text-rust-dark border-rust/40'
                               }`}
                             >
-                              <option value="pending" className="bg-[#121212] text-gold">Pending</option>
-                              <option value="confirmed" className="bg-[#121212] text-gold">Confirmed</option>
-                              <option value="cancelled" className="bg-[#121212] text-rust">Cancelled</option>
+                              <option value="pending" className="bg-white text-clay-dark">Pending</option>
+                              <option value="confirmed" className="bg-white text-gold-dark">Confirmed</option>
+                              <option value="cancelled" className="bg-white text-rust-dark">Cancelled</option>
                             </select>
                           </td>
 

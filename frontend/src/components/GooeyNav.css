@@ -1,0 +1,151 @@
+/* GooeyNav.css - AURA Cinematic Luxury Studio Gooey Navigation Design System */
+
+.gooey-nav-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 6px;
+  border-radius: 9999px;
+  background: rgba(253, 248, 243, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  box-shadow: 0 8px 30px -8px rgba(168, 101, 74, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gooey-nav-wrapper.is-dark-hero {
+  background: rgba(24, 20, 18, 0.65);
+  border-color: rgba(201, 162, 39, 0.45);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(201, 162, 39, 0.2);
+}
+
+.gooey-nav-list {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 3;
+}
+
+.gooey-nav-item {
+  position: relative;
+  z-index: 3;
+}
+
+.gooey-nav-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #181818;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 9999px;
+  transition: color 0.3s ease, transform 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.gooey-nav-btn:hover {
+  color: #A8654A;
+}
+
+.gooey-nav-wrapper.is-dark-hero .gooey-nav-btn {
+  color: rgba(253, 248, 243, 0.85);
+}
+
+.gooey-nav-wrapper.is-dark-hero .gooey-nav-btn:hover {
+  color: #C9A227;
+}
+
+.gooey-nav-btn.is-active {
+  color: #181818 !important;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+/* Active Sliding Liquid Pill - Refined Gold Tint & 1px Outline */
+.gooey-active-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(201, 162, 39, 0.22) 0%, rgba(233, 192, 140, 0.35) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  box-shadow: 0 4px 15px -3px rgba(201, 162, 39, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), width 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Scaled-down Soft GOLD Drop Light Effect */
+.gold-drop-light {
+  position: absolute;
+  top: 100%;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(233, 192, 140, 0.85) 0%, rgba(201, 162, 39, 0.45) 40%, rgba(0, 0, 0, 0) 75%);
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+
+.gold-drop-light.animate-drop {
+  animation: goldDropBloom 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes goldDropBloom {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -8px) scale(0.3);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, 6px) scale(1.25);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 18px) scale(1.7);
+  }
+}
+
+/* Gooey Particle Effects */
+.gooey-particles-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.gooey-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatParticle 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes floatParticle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.15);
+  }
+}

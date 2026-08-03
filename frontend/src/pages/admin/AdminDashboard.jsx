@@ -21,7 +21,7 @@ function CountUpNumber({ value, prefix = '', suffix = '' }) {
 
   useEffect(() => {
     let start = 0;
-    const duration = 1200; // ms
+    const duration = 1200;
     const stepTime = 30;
     const steps = duration / stepTime;
     const increment = (value - start) / steps;
@@ -49,7 +49,6 @@ function CountUpNumber({ value, prefix = '', suffix = '' }) {
   );
 }
 
-// Fallback seed data if backend database is offline
 const SEED_BOOKINGS = [
   {
     _id: 'b1',
@@ -121,7 +120,6 @@ function getTimeAgo(dateString) {
 export default function AdminDashboard() {
   const [bookings, setBookings] = useState(SEED_BOOKINGS);
   const [equipment, setEquipment] = useState(SEED_EQUIPMENT);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadDashboardData() {
@@ -141,8 +139,6 @@ export default function AdminDashboard() {
         }
       } catch (err) {
         console.log('Using local fallback equipment data');
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -162,9 +158,7 @@ export default function AdminDashboard() {
   const totalEquipment = equipment.length || 1;
   const utilizationPercent = Math.round((inUseCount / totalEquipment) * 100);
 
-  // Dynamic 3D stats payload aggregated from real booking data
   const bookingStats = useMemo(() => {
-    // Group bookings by month/period
     const dateCounts = {};
     bookings.forEach((b) => {
       if (!b.eventDate) return;
@@ -187,103 +181,117 @@ export default function AdminDashboard() {
     };
   }, [bookings, totalBookings, confirmedBookings, pendingBookings, cancelledBookings]);
 
+  // Tasteful Staggered Page Reveal Variants
+  const pageVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, staggerChildren: 0.08 },
+    },
+  };
+
   return (
-    <div className="space-y-8">
-      {/* Executive Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-[#121212] via-[#1A1A1A] to-[#121212] p-6 rounded-3xl border border-gold/30 shadow-2xl relative overflow-hidden">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      className="space-y-8"
+    >
+      {/* Executive Header Banner (Light Cream Gradient) */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gradient-to-r from-white via-[#FAF2EA] to-white p-6 rounded-3xl border border-rust/15 shadow-luxury relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
-          <span className="text-[10px] font-montserrat uppercase font-bold text-gold tracking-widest flex items-center gap-1.5 mb-1">
+          <span className="text-[10px] font-montserrat uppercase font-bold text-rust tracking-widest flex items-center gap-1.5 mb-1">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             Live Operations Control Panel
           </span>
-          <h1 className="text-3xl font-serif font-bold text-cream">
+          <h1 className="text-3xl font-serif font-bold text-charcoal">
             Executive Studio Overview
           </h1>
-          <p className="text-xs text-cream/70 font-sans mt-1">
+          <p className="text-xs text-charcoal/70 font-sans mt-1">
             Monitoring client reservations, cinematic equipment deployments, and 3D volume clusters.
           </p>
         </div>
 
         <div className="flex items-center gap-3 relative z-10">
-          <div className="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-right">
-            <span className="text-[10px] uppercase font-montserrat font-bold text-cream/50 block">Fleet Utilization</span>
-            <span className="text-lg font-serif font-bold text-gold">{utilizationPercent}% Active</span>
+          <div className="px-4 py-2 rounded-2xl bg-white border border-rust/15 text-right shadow-sm">
+            <span className="text-[10px] uppercase font-montserrat font-bold text-charcoal/50 block">Fleet Utilization</span>
+            <span className="text-lg font-serif font-bold text-rust">{utilizationPercent}% Active</span>
           </div>
         </div>
       </div>
 
       {/* 4 KPI Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <AdminTiltCard glowColor="gold" className="p-6">
+        <AdminTiltCard variant="gold" className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-montserrat uppercase font-bold text-cream/60 tracking-wider">
+            <span className="text-xs font-montserrat uppercase font-bold text-charcoal/70 tracking-wider">
               Total Inquiries
             </span>
-            <div className="w-10 h-10 rounded-2xl bg-gold/15 border border-gold/40 text-gold flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-gold/15 border border-gold/40 text-gold-dark flex items-center justify-center">
               <CalendarCheck className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl sm:text-4xl font-serif font-bold text-cream">
+          <div className="text-3xl sm:text-4xl font-serif font-bold text-charcoal">
             <CountUpNumber value={totalBookings} />
           </div>
-          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-gold font-sans font-medium">
+          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-rust font-sans font-medium">
             <TrendingUp className="w-3.5 h-3.5" />
             <span>Active client database</span>
           </div>
         </AdminTiltCard>
 
-        {/* Card 2: Confirmed Bookings */}
-        <AdminTiltCard glowColor="gold" className="p-6">
+        <AdminTiltCard variant="success" className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-montserrat uppercase font-bold text-cream/60 tracking-wider">
+            <span className="text-xs font-montserrat uppercase font-bold text-charcoal/70 tracking-wider">
               Confirmed Bookings
             </span>
-            <div className="w-10 h-10 rounded-2xl bg-gold/15 border border-gold/40 text-gold flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-gold/15 border border-gold/40 text-gold-dark flex items-center justify-center">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl sm:text-4xl font-serif font-bold text-gold">
+          <div className="text-3xl sm:text-4xl font-serif font-bold text-gold-dark">
             <CountUpNumber value={confirmedBookings} />
           </div>
-          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-gold font-sans font-medium">
+          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-gold-dark font-sans font-medium">
             <ArrowUpRight className="w-3.5 h-3.5" />
             <span>Deposit received & date locked</span>
           </div>
         </AdminTiltCard>
 
-        <AdminTiltCard glowColor="rust" className="p-6">
+        <AdminTiltCard variant="warning" className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-montserrat uppercase font-bold text-cream/60 tracking-wider">
+            <span className="text-xs font-montserrat uppercase font-bold text-charcoal/70 tracking-wider">
               Pending Holds
             </span>
-            <div className="w-10 h-10 rounded-2xl bg-rust/20 border border-rust/40 text-rust flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-clay/15 border border-clay/40 text-clay flex items-center justify-center">
               <Clock className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl sm:text-4xl font-serif font-bold text-rust">
+          <div className="text-3xl sm:text-4xl font-serif font-bold text-clay">
             <CountUpNumber value={pendingBookings} />
           </div>
-          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-rust font-sans font-medium">
+          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-clay font-sans font-medium">
             <Activity className="w-3.5 h-3.5" />
             <span>Requires director response</span>
           </div>
         </AdminTiltCard>
 
-        <AdminTiltCard glowColor="gold" className="p-6">
+        <AdminTiltCard variant="gold" className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-montserrat uppercase font-bold text-cream/60 tracking-wider">
+            <span className="text-xs font-montserrat uppercase font-bold text-charcoal/70 tracking-wider">
               Est. Contract Value
             </span>
-            <div className="w-10 h-10 rounded-2xl bg-gold/15 border border-gold/40 text-gold flex items-center justify-center">
+            <div className="w-10 h-10 rounded-2xl bg-rust/15 border border-rust/40 text-rust flex items-center justify-center">
               <DollarSign className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-serif font-bold text-gold truncate">
+          <div className="text-2xl sm:text-3xl font-serif font-bold text-rust truncate">
             <CountUpNumber value={revenueEstimate} prefix="₹" />
           </div>
-          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-gold font-sans font-medium">
+          <div className="mt-3 flex items-center gap-1.5 text-[11px] text-rust font-sans font-medium">
             <TrendingUp className="w-3.5 h-3.5" />
             <span>Gross projected studio value</span>
           </div>
@@ -296,13 +304,13 @@ export default function AdminDashboard() {
       {/* Logistics & Recent Activity Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Recent Activity Feed List */}
-        <div className="lg:col-span-7 bg-[#0A0A0A]/90 p-6 rounded-3xl border border-white/10 backdrop-blur-xl space-y-6">
+        <div className="lg:col-span-7 bg-white p-6 rounded-3xl border border-rust/15 shadow-luxury space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[10px] font-montserrat font-bold uppercase tracking-widest text-gold block">
+              <span className="text-[10px] font-montserrat font-bold uppercase tracking-widest text-rust block">
                 Recent Client Activity
               </span>
-              <h3 className="text-xl font-serif font-bold text-cream">
+              <h3 className="text-xl font-serif font-bold text-charcoal">
                 Latest Reservation Inquiries
               </h3>
             </div>
@@ -312,21 +320,21 @@ export default function AdminDashboard() {
             {bookings.slice(0, 5).map((b, idx) => (
               <motion.div
                 key={b._id || idx}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-gold/30 transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-sans"
+                transition={{ duration: 0.35, delay: idx * 0.06 }}
+                className="p-4 rounded-2xl bg-[#FAF2EA]/60 border border-rust/10 hover:border-gold/40 transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-sans"
               >
                 <div className="flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-2xl bg-charcoal border border-gold/30 text-gold flex items-center justify-center font-serif font-bold text-base shrink-0">
+                  <div className="w-10 h-10 rounded-2xl bg-white border border-gold/40 text-rust flex items-center justify-center font-serif font-bold text-base shrink-0 shadow-sm">
                     {b.name ? b.name.charAt(0) : 'C'}
                   </div>
                   <div>
-                    <h4 className="font-montserrat font-bold text-cream text-sm">
+                    <h4 className="font-montserrat font-bold text-charcoal text-sm">
                       {b.name}
                     </h4>
-                    <span className="text-cream/60 block text-[11px]">
-                      {b.packageName || b.serviceId || 'Wedding Photography'} • Event Date: <span className="text-gold">{b.eventDate || 'TBD'}</span>
+                    <span className="text-charcoal/70 block text-[11px]">
+                      {b.packageName || b.serviceId || 'Wedding Photography'} • Event Date: <span className="text-rust font-semibold">{b.eventDate || 'TBD'}</span>
                     </span>
                   </div>
                 </div>
@@ -334,14 +342,14 @@ export default function AdminDashboard() {
                 <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
                   <span className={`px-3 py-1 rounded-full text-[10px] font-montserrat font-bold uppercase border ${
                     b.status === 'confirmed'
-                      ? 'bg-gold/20 text-gold border-gold/40'
+                      ? 'bg-gold/15 text-gold-dark border-gold/40'
                       : b.status === 'pending'
-                      ? 'bg-gold/15 text-gold border-gold/40'
-                      : 'bg-rust/20 text-rust border-rust/40'
+                      ? 'bg-clay/15 text-clay-dark border-clay/40'
+                      : 'bg-rust/15 text-rust-dark border-rust/40'
                   }`}>
                     {b.status}
                   </span>
-                  <span className="text-cream/50 text-[11px] font-serif italic">
+                  <span className="text-charcoal/50 text-[11px] font-serif italic">
                     {getTimeAgo(b.createdAt)}
                   </span>
                 </div>
@@ -351,17 +359,17 @@ export default function AdminDashboard() {
         </div>
 
         {/* Equipment Utilization Widget */}
-        <div className="lg:col-span-5 bg-[#0A0A0A]/90 p-6 rounded-3xl border border-white/10 backdrop-blur-xl space-y-6">
+        <div className="lg:col-span-5 bg-white p-6 rounded-3xl border border-rust/15 shadow-luxury space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[10px] font-montserrat font-bold uppercase tracking-widest text-gold block">
+              <span className="text-[10px] font-montserrat font-bold uppercase tracking-widest text-rust block">
                 Logistics Monitor
               </span>
-              <h3 className="text-lg font-serif font-bold text-cream">
+              <h3 className="text-lg font-serif font-bold text-charcoal">
                 Gear Fleet Status
               </h3>
             </div>
-            <div className="w-8 h-8 rounded-xl bg-gold/10 text-gold flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-gold/15 text-rust flex items-center justify-center">
               <Camera className="w-4 h-4" />
             </div>
           </div>
@@ -369,49 +377,49 @@ export default function AdminDashboard() {
           <div className="space-y-4 text-xs font-sans">
             <div>
               <div className="flex justify-between mb-1.5 font-montserrat">
-                <span className="text-cream/80 font-semibold flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-gold inline-block" />
+                <span className="text-charcoal/80 font-semibold flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-clay inline-block" />
                   Currently In-Use on Shoot
                 </span>
-                <span className="text-gold font-bold">{inUseCount} items</span>
+                <span className="text-clay font-bold">{inUseCount} items</span>
               </div>
-              <div className="w-full h-3 rounded-full bg-white/10 overflow-hidden p-0.5">
+              <div className="w-full h-3 rounded-full bg-[#FAF2EA] overflow-hidden p-0.5 border border-rust/10">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(inUseCount / totalEquipment) * 100}%` }}
                   transition={{ duration: 1, ease: 'easeOut' }}
-                  className="h-full bg-gradient-to-r from-rust to-gold rounded-full shadow-gold-glow"
+                  className="h-full bg-gradient-to-r from-rust to-clay rounded-full"
                 />
               </div>
             </div>
 
             <div>
               <div className="flex justify-between mb-1.5 font-montserrat">
-                <span className="text-cream/80 font-semibold flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-gold-light inline-block" />
+                <span className="text-charcoal/80 font-semibold flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-gold inline-block" />
                   Available in Studio Vault
                 </span>
-                <span className="text-gold-light font-bold">{availableCount} items</span>
+                <span className="text-gold-dark font-bold">{availableCount} items</span>
               </div>
-              <div className="w-full h-3 rounded-full bg-white/10 overflow-hidden p-0.5">
+              <div className="w-full h-3 rounded-full bg-[#FAF2EA] overflow-hidden p-0.5 border border-rust/10">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(availableCount / totalEquipment) * 100}%` }}
                   transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-                  className="h-full bg-gold-light rounded-full"
+                  className="h-full bg-gold rounded-full"
                 />
               </div>
             </div>
 
             <div>
               <div className="flex justify-between mb-1.5 font-montserrat">
-                <span className="text-cream/80 font-semibold flex items-center gap-2">
+                <span className="text-charcoal/80 font-semibold flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-rust inline-block" />
                   Scheduled Maintenance
                 </span>
                 <span className="text-rust font-bold">{maintenanceCount} items</span>
               </div>
-              <div className="w-full h-3 rounded-full bg-white/10 overflow-hidden p-0.5">
+              <div className="w-full h-3 rounded-full bg-[#FAF2EA] overflow-hidden p-0.5 border border-rust/10">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(maintenanceCount / totalEquipment) * 100}%` }}
@@ -422,12 +430,12 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-cream/50">
+          <div className="pt-2 border-t border-rust/10 flex items-center justify-between text-[11px] text-charcoal/60">
             <span>Total Logged Gear Assets: {totalEquipment}</span>
-            <span className="text-gold font-bold uppercase tracking-wider">Operational</span>
+            <span className="text-rust font-bold uppercase tracking-wider">Operational</span>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

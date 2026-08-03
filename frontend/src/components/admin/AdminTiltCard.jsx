@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 export default function AdminTiltCard({
   children,
   className = '',
-  glowColor = 'gold',
+  variant = 'gold',
   onClick,
   ...rest
 }) {
@@ -23,8 +23,8 @@ export default function AdminTiltCard({
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotX = -((y - centerY) / centerY) * 12;
-    const rotY = ((x - centerX) / centerX) * 12;
+    const rotX = -((y - centerY) / centerY) * 10;
+    const rotY = ((x - centerX) / centerX) * 10;
 
     setRotateX(rotX);
     setRotateY(rotY);
@@ -37,13 +37,16 @@ export default function AdminTiltCard({
     setIsHovered(false);
   };
 
-  const glowColorMap = {
-    gold: 'rgba(201, 162, 39, 0.25)',
-    rust: 'rgba(168, 101, 74, 0.25)',
-    green: 'rgba(34, 197, 94, 0.25)',
+  // High-Contrast Light Theme Variant Color Map for AURA Studio
+  const variantColorMap = {
+    gold: { spotlight: 'rgba(201, 162, 39, 0.25)', border: 'border-gold/60', shadow: 'shadow-gold-glow-shadow' },
+    rust: { spotlight: 'rgba(168, 101, 74, 0.25)', border: 'border-rust/60', shadow: 'shadow-rust-glow-shadow' },
+    success: { spotlight: 'rgba(201, 162, 39, 0.25)', border: 'border-gold/60', shadow: 'shadow-gold-glow-shadow' },
+    warning: { spotlight: 'rgba(180, 115, 90, 0.25)', border: 'border-clay/60', shadow: 'shadow-rust-glow-shadow' },
+    danger: { spotlight: 'rgba(168, 101, 74, 0.25)', border: 'border-rust/60', shadow: 'shadow-rust-glow-shadow' },
   };
 
-  const accentColor = glowColorMap[glowColor] || glowColorMap.gold;
+  const currentVariant = variantColorMap[variant] || variantColorMap.gold;
 
   return (
     <div className="relative group" style={{ perspective: '1000px' }}>
@@ -59,8 +62,8 @@ export default function AdminTiltCard({
             isHovered ? 'scale3d(1.02, 1.02, 1.02) translateZ(10px)' : 'scale3d(1, 1, 1)'
           }`,
         }}
-        className={`relative overflow-hidden rounded-3xl bg-[#121212]/90 border border-white/10 backdrop-blur-xl transition-all duration-200 shadow-2xl ${
-          isHovered ? 'border-gold/50 shadow-gold-glow-shadow' : ''
+        className={`relative overflow-hidden rounded-3xl bg-white border border-rust/15 transition-all duration-200 shadow-luxury ${
+          isHovered ? `${currentVariant.border} ${currentVariant.shadow}` : ''
         } ${className}`}
         {...rest}
       >
@@ -69,12 +72,12 @@ export default function AdminTiltCard({
           className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-3xl z-0"
           style={{
             opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(300px circle at ${spotlightPos.x}px ${spotlightPos.y}px, ${accentColor}, transparent 70%)`,
+            background: `radial-gradient(320px circle at ${spotlightPos.x}px ${spotlightPos.y}px, ${currentVariant.spotlight}, transparent 70%)`,
           }}
         />
 
         {/* Ambient Top Border Glow */}
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/40 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent pointer-events-none" />
 
         {/* Card Content Container */}
         <div className="relative z-10">{children}</div>
