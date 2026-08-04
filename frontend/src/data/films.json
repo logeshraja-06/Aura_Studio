@@ -1,50 +1,50 @@
 [
   {
-    "id": "film-1",
+    "id": 1,
     "title": "A Symphony of Silk & Sunset",
     "couple": "Aarav & Meera",
     "location": "Oberoi Udaivilas, Udaipur",
-    "duration": "18 mins 45 secs",
+    "duration": "05:21",
     "year": "2026",
     "badge": "Awwwards Nominee",
     "synopsis": "Set amidst Udaipur's shimmering Lake Pichola, this film blends orchestral romance with royal grandeur as Aarav & Meera exchange eternal vows under a canopy of marigolds.",
-    "poster": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85",
-    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+    "poster": "https://res.cloudinary.com/demo/image/upload/q_auto,f_auto,w_1200/v1687955891/samples/landscapes/beach-boat.jpg",
+    "videoUrl": "https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/v1687955891/elephants_shot.mp4"
   },
   {
-    "id": "film-2",
+    "id": 2,
     "title": "Eternal Horizons at Amalfi",
     "couple": "Liam & Sophia",
     "location": "Ravello Cliffside, Italy",
-    "duration": "14 mins 20 secs",
+    "duration": "04:15",
     "year": "2025",
     "badge": "Vogue Wedding Pick",
     "synopsis": "A Mediterranean love letter featuring vintage Alfa Romeos, lemon groves, and cliffside vows overlooking the sapphire Tyrrhenian Sea.",
-    "poster": "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1200&q=85",
-    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+    "poster": "https://res.cloudinary.com/demo/image/upload/q_auto,f_auto,w_1200/v1687955891/samples/architecture/city-sunset.jpg",
+    "videoUrl": "https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/v1/samples/sea-turtle.mp4"
   },
   {
-    "id": "film-3",
+    "id": 3,
     "title": "When Stars Align in Jaipur",
     "couple": "Rohan & Ananya",
     "location": "City Palace, Jaipur",
-    "duration": "22 mins 10 secs",
+    "duration": "06:40",
     "year": "2026",
     "badge": "Featured Cinema",
     "synopsis": "An intoxicating fusion of royal fireworks, traditional folk instruments, and emotional candid moments between high-school sweethearts.",
-    "poster": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85",
-    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+    "poster": "https://res.cloudinary.com/demo/image/upload/q_auto,f_auto,w_1200/v1687955891/samples/landscapes/nature-mountains.jpg",
+    "videoUrl": "https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/v1/samples/dance-2.mp4"
   },
   {
-    "id": "film-4",
+    "id": 4,
     "title": "Whispering Pines & Golden Hour",
     "couple": "Kabir & Tara",
     "location": "Swiss Alps, Interlaken",
-    "duration": "12 mins 50 secs",
+    "duration": "03:50",
     "year": "2025",
     "badge": "Editor's Choice",
     "synopsis": "Snow-capped peaks, warm candlelight, and an intimate 40-guest celebration in a secluded alpine chalet.",
-    "poster": "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=85",
-    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoylikes.mp4"
+    "poster": "https://res.cloudinary.com/demo/image/upload/q_auto,f_auto,w_1200/v1687955891/samples/landscapes/girl-urban-view.jpg",
+    "videoUrl": "https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/v1/samples/cld-sample-video.mp4"
   }
 ]
