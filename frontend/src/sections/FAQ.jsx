@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, HelpCircle, Sparkles } from 'lucide-react';
+import { Plus, Minus, HelpCircle } from 'lucide-react';
 import faqData from '../data/faq.json';
 
-export default function FAQ({ onBook }) {
+export default function FAQ() {
   const [openId, setOpenId] = useState('faq-1');
 
   const toggle = (id) => {
@@ -76,25 +76,6 @@ export default function FAQ({ onBook }) {
               </div>
             );
           })}
-        </div>
-
-        {/* Still Have Questions Bar */}
-        <div className="mt-12 p-8 rounded-3xl bg-gradient-to-r from-rust to-clay text-cream text-center shadow-rust-glow-shadow flex flex-col sm:flex-row items-center justify-between gap-6 border border-gold/30">
-          <div className="text-left">
-            <h4 className="text-2xl font-serif font-bold text-cream">
-              Have a custom request or specific question?
-            </h4>
-            <p className="text-xs font-sans text-cream/80 mt-1">
-              Our studio concierge is available 24/7 to design custom packages for your event.
-            </p>
-          </div>
-
-          <button
-            onClick={onBook}
-            className="px-6 py-3 rounded-full bg-cream text-rust font-montserrat text-xs uppercase font-bold tracking-wider hover:bg-gold hover:text-charcoal transition-colors shrink-0 shadow-md"
-          >
-            Ask Studio Concierge
-          </button>
         </div>
       </div>
     </section>

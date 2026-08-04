@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Play, Film, MapPin, Clock, Award, AlertCircle } from 'lucide-react';
 
-export default function VideoModal({ film, onClose, onBook }) {
+export default function VideoModal({ film, onClose }) {
   const videoRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -183,8 +183,8 @@ export default function VideoModal({ film, onClose, onBook }) {
           </div>
 
           {/* Film Metadata Details Footer */}
-          <div className="p-5 sm:p-6 md:p-8 bg-gradient-to-b from-charcoal via-charcoal/95 to-charcoal-light flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-t border-rust/30">
-            <div className="flex-1">
+          <div className="p-5 sm:p-6 md:p-8 bg-gradient-to-b from-charcoal via-charcoal/95 to-charcoal-light border-t border-rust/30">
+            <div>
               <div className="flex items-center gap-3 mb-2 flex-wrap">
                 <span className="px-3 py-1 rounded-full bg-gold/20 text-gold text-xs font-montserrat font-semibold uppercase tracking-wider border border-gold/30 flex items-center gap-1.5 shadow-gold-glow">
                   <Award className="w-3.5 h-3.5" />
@@ -213,22 +213,10 @@ export default function VideoModal({ film, onClose, onBook }) {
                 </p>
               )}
               {film.synopsis && (
-                <p className="text-xs text-cream/80 font-sans mt-3 max-w-2xl leading-relaxed">
+                <p className="text-xs text-cream/80 font-sans mt-3 max-w-3xl leading-relaxed">
                   {film.synopsis}
                 </p>
               )}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-              <button
-                onClick={() => {
-                  handleClose();
-                  if (onBook) onBook();
-                }}
-                className="px-6 py-3.5 rounded-xl bg-rust text-cream text-xs font-montserrat font-semibold uppercase tracking-wider shadow-rust-glow hover:bg-rust-dark transition-all duration-300 border border-gold/30 whitespace-nowrap hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-              >
-                Inquire Film Shooting
-              </button>
             </div>
           </div>
         </motion.div>

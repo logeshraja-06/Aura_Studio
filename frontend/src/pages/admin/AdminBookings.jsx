@@ -29,6 +29,49 @@ import DarkConfirmationModal from '../../components/admin/DarkConfirmationModal'
 import BookingCalendarView from '../../components/admin/BookingCalendarView';
 import { exportBookingsPDF } from '../../utils/exportPdf';
 import { exportBookingsExcel } from '../../utils/exportExcel';
+import servicesData from '../../data/services.json';
+
+// Helper to extract total contract price from packageName (or fallback to services.json lookup)
+function extractAmountFromPackageName(packageName, serviceId) {
+  if (packageName) {
+    const match = packageName.match(/(?:₹|Rs\.?\s*)\s*([\d,]+)/i);
+    if (match && match[1]) {
+      const numericStr = match[1].replace(/,/g, '');
+      const num = Number(numericStr);
+      if (!isNaN(num) && num > 0) return num;
+    }
+  }
+
+  if (packageName && servicesData) {
+    const cleanPkg = packageName.toLowerCase();
+    for (const srv of servicesData) {
+      if (srv.tiers) {
+        for (const tier of srv.tiers) {
+          if (cleanPkg.includes(tier.name.toLowerCase()) || tier.name.toLowerCase().includes(cleanPkg)) {
+            const tierPriceMatch = tier.price?.match(/(?:₹|Rs\.?\s*)\s*([\d,]+)/i);
+            if (tierPriceMatch && tierPriceMatch[1]) {
+              const num = Number(tierPriceMatch[1].replace(/,/g, ''));
+              if (!isNaN(num) && num > 0) return num;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (serviceId && servicesData) {
+    const srv = servicesData.find((s) => s.id === serviceId);
+    if (srv && srv.priceStarting) {
+      const startingPriceMatch = srv.priceStarting.match(/(?:₹|Rs\.?\s*)\s*([\d,]+)/i);
+      if (startingPriceMatch && startingPriceMatch[1]) {
+        const num = Number(startingPriceMatch[1].replace(/,/g, ''));
+        if (!isNaN(num) && num > 0) return num;
+      }
+    }
+  }
+
+  return 0;
+}
 
 const INITIAL_SEED_BOOKINGS = [
   {
@@ -174,9 +217,16 @@ export default function AdminBookings() {
   };
 
   const handleSavePayment = async (bookingId) => {
+    const targetBooking = bookings.find((b) => b._id === bookingId);
+    const defaultTotal = targetBooking
+      ? ((targetBooking.totalAmount && Number(targetBooking.totalAmount) > 0)
+          ? Number(targetBooking.totalAmount)
+          : extractAmountFromPackageName(targetBooking.packageName, targetBooking.serviceId))
+      : 0;
+
     const inputs = paymentInputs[bookingId] || {};
-    const tot = inputs.totalAmount !== undefined ? Number(inputs.totalAmount) : 0;
-    const adv = inputs.advanceAmount !== undefined ? Number(inputs.advanceAmount) : 0;
+    const tot = inputs.totalAmount !== undefined ? Number(inputs.totalAmount) : defaultTotal;
+    const adv = inputs.advanceAmount !== undefined ? Number(inputs.advanceAmount) : (targetBooking?.advanceAmount || 0);
     const bal = Math.max(0, tot - adv);
 
     try {
@@ -271,13 +321,13 @@ export default function AdminBookings() {
         {/* Action Buttons: View Switcher & PDF / Excel Exporters */}
         <div className="flex flex-wrap items-center gap-3">
           {/* View Switcher Toggle */}
-          <div className="bg-[#1F140D] p-1 rounded-2xl border border-white/10 flex items-center gap-1">
+          <div className="bg-white p-1 rounded-2xl border border-rust/15 shadow-sm flex items-center gap-1">
             <button
               onClick={() => setViewMode('table')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-montserrat font-bold transition-all duration-200 flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-montserrat font-bold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                 viewMode === 'table'
-                  ? 'bg-gold text-black shadow-md'
-                  : 'text-cream/70 hover:text-cream'
+                  ? 'bg-gold text-charcoal shadow-sm'
+                  : 'text-charcoal/70 hover:text-charcoal'
               }`}
             >
               <LayoutList className="w-3.5 h-3.5" />
@@ -285,10 +335,10 @@ export default function AdminBookings() {
             </button>
             <button
               onClick={() => setViewMode('calendar')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-montserrat font-bold transition-all duration-200 flex items-center gap-1.5 ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-montserrat font-bold transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
                 viewMode === 'calendar'
-                  ? 'bg-gold text-black shadow-md'
-                  : 'text-cream/70 hover:text-cream'
+                  ? 'bg-gold text-charcoal shadow-sm'
+                  : 'text-charcoal/70 hover:text-charcoal'
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />
@@ -415,9 +465,19 @@ export default function AdminBookings() {
                 ) : (
                   sortedBookings.map((b) => {
                     const isExpanded = expandedId === b._id;
-                    const pInputs = paymentInputs[b._id] || {
-                      totalAmount: b.totalAmount || 0,
-                      advanceAmount: b.advanceAmount || 0,
+
+                    const defaultTotal = (b.totalAmount && Number(b.totalAmount) > 0)
+                      ? Number(b.totalAmount)
+                      : extractAmountFromPackageName(b.packageName, b.serviceId);
+
+                    const rawInputs = paymentInputs[b._id];
+                    const currentTotal = rawInputs?.totalAmount !== undefined ? rawInputs.totalAmount : defaultTotal;
+                    const currentAdvance = rawInputs?.advanceAmount !== undefined ? rawInputs.advanceAmount : (b.advanceAmount || 0);
+                    const calculatedBalance = Math.max(0, Number(currentTotal) - Number(currentAdvance));
+
+                    const pInputs = {
+                      totalAmount: currentTotal,
+                      advanceAmount: currentAdvance,
                     };
 
                     return (
@@ -478,80 +538,84 @@ export default function AdminBookings() {
                         {/* Expandable Slide-Down Panel */}
                         {isExpanded && (
                           <tr>
-                            <td colSpan={5} className="bg-[#2B1B12]/90 p-6 border-b border-white/10">
+                            <td colSpan={5} className="bg-[#FAF2EA] p-6 sm:p-8 border-b border-rust/20">
                               <motion.div
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: 'auto' }}
                                 exit={{ opacity: 0, height: 0 }}
-                                className="space-y-6 text-xs font-sans"
+                                className="space-y-6 sm:space-y-8 text-xs font-sans text-charcoal"
                               >
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                                   {/* Contact Info */}
-                                  <div className="space-y-3 p-4 rounded-2xl bg-black/40 border border-white/10">
-                                    <span className="text-[10px] font-montserrat font-bold uppercase text-gold tracking-widest block">
-                                      Client Contact & Location
-                                    </span>
-                                    <div className="space-y-2">
-                                      <div className="flex items-center gap-2 text-cream/80">
-                                        <Phone className="w-4 h-4 text-gold shrink-0" />
-                                        <span>{b.phone || 'No phone provided'}</span>
-                                      </div>
-                                      <div className="flex items-center gap-2 text-cream/80">
-                                        <Mail className="w-4 h-4 text-gold shrink-0" />
-                                        <span>{b.email}</span>
-                                      </div>
-                                      <div className="flex items-start gap-2 text-cream/80">
-                                        <MapPin className="w-4 h-4 text-rust shrink-0 mt-0.5" />
-                                        <span>{b.location || 'Venue Not Specified'}</span>
+                                  <div className="space-y-4 p-5 sm:p-6 rounded-2xl bg-white border border-rust/15 shadow-sm text-charcoal flex flex-col justify-between">
+                                    <div>
+                                      <span className="text-[10px] font-montserrat font-bold uppercase text-rust tracking-widest block mb-3">
+                                        Client Contact & Location
+                                      </span>
+                                      <div className="space-y-3 text-charcoal/80">
+                                        <div className="flex items-center gap-2">
+                                          <Phone className="w-4 h-4 text-gold shrink-0" />
+                                          <span>{b.phone || 'No phone provided'}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                          <Mail className="w-4 h-4 text-gold shrink-0" />
+                                          <span>{b.email}</span>
+                                        </div>
+                                        <div className="flex items-start gap-2">
+                                          <MapPin className="w-4 h-4 text-rust shrink-0 mt-0.5" />
+                                          <span>{b.location || 'Venue Not Specified'}</span>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
 
                                   {/* Payment & Advance Tracking Section */}
-                                  <div className="space-y-3 p-4 rounded-2xl bg-black/40 border border-white/10">
-                                    <span className="text-[10px] font-montserrat font-bold uppercase text-gold tracking-widest block flex items-center gap-1.5">
-                                      <DollarSign className="w-3.5 h-3.5 text-gold" />
-                                      Payment & Advance Tracking
-                                    </span>
-                                    <div className="grid grid-cols-2 gap-3">
-                                      <div>
-                                        <label className="text-[10px] text-cream/60 block mb-1">Total Contract (₹)</label>
-                                        <input
-                                          type="number"
-                                          value={pInputs.totalAmount}
-                                          onChange={(e) =>
-                                            setPaymentInputs({
-                                              ...paymentInputs,
-                                              [b._id]: { ...pInputs, totalAmount: e.target.value },
-                                            })
-                                          }
-                                          className="w-full px-3 py-1.5 rounded-xl bg-[#2B1B12] border border-white/15 text-cream"
-                                        />
-                                      </div>
-                                      <div>
-                                        <label className="text-[10px] text-cream/60 block mb-1">Advance Deposit (₹)</label>
-                                        <input
-                                          type="number"
-                                          value={pInputs.advanceAmount}
-                                          onChange={(e) =>
-                                            setPaymentInputs({
-                                              ...paymentInputs,
-                                              [b._id]: { ...pInputs, advanceAmount: e.target.value },
-                                            })
-                                          }
-                                          className="w-full px-3 py-1.5 rounded-xl bg-[#2B1B12] border border-white/15 text-cream"
-                                        />
+                                  <div className="space-y-4 p-5 sm:p-6 rounded-2xl bg-white border border-rust/15 shadow-sm text-charcoal flex flex-col justify-between">
+                                    <div>
+                                      <span className="text-[10px] font-montserrat font-bold uppercase text-rust tracking-widest block flex items-center gap-1.5 mb-3">
+                                        <DollarSign className="w-3.5 h-3.5 text-gold" />
+                                        Payment & Advance Tracking
+                                      </span>
+                                      <div className="grid grid-cols-2 gap-3">
+                                        <div>
+                                          <label className="text-[10px] text-charcoal/70 font-montserrat font-bold block mb-1">Total Contract (₹)</label>
+                                          <input
+                                            type="number"
+                                            value={pInputs.totalAmount}
+                                            onChange={(e) =>
+                                              setPaymentInputs({
+                                                ...paymentInputs,
+                                                [b._id]: { ...pInputs, totalAmount: e.target.value },
+                                              })
+                                            }
+                                            className="w-full px-3 py-2 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal font-montserrat font-bold text-xs focus:outline-none focus:border-gold focus:bg-white transition-all"
+                                          />
+                                        </div>
+                                        <div>
+                                          <label className="text-[10px] text-charcoal/70 font-montserrat font-bold block mb-1">Advance Deposit (₹)</label>
+                                          <input
+                                            type="number"
+                                            value={pInputs.advanceAmount}
+                                            onChange={(e) =>
+                                              setPaymentInputs({
+                                                ...paymentInputs,
+                                                [b._id]: { ...pInputs, advanceAmount: e.target.value },
+                                              })
+                                            }
+                                            className="w-full px-3 py-2 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal font-montserrat font-bold text-xs focus:outline-none focus:border-gold focus:bg-white transition-all"
+                                          />
+                                        </div>
                                       </div>
                                     </div>
 
-                                    <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                                    <div className="flex items-center justify-between pt-3.5 mt-4 border-t border-rust/15">
                                       <span className="text-[11px] text-rust font-bold">
-                                        Balance Due: ₹{(b.balanceDue || 0).toLocaleString()}
+                                        Balance Due: ₹{calculatedBalance.toLocaleString()}
                                       </span>
                                       <button
                                         type="button"
                                         onClick={() => handleSavePayment(b._id)}
-                                        className="px-3 py-1 rounded-xl bg-gold/20 text-gold border border-gold/40 text-[10px] font-montserrat font-bold uppercase"
+                                        className="px-3.5 py-1.5 rounded-xl bg-gold hover:bg-gold-light text-charcoal border border-gold/60 text-[10px] font-montserrat font-bold uppercase shadow-sm transition-all cursor-pointer"
                                       >
                                         Save Payments
                                       </button>
@@ -559,13 +623,15 @@ export default function AdminBookings() {
                                   </div>
 
                                   {/* Special Vision & Notes */}
-                                  <div className="space-y-3 p-4 rounded-2xl bg-black/40 border border-white/10">
-                                    <span className="text-[10px] font-montserrat font-bold uppercase text-gold tracking-widest block">
-                                      Client Vision & Notes
-                                    </span>
-                                    <p className="text-cream/70 leading-relaxed italic bg-black/50 p-3 rounded-xl border border-white/5">
-                                      "{b.notes || 'No special requirements specified.'}"
-                                    </p>
+                                  <div className="space-y-4 p-5 sm:p-6 rounded-2xl bg-white border border-rust/15 shadow-sm text-charcoal flex flex-col justify-between">
+                                    <div>
+                                      <span className="text-[10px] font-montserrat font-bold uppercase text-rust tracking-widest block mb-3">
+                                        Client Vision & Notes
+                                      </span>
+                                      <p className="text-charcoal/80 leading-relaxed text-xs sm:text-sm italic bg-[#FAF2EA] p-4 rounded-2xl border border-rust/10">
+                                        "{b.notes || 'No special requirements specified.'}"
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
                               </motion.div>

@@ -112,7 +112,7 @@ function GalleryTile({ item, onClick }) {
   );
 }
 
-export default function Gallery({ onBook }) {
+export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [activeLightboxItem, setActiveLightboxItem] = useState(null);
 
@@ -179,7 +179,6 @@ export default function Gallery({ onBook }) {
         items={filteredItems}
         onClose={() => setActiveLightboxItem(null)}
         onNavigate={(item) => setActiveLightboxItem(item)}
-        onBook={onBook}
       />
     </section>
   );

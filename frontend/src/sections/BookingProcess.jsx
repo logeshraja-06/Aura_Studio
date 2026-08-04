@@ -41,7 +41,7 @@ const STEPS = [
   },
 ];
 
-export default function BookingProcess({ onBook }) {
+export default function BookingProcess() {
   return (
     <section id="booking-process" className="py-24 bg-cream-soft relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -93,15 +93,6 @@ export default function BookingProcess({ onBook }) {
               </motion.div>
             );
           })}
-        </div>
-
-        <div className="mt-16 text-center">
-          <button
-            onClick={onBook}
-            className="px-10 py-4 rounded-full bg-rust text-cream font-montserrat text-xs uppercase font-bold tracking-widest shadow-rust-glow-shadow hover:shadow-gold-glow hover:scale-105 transition-all duration-300 border border-gold/40"
-          >
-            Start Step 1: Reserve Your Date
-          </button>
         </div>
       </div>
     </section>

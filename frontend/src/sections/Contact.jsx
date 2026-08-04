@@ -114,24 +114,24 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Interactive Map Visual Placeholder */}
-            <div className="relative h-64 rounded-3xl overflow-hidden border border-rust/20 shadow-md bg-charcoal-light flex items-center justify-center group">
-              <img
-                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80"
-                alt="Studio map location"
-                className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
+            {/* Embedded Google Maps Location */}
+            <div
+              onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=45+Grand+Avenue+Suite+1200+New+York+NY+10001', '_blank')}
+              className="relative h-64 rounded-3xl overflow-hidden border border-rust/20 shadow-md group cursor-pointer"
+            >
+              <iframe
+                src="https://www.google.com/maps?q=45+Grand+Avenue+Suite+1200+New+York+NY+10001&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0, pointerEvents: 'none' }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="AURA Studio Location Map"
+                className="w-full h-full grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent" />
-              <div className="relative z-10 text-center p-4">
-                <div className="w-12 h-12 rounded-full bg-rust text-gold border border-gold/40 flex items-center justify-center mx-auto mb-2 shadow-gold-glow animate-bounce">
-                  <MapPin className="w-6 h-6" />
-                </div>
-                <span className="text-xs font-montserrat font-bold text-cream block">
-                  AURA Flagship Studio Lounge
-                </span>
-                <span className="text-[10px] text-gold font-sans">
-                  Click to open Google Maps navigation
-                </span>
+              <div className="absolute bottom-3 left-3 pointer-events-none bg-charcoal/85 backdrop-blur-md text-cream text-xs font-montserrat px-3 py-1.5 rounded-full border border-gold/40 flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-gold" />
+                <span>Click to open in Google Maps</span>
               </div>
             </div>
           </div>

@@ -121,14 +121,14 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-rust via-gold to-rust text-black font-montserrat font-bold text-xs uppercase tracking-widest hover:shadow-gold-glow transition-all duration-300 flex items-center justify-center gap-2 border border-gold/50 shadow-md"
+              className="w-full py-4 rounded-xl bg-gradient-to-r from-rust via-gold to-rust text-charcoal font-montserrat font-bold text-xs uppercase tracking-widest hover:shadow-gold-glow transition-all duration-300 flex items-center justify-center gap-2 border border-gold/50 shadow-md cursor-pointer"
             >
               {loading ? (
-                <div className="w-5 h-5 rounded-full border-2 border-black border-t-transparent animate-spin" />
+                <div className="w-5 h-5 rounded-full border-2 border-charcoal border-t-transparent animate-spin" />
               ) : (
                 <>
                   <span>Authenticate & Launch Control Room</span>
-                  <ArrowRight className="w-4 h-4 text-black" />
+                  <ArrowRight className="w-4 h-4 text-charcoal" />
                 </>
               )}
             </button>

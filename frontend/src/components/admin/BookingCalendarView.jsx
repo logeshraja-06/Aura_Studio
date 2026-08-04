@@ -40,7 +40,7 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
   }
 
   return (
-    <div className="bg-[#1F140D] p-6 rounded-3xl border border-white/10 shadow-2xl space-y-6">
+    <div className="bg-white p-6 rounded-3xl border border-rust/15 shadow-luxury space-y-6">
       {/* Calendar Header Controls */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -48,7 +48,7 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
             <Calendar className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-2xl font-serif font-bold text-cream">
+            <h2 className="text-2xl font-serif font-bold text-charcoal">
               {monthNames[month]} {year}
             </h2>
             <span className="text-[10px] font-montserrat uppercase font-bold text-rust tracking-widest block">
@@ -60,19 +60,19 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
         <div className="flex items-center gap-2">
           <button
             onClick={prevMonth}
-            className="p-2.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 text-cream/80 hover:text-gold transition-colors"
+            className="p-2.5 rounded-2xl bg-[#FAF2EA] border border-rust/15 text-charcoal/70 hover:bg-rust/10 hover:text-rust transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={() => setCurrentDate(new Date())}
-            className="px-3.5 py-2 rounded-2xl bg-gold/15 text-gold border border-gold/40 text-xs font-montserrat font-bold uppercase"
+            className="px-3.5 py-2 rounded-2xl bg-gold/15 text-gold border border-gold/40 text-xs font-montserrat font-bold uppercase hover:bg-gold/25 transition-colors cursor-pointer"
           >
             Today
           </button>
           <button
             onClick={nextMonth}
-            className="p-2.5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 text-cream/80 hover:text-gold transition-colors"
+            className="p-2.5 rounded-2xl bg-[#FAF2EA] border border-rust/15 text-charcoal/70 hover:bg-rust/10 hover:text-rust transition-colors cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -80,9 +80,9 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
       </div>
 
       {/* Weekday Labels Header */}
-      <div className="grid grid-cols-7 gap-2 text-center text-[11px] font-montserrat font-bold uppercase text-gold">
+      <div className="grid grid-cols-7 gap-2 text-center text-[11px] font-montserrat font-bold uppercase text-rust">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((w) => (
-          <div key={w} className="py-2 bg-[#2B1B12] rounded-xl border border-white/5">
+          <div key={w} className="py-2 bg-[#FAF2EA] rounded-xl border border-rust/10">
             {w}
           </div>
         ))}
@@ -92,7 +92,7 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
       <div className="grid grid-cols-7 gap-2">
         {daysGrid.map((day, idx) => {
           if (day === null) {
-            return <div key={`empty-${idx}`} className="h-28 rounded-2xl bg-white/[0.02]" />;
+            return <div key={`empty-${idx}`} className="h-28 rounded-2xl bg-[#FAF2EA]/40" />;
           }
 
           const dayBookings = bookingsByDay[day] || [];
@@ -107,15 +107,15 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
               className={`h-28 p-2 rounded-2xl border flex flex-col justify-between transition-all duration-200 overflow-hidden ${
                 isToday
                   ? 'bg-gold/10 border-gold shadow-gold-glow-shadow'
-                  : 'bg-[#2B1B12]/80 border-white/5 hover:border-white/20'
+                  : 'bg-white border-rust/10 hover:border-rust/30'
               }`}
             >
               <div className="flex items-center justify-between text-xs font-montserrat">
-                <span className={`font-bold ${isToday ? 'text-gold' : 'text-cream/80'}`}>
+                <span className={`font-bold ${isToday ? 'text-rust' : 'text-charcoal/80'}`}>
                   {day}
                 </span>
                 {dayBookings.length > 0 && (
-                  <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-gold/20 text-gold font-bold">
+                  <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-gold/20 text-charcoal font-bold border border-gold/40">
                     {dayBookings.length}
                   </span>
                 )}
@@ -130,10 +130,10 @@ export default function BookingCalendarView({ bookings, onSelectBooking }) {
                     onClick={() => onSelectBooking && onSelectBooking(b)}
                     className={`p-1.5 rounded-xl text-[10px] font-sans font-medium cursor-pointer truncate border flex items-center gap-1.5 ${
                       b.status === 'confirmed'
-                        ? 'bg-gold/20 text-gold border-gold/40'
+                        ? 'bg-gold/20 text-charcoal font-semibold border-gold/40'
                         : b.status === 'pending'
-                        ? 'bg-gold/20 text-gold border-gold/40'
-                        : 'bg-rust/20 text-rust border-rust/40'
+                        ? 'bg-gold/20 text-charcoal font-semibold border-gold/40'
+                        : 'bg-rust/15 text-rust font-semibold border-rust/30'
                     }`}
                   >
                     <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${

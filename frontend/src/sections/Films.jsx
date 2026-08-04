@@ -70,7 +70,7 @@ function MagneticPlayButton({ onClick, size = 'large', label = 'Play Wedding Fil
   );
 }
 
-export default function Films({ onBook }) {
+export default function Films() {
   const [activeFilm, setActiveFilm] = useState(null);
 
   // Safely grab films data
@@ -253,7 +253,6 @@ export default function Films({ onBook }) {
       <VideoModal
         film={activeFilm}
         onClose={() => setActiveFilm(null)}
-        onBook={onBook}
       />
     </section>
   );

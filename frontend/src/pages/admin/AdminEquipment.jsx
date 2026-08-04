@@ -259,9 +259,9 @@ export default function AdminEquipment() {
           </button>
           <button
             onClick={() => setAddModalOpen(true)}
-            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-rust to-gold text-black font-montserrat font-bold text-xs uppercase tracking-wider shadow-gold-glow flex items-center gap-2 hover:opacity-90 transition-opacity"
+            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-gold via-gold-light to-gold text-charcoal font-montserrat font-bold text-xs uppercase tracking-wider shadow-gold-glow-shadow border border-gold/60 flex items-center gap-2 hover:brightness-105 active:scale-95 transition-all cursor-pointer"
           >
-            <Plus className="w-4 h-4 text-black" />
+            <Plus className="w-4 h-4 text-charcoal" />
             <span>Add New Equipment</span>
           </button>
         </div>
@@ -384,27 +384,27 @@ export default function AdminEquipment() {
                 </div>
 
                 {/* Booking Assignment Selector Dropdown */}
-                <div className="pt-2 border-t border-white/10 space-y-1.5">
-                  <span className="text-[10px] font-montserrat uppercase font-bold text-cream/60 tracking-wider block">
+                <div className="pt-2 border-t border-rust/10 space-y-1.5">
+                  <span className="text-[10px] font-montserrat uppercase font-bold text-rust tracking-wider block">
                     Assigned Upcoming Booking:
                   </span>
                   <select
                     value={assigned ? assigned._id || assigned : ''}
                     onChange={(e) => handleAssignBooking(eq._id, e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#2B1B12] border border-white/15 text-xs font-sans text-cream focus:outline-none focus:border-gold"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#FAF2EA] border border-rust/20 text-xs font-montserrat font-bold text-charcoal focus:outline-none focus:border-gold hover:border-gold/50 cursor-pointer transition-colors shadow-sm"
                   >
-                    <option value="">-- No Booking Assigned (Vault) --</option>
+                    <option value="" className="bg-white text-charcoal">-- No Booking Assigned (Vault) --</option>
                     {upcomingBookings.map((b) => (
-                      <option key={b._id} value={b._id}>
+                      <option key={b._id} value={b._id} className="bg-white text-charcoal">
                         {b.name} ({b.eventDate || 'Upcoming'})
                       </option>
                     ))}
                   </select>
 
                   {assigned && (
-                    <div className="flex items-center gap-1.5 text-[10px] text-gold font-sans pt-1">
-                      <Calendar className="w-3 h-3 text-gold" />
-                      <span>Assigned to: <strong className="text-cream">{assigned.name || 'Client Shoot'}</strong></span>
+                    <div className="flex items-center gap-1.5 text-[10px] text-rust font-sans pt-1">
+                      <Calendar className="w-3.5 h-3.5 text-gold" />
+                      <span>Assigned to: <strong className="text-charcoal font-bold">{assigned.name || 'Client Shoot'}</strong></span>
                     </div>
                   )}
                 </div>
@@ -426,15 +426,15 @@ export default function AdminEquipment() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-md w-full bg-[#121212] rounded-3xl border border-gold/40 shadow-2xl p-6 sm:p-8 space-y-6"
+              className="relative max-w-md w-full bg-white rounded-3xl border border-gold/40 shadow-2xl p-6 sm:p-8 space-y-6 text-charcoal"
             >
-              <h2 className="text-2xl font-serif font-bold text-cream">
+              <h2 className="text-2xl font-serif font-bold text-charcoal">
                 Add Studio Equipment Asset
               </h2>
 
               <form onSubmit={handleCreateNewItem} className="space-y-4 text-xs font-sans">
                 <div>
-                  <label className="block text-[11px] font-montserrat font-bold text-gold uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-montserrat font-bold text-rust uppercase tracking-wider mb-1">
                     Equipment Model / Name *
                   </label>
                   <input
@@ -443,19 +443,19 @@ export default function AdminEquipment() {
                     placeholder="e.g. Sony FX6 Cinema Camera"
                     value={newItem.name}
                     onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-cream focus:outline-none focus:border-gold"
+                    className="w-full px-4 py-3 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal placeholder-charcoal/40 focus:outline-none focus:border-gold focus:bg-white transition-all font-montserrat font-bold"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-montserrat font-bold text-gold uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-montserrat font-bold text-rust uppercase tracking-wider mb-1">
                       Category
                     </label>
                     <select
                       value={newItem.category}
                       onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
-                      className="w-full px-3 py-3 rounded-xl bg-black/60 border border-white/15 text-cream focus:outline-none focus:border-gold"
+                      className="w-full px-3 py-3 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal font-montserrat font-bold focus:outline-none focus:border-gold cursor-pointer"
                     >
                       <option value="camera">Camera</option>
                       <option value="drone">Drone</option>
@@ -465,13 +465,13 @@ export default function AdminEquipment() {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-montserrat font-bold text-gold uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] font-montserrat font-bold text-rust uppercase tracking-wider mb-1">
                       Initial Status
                     </label>
                     <select
                       value={newItem.status}
                       onChange={(e) => setNewItem({ ...newItem, status: e.target.value })}
-                      className="w-full px-3 py-3 rounded-xl bg-black/60 border border-white/15 text-cream focus:outline-none focus:border-gold"
+                      className="w-full px-3 py-3 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal font-montserrat font-bold focus:outline-none focus:border-gold cursor-pointer"
                     >
                       <option value="available">Available</option>
                       <option value="in-use">In Use</option>
@@ -481,7 +481,7 @@ export default function AdminEquipment() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-montserrat font-bold text-gold uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-montserrat font-bold text-rust uppercase tracking-wider mb-1">
                     Technical Specifications / Notes
                   </label>
                   <textarea
@@ -489,7 +489,7 @@ export default function AdminEquipment() {
                     placeholder="e.g. 4K 120p, dual CFexpress, S-Cinetone color profile..."
                     value={newItem.notes}
                     onChange={(e) => setNewItem({ ...newItem, notes: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/15 text-cream focus:outline-none focus:border-gold"
+                    className="w-full px-4 py-3 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal placeholder-charcoal/40 focus:outline-none focus:border-gold focus:bg-white transition-all font-sans"
                   />
                 </div>
 
@@ -497,13 +497,13 @@ export default function AdminEquipment() {
                   <button
                     type="button"
                     onClick={() => setAddModalOpen(false)}
-                    className="flex-1 py-3 rounded-xl bg-white/10 text-cream font-montserrat font-bold uppercase text-xs"
+                    className="flex-1 py-3 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal hover:bg-rust/10 font-montserrat font-bold uppercase text-xs transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-rust to-gold text-black font-montserrat font-bold uppercase text-xs shadow-gold-glow"
+                    className="flex-1 py-3 rounded-xl bg-gradient-to-r from-gold via-gold-light to-gold text-charcoal font-montserrat font-bold uppercase text-xs shadow-gold-glow-shadow border border-gold/60 hover:brightness-105 transition-all cursor-pointer"
                   >
                     Save Equipment Asset
                   </button>

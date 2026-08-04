@@ -23,10 +23,10 @@ export default {
           dark: '#E5D8C8',
         },
         gold: {
-          DEFAULT: '#B87352',
-          light: '#C68565',
-          dark: '#9E5D3D',
-          glow: '#D99B7D',
+          DEFAULT: '#C9A227',
+          light: '#E9C08C',
+          dark: '#9E7A1A',
+          glow: '#F2D18C',
         },
         charcoal: {
           DEFAULT: '#1F140D',
@@ -48,14 +48,14 @@ export default {
       },
       boxShadow: {
         'luxury': '0 20px 40px -15px rgba(139, 94, 60, 0.12)',
-        'gold-glow': '0 0 25px rgba(184, 115, 82, 0.35)',
-        'gold-glow-shadow': '0 10px 30px -5px rgba(184, 115, 82, 0.3)',
+        'gold-glow': '0 0 25px rgba(201, 162, 39, 0.35)',
+        'gold-glow-shadow': '0 10px 30px -5px rgba(201, 162, 39, 0.3)',
         'glass': '0 8px 32px 0 rgba(31, 20, 13, 0.08)',
       },
       backgroundImage: {
         'luxury-gradient': 'linear-gradient(135deg, #F7F1E8 0%, #F3E9DC 100%)',
         'rust-gradient': 'linear-gradient(135deg, #8B5E3C 0%, #B87352 100%)',
-        'gold-gradient': 'linear-gradient(135deg, #B87352 0%, #D99B7D 100%)',
+        'gold-gradient': 'linear-gradient(135deg, #C9A227 0%, #F2D18C 100%)',
         'dark-gradient': 'linear-gradient(180deg, #2B1B12 0%, #1F140D 100%)',
       },
       animation: {

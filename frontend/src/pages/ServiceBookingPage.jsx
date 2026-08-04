@@ -312,6 +312,7 @@ export default function ServiceBookingPage() {
                       required
                       value={form.date}
                       onChange={(e) => setForm({ ...form, date: e.target.value })}
+                      style={{ colorScheme: 'dark' }}
                       className="w-full px-4 py-3 rounded-xl bg-charcoal-light border border-rust/30 text-cream focus:outline-none focus:border-gold"
                     />
                   </div>
@@ -347,7 +348,7 @@ export default function ServiceBookingPage() {
                   type="submit"
                   className="w-full py-4 rounded-full bg-gradient-to-r from-rust via-clay to-rust text-cream font-montserrat text-xs font-bold uppercase tracking-widest shadow-rust-glow-shadow hover:shadow-gold-glow transition-all duration-300 flex items-center justify-center gap-2 border border-gold/40 mt-4"
                 >
-                  <Send className="w-4 h-4 text-gold" />
+                  <Send className="w-4 h-4 text-white" />
                   <span>Submit Service Reservation</span>
                 </button>
               </form>

@@ -39,51 +39,51 @@ export default function AdminSettings() {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Studio Identity Settings */}
-        <div className="bg-[#1F140D] p-6 rounded-3xl border border-white/10 space-y-4">
-          <h3 className="text-lg font-serif font-bold text-cream flex items-center gap-2">
+        <div className="bg-white p-6 rounded-3xl border border-rust/15 shadow-luxury text-charcoal space-y-4">
+          <h3 className="text-lg font-serif font-bold text-charcoal flex items-center gap-2">
             <Globe className="w-5 h-5 text-gold" />
             <span>Studio Identity & Contact Details</span>
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
             <div>
-              <label className="block text-[11px] font-montserrat font-bold text-gold uppercase tracking-wider mb-2">
+              <label className="block text-[11px] font-montserrat font-bold text-rust uppercase tracking-wider mb-2">
                 Official Studio Name
               </label>
               <input
                 type="text"
                 value={settings.studioName}
                 onChange={(e) => setSettings({ ...settings, studioName: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-[#2B1B12] border border-white/15 text-cream focus:outline-none focus:border-gold"
+                className="w-full px-4 py-3 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal font-montserrat font-bold text-xs focus:outline-none focus:border-gold focus:bg-white transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-montserrat font-bold text-gold uppercase tracking-wider mb-2">
+              <label className="block text-[11px] font-montserrat font-bold text-rust uppercase tracking-wider mb-2">
                 Concierge Contact Email
               </label>
               <input
                 type="email"
                 value={settings.contactEmail}
                 onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl bg-[#2B1B12] border border-white/15 text-cream focus:outline-none focus:border-gold"
+                className="w-full px-4 py-3 rounded-xl bg-[#FAF2EA] border border-rust/20 text-charcoal font-montserrat font-bold text-xs focus:outline-none focus:border-gold focus:bg-white transition-all"
               />
             </div>
           </div>
         </div>
 
         {/* Notifications & Automation */}
-        <div className="bg-[#1F140D] p-6 rounded-3xl border border-white/10 space-y-4">
-          <h3 className="text-lg font-serif font-bold text-cream flex items-center gap-2">
+        <div className="bg-white p-6 rounded-3xl border border-rust/15 shadow-luxury text-charcoal space-y-4">
+          <h3 className="text-lg font-serif font-bold text-charcoal flex items-center gap-2">
             <Bell className="w-5 h-5 text-gold" />
             <span>Notification & Auto-Hold Controls</span>
           </h3>
 
           <div className="space-y-3 text-xs font-sans">
-            <label className="flex items-center justify-between p-3 rounded-2xl bg-[#2B1B12] border border-white/10 cursor-pointer">
+            <label className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FAF2EA] border border-rust/15 cursor-pointer hover:border-gold/40 transition-colors">
               <div>
-                <span className="font-montserrat font-bold text-cream block">Email Dispatch on New Inquiries</span>
-                <span className="text-[10px] text-cream/60">Receive instant director alert when a client submits a booking.</span>
+                <span className="font-montserrat font-bold text-charcoal block">Email Dispatch on New Inquiries</span>
+                <span className="text-[10px] text-charcoal/70 font-sans">Receive instant director alert when a client submits a booking.</span>
               </div>
               <input
                 type="checkbox"
@@ -93,10 +93,10 @@ export default function AdminSettings() {
               />
             </label>
 
-            <label className="flex items-center justify-between p-3 rounded-2xl bg-[#2B1B12] border border-white/10 cursor-pointer">
+            <label className="flex items-center justify-between p-3.5 rounded-2xl bg-[#FAF2EA] border border-rust/15 cursor-pointer hover:border-gold/40 transition-colors">
               <div>
-                <span className="font-montserrat font-bold text-cream block">Auto-Confirm Availability Hold</span>
-                <span className="text-[10px] text-cream/60">Automatically mark incoming web inquiries as confirmed priority hold.</span>
+                <span className="font-montserrat font-bold text-charcoal block">Auto-Confirm Availability Hold</span>
+                <span className="text-[10px] text-charcoal/70 font-sans">Automatically mark incoming web inquiries as confirmed priority hold.</span>
               </div>
               <input
                 type="checkbox"
@@ -110,9 +110,9 @@ export default function AdminSettings() {
 
         <button
           type="submit"
-          className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-rust to-gold text-black font-montserrat font-bold text-xs uppercase tracking-widest shadow-gold-glow flex items-center gap-2 border border-gold/40 hover:opacity-90 transition-opacity"
+          className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-rust via-gold/90 to-gold text-charcoal font-montserrat font-bold text-xs uppercase tracking-widest shadow-gold-glow flex items-center gap-2 border border-gold/40 hover:opacity-90 transition-opacity cursor-pointer"
         >
-          <Save className="w-4 h-4 text-black" />
+          <Save className="w-4 h-4 text-charcoal" />
           <span>Save Studio Settings</span>
         </button>
       </form>

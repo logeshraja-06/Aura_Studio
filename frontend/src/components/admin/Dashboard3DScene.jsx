@@ -14,8 +14,8 @@ import { Calendar, CheckCircle2, Clock, XCircle, TrendingUp } from 'lucide-react
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#1F140D] border border-[#B87352]/40 p-3 rounded-2xl shadow-xl text-xs font-sans text-cream">
-        <p className="font-montserrat font-bold text-[#B87352] mb-1">{label}</p>
+      <div className="bg-[#1F140D] border border-gold/40 p-3 rounded-2xl shadow-xl text-xs font-sans text-cream">
+        <p className="font-montserrat font-bold text-gold mb-1">{label}</p>
         <p className="font-medium text-cream/90">
           Bookings: <span className="font-bold text-[#4C8C5A]">{payload[0].value}</span>
         </p>

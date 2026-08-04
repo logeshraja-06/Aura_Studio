@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, Heart, MapPin, Sparkles, Calendar } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Heart, MapPin, Sparkles } from 'lucide-react';
 
-export default function LightboxModal({ item, items, onClose, onNavigate, onBook }) {
+export default function LightboxModal({ item, items, onClose, onNavigate }) {
   if (!item) return null;
 
   const currentIndex = items.findIndex((i) => i.id === item.id);
@@ -99,20 +99,10 @@ export default function LightboxModal({ item, items, onClose, onNavigate, onBook
               </div>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  onClose();
-                  onBook();
-                }}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-rust to-clay text-cream text-xs font-montserrat font-semibold uppercase tracking-wider shadow-rust-glow-shadow hover:shadow-gold-glow transition-all duration-300 flex items-center justify-center gap-2 border border-gold/40"
-              >
-                <Calendar className="w-4 h-4 text-gold" />
-                <span>Book Similar Shoot</span>
-              </button>
+            <div className="mt-8">
               <button
                 onClick={onClose}
-                className="w-full py-2.5 rounded-xl bg-charcoal-light text-cream/70 text-xs font-montserrat font-medium uppercase tracking-wider border border-rust/20 hover:text-cream transition-colors"
+                className="w-full py-2.5 rounded-xl bg-charcoal-light text-cream/70 text-xs font-montserrat font-medium uppercase tracking-wider border border-rust/20 hover:text-cream hover:border-rust/40 transition-colors"
               >
                 Back to Gallery
               </button>
