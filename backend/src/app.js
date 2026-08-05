@@ -13,7 +13,26 @@ const app = express();
 // --- Core Middleware ---
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, curl, postman)
+      if (!origin) return callback(null, true);
+
+      const configuredClientUrl = (process.env.CLIENT_URL || '').trim().replace(/\/+$/, '');
+      const requestOrigin = origin.trim().replace(/\/+$/, '');
+
+      // Allow if matches CLIENT_URL (ignoring trailing slash), localhost, or any vercel.app domain
+      if (
+        !configuredClientUrl ||
+        requestOrigin === configuredClientUrl ||
+        requestOrigin === 'http://localhost:5173' ||
+        requestOrigin === 'http://localhost:5001' ||
+        requestOrigin.endsWith('.vercel.app')
+      ) {
+        return callback(null, origin);
+      }
+
+      return callback(null, origin);
+    },
     credentials: true,
   })
 );
