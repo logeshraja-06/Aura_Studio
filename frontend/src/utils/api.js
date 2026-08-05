@@ -27,6 +27,9 @@ async function request(endpoint, options = {}) {
       try {
         data = JSON.parse(text);
       } catch (e) {
+        if (res.status === 405) {
+          throw new Error('Backend API is not reachable on Vercel. Please set VITE_API_BASE_URL in Vercel Settings to your deployed backend URL and trigger a Redeploy.');
+        }
         if (res.status === 502 || res.status === 504) {
           throw new Error('Backend API server is offline or unreachable on port 5001. Please start backend with "npm run dev:backend".');
         }
