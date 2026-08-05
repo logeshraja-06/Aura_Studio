@@ -6,8 +6,8 @@ import { useAdminAuth } from '../../context/AdminAuthContext';
 import Aperture3DBackground from '../../components/admin/Aperture3DBackground';
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState('admin@aurastudio.com');
-  const [password, setPassword] = useState('aura2026');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const { login } = useAdminAuth();
